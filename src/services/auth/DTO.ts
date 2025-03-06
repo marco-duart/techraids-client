@@ -1,3 +1,7 @@
+import { IVillage } from "../village/DTO";
+import { IGuild } from "../guild/DTO";
+import { ICharacterClass } from "../character-class/DTO";
+import { ISpecialization } from "../specialization/DTO";
 export namespace IUser {
   export interface Model {
     email: string;
@@ -26,7 +30,12 @@ export namespace ILogin {
     password: string;
   };
   export type Response = {
-    data: IUser.Model;
+    data: IUser.Model & {
+      village: IVillage.Model;
+      guild: IGuild.Model;
+      character_class: ICharacterClass.Model;
+      specialization: ISpecialization.Model;
+    };
   };
 }
 
@@ -43,4 +52,3 @@ export namespace IRegistration {
     data: IUser.Model;
   };
 }
-
