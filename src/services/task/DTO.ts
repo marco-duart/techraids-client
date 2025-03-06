@@ -15,6 +15,7 @@ export namespace ITask {
 
 export namespace ICreateTask {
   export type Params = {
+    token: string;
     task: {
       title: string;
       description: string;
@@ -25,6 +26,7 @@ export namespace ICreateTask {
 
 export namespace IUpdateTask {
   export type Params = {
+    token: string;
     id: number;
     task: {
       status: number;
@@ -36,6 +38,7 @@ export namespace IUpdateTask {
 
 export namespace IDeleteTask {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = {};
@@ -43,12 +46,15 @@ export namespace IDeleteTask {
 
 export namespace IGetTask {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = ITask.Model;
 }
 
 export namespace IGetTasks {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<ITask.Model>;
 }
