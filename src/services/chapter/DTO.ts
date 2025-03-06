@@ -12,6 +12,7 @@ export namespace IChapter {
 
 export namespace ICreateChapter {
   export type Params = {
+    token: string;
     chapter: {
       title: string;
       description: string;
@@ -24,6 +25,7 @@ export namespace ICreateChapter {
 
 export namespace IUpdateChapter {
   export type Params = {
+    token: string;
     id: number;
     chapter: {
       title?: string;
@@ -37,6 +39,7 @@ export namespace IUpdateChapter {
 
 export namespace IDeleteChapter {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = {};
@@ -44,12 +47,15 @@ export namespace IDeleteChapter {
 
 export namespace IGetChapter {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = IChapter.Model;
 }
 
 export namespace IGetChapters {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<IChapter.Model>;
 }
