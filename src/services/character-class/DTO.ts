@@ -13,6 +13,7 @@ export namespace ICharacterClass {
 
 export namespace ICreateCharacterClass {
   export type Params = {
+    token: string;
     character_class: {
       name: string;
       slogan: string;
@@ -26,6 +27,7 @@ export namespace ICreateCharacterClass {
 
 export namespace IUpdateCharacterClass {
   export type Params = {
+    token: string;
     id: string;
     character_class: {
       name?: string;
@@ -40,6 +42,7 @@ export namespace IUpdateCharacterClass {
 
 export namespace IDeleteCharacterClass {
   export type Params = {
+    token: string;
     id: string;
   };
   export type Response = {};
@@ -47,12 +50,15 @@ export namespace IDeleteCharacterClass {
 
 export namespace IGetCharacterClass {
   export type Params = {
+    token: string;
     id: string;
   };
   export type Response = ICharacterClass.Model;
 }
 
 export namespace IGetCharacterClasses {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<ICharacterClass.Model>;
 }
