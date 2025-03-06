@@ -15,6 +15,7 @@ export namespace IMission {
 
 export namespace ICreateMission {
   export type Params = {
+    token: string;
     mission: {
       title: string;
       description: string;
@@ -29,6 +30,7 @@ export namespace ICreateMission {
 
 export namespace IUpdateMission {
   export type Params = {
+    token: string;
     id: number;
     mission: {
       title?: string;
@@ -42,6 +44,7 @@ export namespace IUpdateMission {
 
 export namespace IDeleteMission {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = {};
@@ -49,12 +52,15 @@ export namespace IDeleteMission {
 
 export namespace IGetMission {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = IMission.Model;
 }
 
 export namespace IGetMissions {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<IMission.Model>;
 }
