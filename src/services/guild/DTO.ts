@@ -12,6 +12,7 @@ export namespace IGuild {
 
 export namespace ICreateGuild {
   export type Params = {
+    token: string;
     guild: {
       name: string;
       description: string;
@@ -23,6 +24,7 @@ export namespace ICreateGuild {
 
 export namespace IUpdateGuild {
   export type Params = {
+    token: string;
     id: number;
     guild: {
       name?: string;
@@ -36,6 +38,7 @@ export namespace IUpdateGuild {
 
 export namespace IDeleteGuild {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = {};
@@ -43,12 +46,15 @@ export namespace IDeleteGuild {
 
 export namespace IGetGuild {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = IGuild.Model;
 }
 
 export namespace IGetGuilds {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<IGuild.Model>;
 }
