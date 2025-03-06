@@ -10,6 +10,7 @@ export namespace ISpecialization {
 
 export namespace ICreateSpecialization {
   export type Params = {
+    token: string;
     specialization: {
       title: string;
       description: string;
@@ -20,6 +21,7 @@ export namespace ICreateSpecialization {
 
 export namespace IUpdateSpecialization {
   export type Params = {
+    token: string;
     id: number;
     specialization: {
       title?: string;
@@ -31,6 +33,7 @@ export namespace IUpdateSpecialization {
 
 export namespace IDeleteSpecialization {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = {};
@@ -38,12 +41,15 @@ export namespace IDeleteSpecialization {
 
 export namespace IGetSpecialization {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = ISpecialization.Model;
 }
 
 export namespace IGetSpecializations {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<ISpecialization.Model>;
 }
