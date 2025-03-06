@@ -11,6 +11,7 @@ export namespace IQuest {
 
 export namespace ICreateQuest {
   export type Params = {
+    token: string;
     quest: {
       title: string;
       description: string;
@@ -22,6 +23,7 @@ export namespace ICreateQuest {
 
 export namespace IUpdateQuest {
   export type Params = {
+    token: string;
     id: number;
     quest: {
       title: string;
@@ -34,6 +36,7 @@ export namespace IUpdateQuest {
 
 export namespace IDeleteQuest {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = {};
@@ -41,12 +44,15 @@ export namespace IDeleteQuest {
 
 export namespace IGetQuest {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = IQuest.Model;
 }
 
 export namespace IGetQuests {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<IQuest.Model>;
 }
