@@ -10,6 +10,7 @@ export namespace IVillage {
 
 export namespace ICreateVillage {
   export type Params = {
+    token: string;
     village: {
       name: string;
       description: string;
@@ -20,6 +21,7 @@ export namespace ICreateVillage {
 
 export namespace IUpdateVillage {
   export type Params = {
+    token: string;
     id: number;
     village: {
       name?: string;
@@ -31,6 +33,7 @@ export namespace IUpdateVillage {
 
 export namespace IDeleteVillage {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = {};
@@ -38,12 +41,15 @@ export namespace IDeleteVillage {
 
 export namespace IGetVillage {
   export type Params = {
+    token: string;
     id: number;
   };
   export type Response = IVillage.Model;
 }
 
 export namespace IGetVillages {
-  export type Params = {};
+  export type Params = {
+    token: string;
+  };
   export type Response = Array<IVillage.Model>;
 }
