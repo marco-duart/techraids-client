@@ -4,6 +4,7 @@ import { DEVICE } from "../../utils/constants";
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 1rem;
   padding: 1rem;
   background-color: ${({ theme }) => theme.primary};
@@ -74,4 +75,22 @@ export const CharacterFormContainer = styled(FormContainer)`
   background-color: ${({ theme }) => theme.primary};
   border: 1px solid ${({ theme }) => theme.border};
   box-shadow: ${({ theme }) => theme.shadow};
+`;
+
+export const BackButton = styled.button`
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.text};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+
+  &:hover {
+    color: ${({ theme }) => theme.accent};
+  }
 `;
