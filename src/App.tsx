@@ -1,10 +1,18 @@
-import { ThemeProvider } from './context/theme-provider';
+import GlobalStyles from "./assets/styles/global-styles";
+import { ThemeProvider } from "./context/theme-provider";
+import Router from "./routes";
+import { UserProvider } from "./context/user-provider";
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <h1>Test</h1>
-    </ThemeProvider>
+    <>
+      <ThemeProvider defaultThemeType="auth" defaultThemeMode="light">
+        <GlobalStyles />
+        <UserProvider>
+          <Router />
+        </UserProvider>
+      </ThemeProvider>
+    </>
   );
 };
 
