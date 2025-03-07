@@ -1,6 +1,6 @@
-import React, { createContext, useContext, ReactNode } from 'react';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { themes, ThemeType, ThemeMode } from '../assets/styles/theme';
+import React, { createContext, useContext, ReactNode } from "react";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
+import { themes, ThemeType, ThemeMode } from "../assets/styles/theme";
 
 interface ThemeContextProps {
   themeType: ThemeType;
@@ -14,7 +14,7 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error("useTheme deve ser usado dentro de um ThemeProvider");
   }
   return context;
 };
@@ -27,8 +27,8 @@ interface ThemeProviderProps {
 
 export const ThemeProvider = ({
   children,
-  defaultThemeType = 'narrator',
-  defaultThemeMode = 'light',
+  defaultThemeType = "character",
+  defaultThemeMode = "light",
 }: ThemeProviderProps) => {
   const [themeType, setThemeType] = React.useState<ThemeType>(defaultThemeType);
   const [themeMode, setThemeMode] = React.useState<ThemeMode>(defaultThemeMode);
@@ -36,7 +36,9 @@ export const ThemeProvider = ({
   const theme = themes[themeType][themeMode];
 
   return (
-    <ThemeContext.Provider value={{ themeType, themeMode, setThemeType, setThemeMode }}>
+    <ThemeContext.Provider
+      value={{ themeType, themeMode, setThemeType, setThemeMode }}
+    >
       <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   );
