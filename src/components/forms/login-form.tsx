@@ -20,12 +20,19 @@ export const LoginForm = () => {
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<LoginFormData> = async (data) => {
+    setError("");
+
     try {
-      await login(data);
-      setError("");
-      navigate("/home");
+      const success = await login(data);
+      if (success) {
+        navigate("/home");
+      }
     } catch (err) {
-      setError("Erro ao fazer login. Verifique suas credenciais.");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Erro ao fazer login. Verifique suas credenciais."
+      );
     }
   };
 
