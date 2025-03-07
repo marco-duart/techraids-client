@@ -44,7 +44,7 @@ export namespace IRegistration {
     email: string;
     password: string;
     password_confirmation: string;
-    full_name: string;
+    name: string;
     nickname: string;
   };
   export type Response = {

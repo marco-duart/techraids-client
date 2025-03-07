@@ -6,13 +6,13 @@ export const Login = async (params: ILogin.Params) => {
   try {
     const response = await api.post<ILogin.Response>("/auth/sign_in", params);
 
-    const token = response.headers["access-token"];
-    const client = response.headers["client"];
-    const uid = response.headers["uid"];
+    const authHeader = response.headers["authorization"];
 
-    if (!token || !client || !uid) {
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
       throw new Error("Token de autenticação não encontrado no header.");
     }
+
+    const token = authHeader.split(" ")[1];
 
     return {
       success: true,
@@ -20,8 +20,6 @@ export const Login = async (params: ILogin.Params) => {
       data: {
         user: response.data.data,
         token,
-        client,
-        uid,
       },
     };
   } catch (error) {
@@ -30,7 +28,7 @@ export const Login = async (params: ILogin.Params) => {
 
       return {
         success: false,
-        message: error.response?.data?.errors?.join(", ") || error.message,
+        message: error.message,
         code: error.response?.status || 500,
       };
     }
@@ -60,7 +58,7 @@ export const Registration = async (params: IRegistration.Params) => {
 
       return {
         success: false,
-        message: error.response?.data?.errors?.join(", ") || error.message,
+        message: error.message,
         code: error.response?.status || 500,
       };
     }
