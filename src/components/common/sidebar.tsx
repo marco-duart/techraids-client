@@ -4,6 +4,7 @@ import { useTheme } from "../../context/theme-provider";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft,
+  ArrowRight,
   BoxArrowRight,
   PersonCircle,
 } from "@styled-icons/bootstrap";
@@ -21,10 +22,7 @@ export const Sidebar = () => {
   return (
     <S.SidebarContainer isCollapsed={isCollapsed} themeType={themeType}>
       <S.SidebarHeader>
-        <S.UserPhoto
-          // src={user?.photo}
-          alt="User Photo"
-        />
+        <S.UserPhoto src={user?.photo_url} alt="User Photo" />
         {!isCollapsed && (
           <>
             <S.UserEmail>{user?.email}</S.UserEmail>
@@ -38,7 +36,7 @@ export const Sidebar = () => {
           </>
         )}
         <S.CollapseButton onClick={toggleSidebar}>
-          <ArrowLeft size={24} />
+          {isCollapsed ? <ArrowRight size={24} /> : <ArrowLeft size={24} />}
         </S.CollapseButton>
       </S.SidebarHeader>
 
