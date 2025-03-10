@@ -46,14 +46,15 @@ export const SidebarContainer = styled.div<{
   }
 `;
 
-export const ContentWrapper = styled.div`
+export const ContentWrapper = styled.div<{ isCollapsed: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 250px;
+  padding-left: ${({ isCollapsed }) => (isCollapsed ? "80px" : "250px")};
+  transition: padding-left 0.3s ease;
 
   @media (max-width: 768px) {
-    margin-left: 0;
+    padding-left: 0;
     margin-top: 60px;
   }
 `;
