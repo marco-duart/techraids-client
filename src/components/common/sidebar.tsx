@@ -1,7 +1,6 @@
-import React from "react";
 import { useAuth } from "../../context/user-provider";
 import { useTheme } from "../../context/theme-provider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -10,13 +9,22 @@ import {
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
-export const Sidebar = () => {
+interface SidebarProps {
+  isCollapsed: boolean;
+  onToggleSidebar: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({
+  isCollapsed,
+  onToggleSidebar,
+}) => {
   const { user, logout } = useAuth();
   const { themeType, themeMode, setThemeMode } = useTheme();
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const navigate = useNavigate();
 
-  const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -35,7 +43,7 @@ export const Sidebar = () => {
             </S.ThemeToggle>
           </>
         )}
-        <S.CollapseButton onClick={toggleSidebar}>
+        <S.CollapseButton onClick={onToggleSidebar}>
           {isCollapsed ? <ArrowRight size={24} /> : <ArrowLeft size={24} />}
         </S.CollapseButton>
       </S.SidebarHeader>
@@ -67,7 +75,7 @@ export const Sidebar = () => {
         </S.MenuItem>
       </S.SidebarMenu>
 
-      <S.LogoutButton onClick={logout}>
+      <S.LogoutButton onClick={handleLogout}>
         <BoxArrowRight size={20} />
         {!isCollapsed && " Sair"}
       </S.LogoutButton>
