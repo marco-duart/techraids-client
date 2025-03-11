@@ -3,6 +3,10 @@ import { IGuild } from "../guild/DTO";
 import { ICharacterClass } from "../character-class/DTO";
 import { ISpecialization } from "../specialization/DTO";
 export namespace IUser {
+  export enum Role {
+    NARRATOR = "narrator",
+    CHARACTER = "character",
+  }
   export interface Model {
     email: string;
     provider: string;
@@ -11,7 +15,7 @@ export namespace IUser {
     allow_password_change: boolean;
     name: string;
     nickname: string;
-    role: string;
+    role: Role;
     experience: number;
     gold: number;
     village_id: number;
