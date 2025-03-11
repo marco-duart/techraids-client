@@ -1,12 +1,22 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { IUser, ILogin } from "../services/auth/DTO";
 import { Login as LoginService } from "../services/auth/";
+import { useTheme } from "./theme-provider";
 
 interface UserContextType {
   user: IUser.Model | null;
   token: string | null;
-  login: (params: ILogin.Params) => Promise<boolean>;
+  isLoading: boolean;
+  isAuthChecked: boolean;
+  login: (params: ILogin.Params) => Promise<IUser.Model>;
   logout: () => void;
+  updateUser: (user: IUser.Model) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -14,19 +24,45 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser.Model | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const { updateThemeType } = useTheme();
 
-  const login = async (params: ILogin.Params): Promise<boolean> => {
-    const result = await LoginService(params);
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("token");
 
-    if (result.success && result.data) {
-      setUser(result.data.user);
-      setToken(result.data.token);
+    if (storedUser && storedToken) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      setToken(storedToken);
 
-      localStorage.setItem("user", JSON.stringify(result.data.user));
-      localStorage.setItem("token", result.data.token);
-      return true;
-    } else {
-      throw new Error(result.message || "Erro ao fazer login.");
+      updateThemeType(parsedUser.role);
+    }
+
+    setIsAuthChecked(true);
+  }, [updateThemeType]);
+
+  const login = async (params: ILogin.Params): Promise<IUser.Model> => {
+    setIsLoading(true);
+    try {
+      const result = await LoginService(params);
+
+      if (result.success && result.data) {
+        const { user, token } = result.data;
+        setUser(user);
+        setToken(token);
+
+        updateThemeType(user.role);
+
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", token);
+        return user;
+      } else {
+        throw new Error(result.message || "Erro ao fazer login.");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,8 +74,23 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
   };
 
+  const updateUser = (updatedUser: IUser.Model) => {
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+  };
+
   return (
-    <UserContext.Provider value={{ user, token, login, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        token,
+        isLoading,
+        isAuthChecked,
+        login,
+        logout,
+        updateUser,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
