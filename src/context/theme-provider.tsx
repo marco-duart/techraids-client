@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useState } from "react";
 import { ThemeProvider as StyledThemeProvider } from "styled-components";
 import { themes, ThemeType, ThemeMode } from "../assets/styles/theme";
 
@@ -7,6 +7,7 @@ interface ThemeContextProps {
   themeMode: ThemeMode;
   setThemeType: (type: ThemeType) => void;
   setThemeMode: (mode: ThemeMode) => void;
+  updateThemeType: (role: string) => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
@@ -30,14 +31,28 @@ export const ThemeProvider = ({
   defaultThemeType = "character",
   defaultThemeMode = "light",
 }: ThemeProviderProps) => {
-  const [themeType, setThemeType] = React.useState<ThemeType>(defaultThemeType);
-  const [themeMode, setThemeMode] = React.useState<ThemeMode>(defaultThemeMode);
+  const [themeType, setThemeType] = useState<ThemeType>(defaultThemeType);
+  const [themeMode, setThemeMode] = useState<ThemeMode>(defaultThemeMode);
+
+  const updateThemeType = (role: string) => {
+    if (role === "narrator") {
+      setThemeType("narrator");
+    } else if (role === "character") {
+      setThemeType("character");
+    }
+  };
 
   const theme = themes[themeType][themeMode];
 
   return (
     <ThemeContext.Provider
-      value={{ themeType, themeMode, setThemeType, setThemeMode }}
+      value={{
+        themeType,
+        themeMode,
+        setThemeType,
+        setThemeMode,
+        updateThemeType,
+      }}
     >
       <StyledThemeProvider theme={theme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
