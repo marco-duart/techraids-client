@@ -1,6 +1,7 @@
 import logo from "../../assets/images/logo.jpeg";
 import backgroundLight from "../../assets/images/background-light.jpg";
 import backgroundDark from "../../assets/images/background-dark.jpg";
+import backgroundAccessDenied from "../../assets/images/background-access-denied.jpg";
 
 const SIZES = {
   mobileS: "320px",
@@ -24,4 +25,5 @@ export const IMAGES = {
   logo,
   backgroundLight,
   backgroundDark,
+  backgroundAccessDenied,
 };
