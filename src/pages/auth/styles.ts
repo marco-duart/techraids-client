@@ -28,6 +28,18 @@ export const PageContainer = styled.div`
   }
 `;
 
+export const AccessDeniedPageContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url(${IMAGES.backgroundAccessDenied});
+  background-size: cover;
+  background-position: center;
+`;
+
 export const ContentWrapper = styled.div`
   position: relative;
   z-index: 2;
