@@ -27,6 +27,13 @@ export namespace IUser {
     updated_at: string;
     photo_url: string;
   }
+
+  export type UserWithRelations = IUser.Model & {
+    village: IVillage.Model;
+    guild: IGuild.Model;
+    character_class: ICharacterClass.Model;
+    specialization: ISpecialization.Model;
+  };
 }
 
 export namespace ILogin {
@@ -35,12 +42,7 @@ export namespace ILogin {
     password: string;
   };
   export type Response = {
-    data: IUser.Model & {
-      village: IVillage.Model;
-      guild: IGuild.Model;
-      character_class: ICharacterClass.Model;
-      specialization: ISpecialization.Model;
-    };
+    data: IUser.UserWithRelations;
   };
 }
 

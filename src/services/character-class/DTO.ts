@@ -8,6 +8,7 @@ export namespace ICharacterClass {
     created_at: string;
     updated_at: string;
     specialization_id: number;
+    image_url: string;
   }
 }
 
