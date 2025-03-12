@@ -10,19 +10,19 @@ import { Login as LoginService } from "../services/auth/";
 import { useTheme } from "./theme-provider";
 
 interface UserContextType {
-  user: IUser.Model | null;
+  user: IUser.UserWithRelations | null;
   token: string | null;
   isLoading: boolean;
   isAuthChecked: boolean;
-  login: (params: ILogin.Params) => Promise<IUser.Model>;
+  login: (params: ILogin.Params) => Promise<IUser.UserWithRelations>;
   logout: () => void;
-  updateUser: (user: IUser.Model) => void;
+  updateUser: (user: IUser.UserWithRelations) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<IUser.Model | null>(null);
+  const [user, setUser] = useState<IUser.UserWithRelations | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
@@ -43,7 +43,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setIsAuthChecked(true);
   }, [updateThemeType]);
 
-  const login = async (params: ILogin.Params): Promise<IUser.Model> => {
+  const login = async (
+    params: ILogin.Params
+  ): Promise<IUser.UserWithRelations> => {
     setIsLoading(true);
     try {
       const result = await LoginService(params);
@@ -74,7 +76,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
   };
 
-  const updateUser = (updatedUser: IUser.Model) => {
+  const updateUser = (updatedUser: IUser.UserWithRelations) => {
     setUser(updatedUser);
     localStorage.setItem("user", JSON.stringify(updatedUser));
   };

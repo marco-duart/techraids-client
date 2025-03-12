@@ -3,7 +3,7 @@ import { PrivateRoute } from "../components/private-route";
 import { IUser } from "../services/auth/DTO";
 import { useAuth } from "../context/user-provider";
 
-import { LoginPage, RegistrationPage } from "../pages";
+import { LoginPage, RegistrationPage, CharacterPage } from "../pages";
 import { HomePage } from "../pages/home/home-page";
 import { NarratorLayout } from "../components/common/narrator-layout";
 import { CharacterLayout } from "../components/common/character-layout";
@@ -42,6 +42,7 @@ export default function Router() {
           }
         >
           <Route path="home" element={<HomePage />} />
+          <Route path="status" element={<CharacterPage />} />
         </Route>
 
         <Route path="/access-denied" element={<AccessDeniedPage />} />

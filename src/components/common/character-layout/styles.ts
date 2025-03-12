@@ -12,7 +12,6 @@ export const CharacterLayoutContainer = styled.div<{ themeType: ThemeType }>`
 
 export const CharacterContent = styled.main`
   flex: 1;
-  padding: 20px;
   overflow-y: auto;
 `;
 
@@ -23,7 +22,7 @@ export const CharacterHeader = styled.header<{ themeType: ThemeType }>`
   height: 60px;
   background-color: ${({ theme }) => theme.secondary};
   box-shadow: ${({ theme }) => theme.shadow};
-  padding: 0 20px;
+  padding: 0 5rem;
   position: relative;
 
   @media (max-width: 768px) {
@@ -93,8 +92,8 @@ export const DropdownMenu = styled.div`
 `;
 
 export const UserPhoto = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   border: 2px solid ${({ theme }) => theme.accent};
   cursor: pointer;
@@ -103,9 +102,9 @@ export const UserPhoto = styled.img`
 export const DropdownContent = styled.div`
   display: block;
   position: absolute;
-  right: 0;
+  left: 0;
   background-color: ${({ theme }) => theme.secondary};
-  min-width: 160px;
+  min-width: 45px;
   box-shadow: ${({ theme }) => theme.shadow};
   z-index: 1000;
   border-radius: 4px;
