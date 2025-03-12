@@ -49,19 +49,19 @@ export const Header = () => {
       </S.DropdownMenu>
 
       <S.CharacterNavLinks>
-        <S.CharacterNavLink to="/personagem">
+        <S.CharacterNavLink to="/character/status">
           <PersonCircle size={24} />
           <span>Personagem</span>
         </S.CharacterNavLink>
-        <S.CharacterNavLink to="/jornada">
+        <S.CharacterNavLink to="/character/quest">
           <Map size={24} />
           <span>Jornada</span>
         </S.CharacterNavLink>
-        <S.CharacterNavLink to="/missoes">
+        <S.CharacterNavLink to="/character/mission">
           <Shield size={24} />
           <span>Missões</span>
         </S.CharacterNavLink>
-        <S.CharacterNavLink to="/tarefas">
+        <S.CharacterNavLink to="/character/task">
           <Table size={24} />
           <span>Tarefas</span>
         </S.CharacterNavLink>

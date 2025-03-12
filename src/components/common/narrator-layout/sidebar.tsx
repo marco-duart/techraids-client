@@ -45,25 +45,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       <S.SidebarMenu>
         <S.MenuItem>
-          <Link to="/personagem">
+          <Link to="/narrator/status">
             <PersonCircle size={20} />
             {!isCollapsed && " Personagem"}
           </Link>
         </S.MenuItem>
         <S.MenuItem>
-          <Link to="/jornada">
+          <Link to="/narrator/quest">
             <PersonCircle size={20} />
             {!isCollapsed && " Jornada"}
           </Link>
         </S.MenuItem>
         <S.MenuItem>
-          <Link to="/missoes">
+          <Link to="/narrator/mission">
             <PersonCircle size={20} />
             {!isCollapsed && " Missões"}
           </Link>
         </S.MenuItem>
         <S.MenuItem>
-          <Link to="/tarefas">
+          <Link to="/narrator/task">
             <PersonCircle size={20} />
             {!isCollapsed && " Tarefas"}
           </Link>
