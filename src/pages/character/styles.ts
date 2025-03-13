@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { ThemeType } from "../../assets/styles/theme";
+import { ThemeMode } from "../../assets/styles/theme";
 import { IMAGES } from "../../utils/constants";
 
-export const CharacterContainer = styled.div<{ themeType: ThemeType }>`
+export const CharacterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,10 +42,16 @@ export const FireAnimation = styled(motion.div)`
   animation: fire 3s infinite;
 `;
 
-export const CharacterSheet = styled.div`
+export const CharacterSheet = styled.div<{ themeMode: ThemeMode }>`
   position: relative;
   z-index: 3;
-  background: url(${IMAGES.paperTextureLight}) no-repeat center center/cover;
+  background: ${({ themeMode }) =>
+    themeMode === "light"
+      ? `url(${IMAGES.paperTextureLight})`
+      : `url(${IMAGES.paperTextureDark})`};
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   border: 1px solid ${({ theme }) => theme.border};
   padding: 2rem;
   max-width: 800px;
@@ -62,7 +68,7 @@ export const CharacterFullBodyImage = styled.img`
   width: 100%;
   max-width: 300px;
   height: auto;
-  border: 4px solid ${({ theme }) => theme.border};
+  border: 4px solid ${({ theme }) => theme.emphasis};
   border-radius: 8px;
   margin-bottom: 1rem;
 `;
@@ -88,7 +94,7 @@ export const CharacterInfoGroup = styled.div`
   gap: 1rem;
   width: 100%;
   padding: 1rem;
-  border: 2px solid ${({ theme }) => theme.border};
+  border: 2px solid ${({ theme }) => theme.emphasis};
   border-radius: 8px;
   background: linear-gradient(
     145deg,
@@ -109,7 +115,7 @@ export const CharacterLabel = styled.div`
   align-items: center;
   gap: 0.5rem;
   font-size: 1.2rem;
-  color: ${({ theme }) => theme.accent};
+  color: ${({ theme }) => theme.textTitle};
   font-weight: bold;
 `;
 
@@ -130,7 +136,7 @@ export const DecorativeBorder = styled.div`
   background: linear-gradient(
     90deg,
     transparent 0%,
-    ${({ theme }) => theme.accent} 50%,
+    ${({ theme }) => theme.emphasis} 50%,
     transparent 100%
   );
   margin: 1rem 0;
@@ -142,7 +148,7 @@ export const DecorativeLine = styled.div`
   background: linear-gradient(
     90deg,
     transparent 0%,
-    ${({ theme }) => theme.accent} 50%,
+    ${({ theme }) => theme.emphasis} 50%,
     transparent 100%
   );
   margin: 0.5rem 0;
