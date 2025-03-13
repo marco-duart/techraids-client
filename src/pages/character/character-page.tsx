@@ -1,12 +1,12 @@
 import { useAuth } from "../../context/user-provider";
 import { useTheme } from "../../context/theme-provider";
-import { ArrowUp, Shield, Map, Coin, Fire } from "@styled-icons/bootstrap";
+import { Sword, Shield, Fire, Map, Coin } from "@styled-icons/remix-line";
 import * as S from "./styles";
 import { IMAGES } from "../../utils/constants";
 
 export const CharacterPage = () => {
   const { user } = useAuth();
-  const { themeType } = useTheme();
+  const { themeMode } = useTheme();
 
   if (!user) {
     return <div>Carregando...</div>;
@@ -23,7 +23,7 @@ export const CharacterPage = () => {
   } = user;
 
   return (
-    <S.CharacterContainer themeType={themeType}>
+    <S.CharacterContainer>
       <S.BackgroundImage src={IMAGES.backgroundCharacter} alt="Background" />
       <S.FireAnimation
         initial={{ opacity: 0 }}
@@ -31,10 +31,10 @@ export const CharacterPage = () => {
         transition={{ duration: 3, repeat: Infinity }}
       />
 
-      <S.CharacterSheet>
+      <S.CharacterSheet themeMode={themeMode}>
         <S.CharacterFullBodyImage
           src={character_class.image_url}
-          alt="Character Full Body"
+          alt="Character Image"
         />
 
         <S.CharacterTitle>{nickname}</S.CharacterTitle>
@@ -66,17 +66,17 @@ export const CharacterPage = () => {
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Shield size={20} />
-              <span>Class:</span>
+              <span>Specialization:</span>
             </S.CharacterLabel>
-            <S.CharacterValue>{character_class.name}</S.CharacterValue>
+            <S.CharacterValue>{specialization.title}</S.CharacterValue>
           </S.CharacterInfo>
 
           <S.CharacterInfo>
             <S.CharacterLabel>
-              <Shield size={20} />
-              <span>Specialization:</span>
+              <Sword size={20} />
+              <span>Class:</span>
             </S.CharacterLabel>
-            <S.CharacterValue>{specialization.title}</S.CharacterValue>
+            <S.CharacterValue>{character_class.name}</S.CharacterValue>
           </S.CharacterInfo>
         </S.CharacterInfoGroup>
 
