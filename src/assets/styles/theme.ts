@@ -1,4 +1,9 @@
 export const themes = {
+  status: {
+    pending: "#FFC107",
+    accepted: "#28A745",
+    rejected: "#DC3545",
+  },
   narrator: {
     light: {
       primary: "#ffffff",
