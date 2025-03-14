@@ -5,6 +5,8 @@ import backgroundCharacter from "../../assets/images/background-character.jpg";
 import backgroundAccessDenied from "../../assets/images/background-access-denied.jpg";
 import paperTextureLight from "../../assets/images/paper-texture-light.jpg";
 import paperTextureDark from "../../assets/images/paper-texture-dark.jpg";
+import worldMap from "../../assets/images/world-map.jpg";
+import mapCropped from "../../assets/images/map-cropped.jpg";
 
 const SIZES = {
   mobileS: "320px",
@@ -32,4 +34,6 @@ export const IMAGES = {
   paperTextureLight,
   paperTextureDark,
   backgroundCharacter,
+  worldMap,
+  mapCropped,
 };
