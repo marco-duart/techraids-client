@@ -92,17 +92,17 @@ export const CharacterPage = () => {
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Map size={20} />
-              <span>Guild:</span>
+              <span>Village:</span>
             </S.CharacterLabel>
-            <S.CharacterValue>{guild.name}</S.CharacterValue>
+            <S.CharacterValue>{village.name}</S.CharacterValue>
           </S.CharacterInfo>
 
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Map size={20} />
-              <span>Village:</span>
+              <span>Guild:</span>
             </S.CharacterLabel>
-            <S.CharacterValue>{village.name}</S.CharacterValue>
+            <S.CharacterValue>{guild.name}</S.CharacterValue>
           </S.CharacterInfo>
         </S.CharacterInfoGroup>
       </S.CharacterSheet>
