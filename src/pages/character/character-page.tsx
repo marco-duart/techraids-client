@@ -20,6 +20,7 @@ export const CharacterPage = () => {
     village,
     gold,
     experience,
+    current_level,
   } = user;
 
   return (
@@ -32,6 +33,11 @@ export const CharacterPage = () => {
       />
 
       <S.CharacterSheet themeMode={themeMode}>
+        <S.CharacterLevel>
+          {current_level}
+          <S.LevelText>Level</S.LevelText>
+        </S.CharacterLevel>
+
         <S.CharacterFullBodyImage
           src={character_class.image_url}
           alt="Character Image"

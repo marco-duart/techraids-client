@@ -88,6 +88,48 @@ export const CharacterSubtitle = styled.h2`
   margin-bottom: 1.5rem;
 `;
 
+export const CharacterLevel = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  background: ${({ theme }) => theme.emphasis};
+  border: 4px solid ${({ theme }) => theme.accent};
+  border-radius: 50%;
+  font-size: 2rem;
+  color: ${({ theme }) => theme.textTitle};
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  box-shadow: ${({ theme }) => theme.shadow};
+  z-index: 4;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border: 2px solid ${({ theme }) => theme.accent};
+    border-radius: 50%;
+    z-index: -1;
+  }
+`;
+
+export const LevelText = styled.span`
+  position: absolute;
+  bottom: -25px;
+  font-size: 0.9rem;
+  color: ${({ theme }) => theme.text};
+  font-family: "MedievalSharp", cursive;
+  text-transform: uppercase;
+`;
+
 export const CharacterInfoGroup = styled.div`
   display: flex;
   flex-direction: column;

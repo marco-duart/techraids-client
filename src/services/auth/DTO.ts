@@ -26,6 +26,7 @@ export namespace IUser {
     created_at: string;
     updated_at: string;
     photo_url: string;
+    current_level: number;
   }
 
   export type UserWithRelations = IUser.Model & {
