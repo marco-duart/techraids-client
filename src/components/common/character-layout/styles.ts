@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ThemeType } from "../../../assets/styles/theme";
 import { NavLink } from "react-router-dom";
+import { DEVICE } from "../../../utils/constants";
 
 export const CharacterLayoutContainer = styled.div<{ themeType: ThemeType }>`
   display: flex;
@@ -17,28 +18,31 @@ export const CharacterContent = styled.main`
 
 export const CharacterHeader = styled.header<{ themeType: ThemeType }>`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  height: 60px;
+  gap: 10px;
+  height: auto;
   background-color: ${({ theme }) => theme.secondary};
   box-shadow: ${({ theme }) => theme.shadow};
-  padding: 0 5rem;
+  padding: 10px;
   position: relative;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
+  @media ${DEVICE.tablet} {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+    padding: 0 5rem;
   }
 `;
 
 export const CharacterNavLinks = styled.div`
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 10px;
+  @media ${DEVICE.tablet} {
+    flex-direction: row;
+    gap: 20px;
   }
 `;
 
@@ -48,14 +52,14 @@ export const CharacterNavLink = styled(NavLink)`
   gap: 8px;
   color: ${({ theme }) => theme.text};
   text-decoration: none;
-  font-size: 16px;
+  font-size: 14px;
 
   &:hover {
     color: ${({ theme }) => theme.accent};
   }
 
-  @media (max-width: 768px) {
-    font-size: 14px;
+  @media ${DEVICE.tablet} {
+    font-size: 16px;
   }
 `;
 
@@ -66,13 +70,13 @@ export const ThemeToggle = styled.button`
   cursor: pointer;
   font-size: 1.5rem;
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   z-index: 1000;
 
-  @media (max-width: 768px) {
-    top: 10px;
-    right: 10px;
+  @media ${DEVICE.tablet} {
+    top: 20px;
+    right: 20px;
   }
 `;
 
@@ -92,15 +96,20 @@ export const DropdownMenu = styled.div`
 `;
 
 export const UserPhoto = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: 2px solid ${({ theme }) => theme.accent};
   cursor: pointer;
+
+  @media ${DEVICE.tablet} {
+    width: 50px;
+    height: 50px;
+  }
 `;
 
 export const DropdownContent = styled.div`
-  display: block;
+  display: none;
   position: absolute;
   left: 0;
   background-color: ${({ theme }) => theme.secondary};
@@ -109,6 +118,10 @@ export const DropdownContent = styled.div`
   z-index: 1000;
   border-radius: 4px;
   overflow: hidden;
+
+  ${DropdownMenu}:hover & {
+    display: block;
+  }
 `;
 
 export const DropdownItem = styled.div`
