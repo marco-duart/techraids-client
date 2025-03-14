@@ -4,6 +4,8 @@ import { IUser } from "../services/auth/DTO";
 import { useAuth } from "../context/user-provider";
 
 import { LoginPage, RegistrationPage, CharacterPage } from "../pages";
+import CharacterQuestPage from "../pages/character/character-quest";
+
 import { HomePage } from "../pages/home/home-page";
 import { NarratorLayout } from "../components/common/narrator-layout";
 import { CharacterLayout } from "../components/common/character-layout";
@@ -43,6 +45,7 @@ export default function Router() {
         >
           <Route path="home" element={<HomePage />} />
           <Route path="status" element={<CharacterPage />} />
+          <Route path="quest" element={<CharacterQuestPage />} />
         </Route>
 
         <Route path="/access-denied" element={<AccessDeniedPage />} />
