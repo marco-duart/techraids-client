@@ -1,9 +1,14 @@
 export namespace IMission {
+  export enum Status {
+    PENDING = "pending",
+    APPROVED = "approved",
+    CHARACTER = "rejected",
+  }
   export interface Model {
     id: number;
     title: string;
     description: string;
-    status: number;
+    status: Status;
     gold_reward: number;
     created_at: string;
     updated_at: string;
