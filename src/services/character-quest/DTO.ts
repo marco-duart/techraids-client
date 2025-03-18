@@ -24,6 +24,7 @@ export namespace IGetCharacterQuest {
   };
   export type Response = {
     quest: IQuest.Model;
+    chapters: IChapter.Model[];
     current_chapter: IChapter.Model;
     guild_members: IGuildMember.Model[];
     last_task: ITask.Model;
