@@ -4,6 +4,8 @@ export namespace IChapter {
     title: string;
     description: string;
     required_experience: number;
+    position_x: number;
+    position_y: number;
     created_at: string;
     updated_at: string;
     quest_id: number;
@@ -16,6 +18,8 @@ export namespace ICreateChapter {
     chapter: {
       title: string;
       description: string;
+      position_x: number;
+      position_y: number;
       required_experience: number;
       quest_id: number;
     };
@@ -30,6 +34,8 @@ export namespace IUpdateChapter {
     chapter: {
       title?: string;
       description?: string;
+      position_x: number;
+      position_y: number;
       required_experience?: number;
       quest_id?: number;
     };
