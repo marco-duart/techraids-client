@@ -6,7 +6,7 @@ import backgroundAccessDenied from "../../assets/images/background-access-denied
 import paperTextureLight from "../../assets/images/paper-texture-light.jpg";
 import paperTextureDark from "../../assets/images/paper-texture-dark.jpg";
 import worldMap from "../../assets/images/world-map.jpg";
-import mapCropped from "../../assets/images/map-cropped.jpg";
+import questMap from "../../assets/images/quest-map.jpg";
 
 const SIZES = {
   mobileS: "320px",
@@ -35,5 +35,5 @@ export const IMAGES = {
   paperTextureDark,
   backgroundCharacter,
   worldMap,
-  mapCropped,
+  questMap,
 };
