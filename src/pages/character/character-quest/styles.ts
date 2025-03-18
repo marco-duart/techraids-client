@@ -5,7 +5,7 @@ import { IMAGES } from "../../../utils/constants";
 export const PageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   overflow: hidden;
 `;
 
@@ -89,7 +89,7 @@ export const ChallengeBackground = styled.div`
   width: 100%;
   height: 100%;
   z-index: 1;
-  background-image: url(${IMAGES.mapCropped});
+  background-image: url(${IMAGES.questMap});
   background-size: cover;
   background-position: center;
 

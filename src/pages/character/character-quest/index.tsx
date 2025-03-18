@@ -11,6 +11,7 @@ import { IQuest } from "../../../services/quest/DTO";
 import { ITask } from "../../../services/task/DTO";
 import { IMission } from "../../../services/mission/DTO";
 import { IUser } from "../../../services/auth/DTO";
+import InteractiveMap from "../../../components/interactive-map";
 
 const CharacterQuestPage = () => {
   const { data, isLoading, error } = useCharacterQuest();
@@ -21,8 +22,14 @@ const CharacterQuestPage = () => {
   if (error) return <div>Erro: {error}</div>;
   if (!data) return <div>Nenhum dado disponível.</div>;
 
-  const { quest, last_task, last_mission, current_chapter, guild_members } =
-    data;
+  const {
+    quest,
+    chapters,
+    last_task,
+    last_mission,
+    current_chapter,
+    guild_members,
+  } = data;
 
   return (
     <S.PageContainer>
@@ -35,6 +42,7 @@ const CharacterQuestPage = () => {
         />
       ) : (
         <CharacterQuestDetail
+          chapters={chapters}
           current_chapter={current_chapter}
           guild_members={guild_members}
           user={user}
@@ -80,79 +88,22 @@ const CharacterQuestResume = ({
 };
 
 const CharacterQuestDetail = ({
+  chapters,
   current_chapter,
   guild_members,
   user,
 }: {
+  chapters: IChapter.Model[];
   current_chapter: IChapter.Model;
   guild_members: IGuildMember.Model[];
   user: IUser.UserWithRelations | null;
 }) => {
-  const membersInSameChapter = guild_members.filter(
-    (member) => member.current_chapter.id === current_chapter.id
-  );
-  const membersInPreviousChapters = guild_members.filter(
-    (member) => member.current_chapter.id < current_chapter.id
-  );
-  const membersInNextChapters = guild_members.filter(
-    (member) => member.current_chapter.id > current_chapter.id
-  );
-
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
-      <S.ChallengeBackground />
-      <S.ChapterMarker />
-      <S.CharacterAndGuildContainer>
-        <S.CharacterCircle>
-          <img src={user?.character_class.image_url} alt="Character" />
-          <S.CharacterTooltip>
-            <h3>{user?.nickname}</h3>
-            <p>{user?.character_class.name}</p>
-            <p>Nível: {user?.current_level}</p>
-          </S.CharacterTooltip>
-        </S.CharacterCircle>
-        <S.GuildMembersContainer>
-          {membersInSameChapter.map((member) => (
-            <S.GuildMemberCircle key={member.nickname}>
-              <img src={member.character_class.image_url} alt="Guild Member" />
-              <S.GuildMemberTooltip>
-                <h4>{member.nickname}</h4>
-                <p>{member.character_class.name}</p>
-                <p>Nível: {member.current_level}</p>
-              </S.GuildMemberTooltip>
-            </S.GuildMemberCircle>
-          ))}
-        </S.GuildMembersContainer>
-      </S.CharacterAndGuildContainer>
-      <S.PreviousChapterMembers>
-        {membersInPreviousChapters.map((member) => (
-          <S.GuildMemberCircle key={member.nickname}>
-            <img src={member.character_class.image_url} alt="Guild Member" />
-            <S.GuildMemberTooltip>
-              <h4>{member.nickname}</h4>
-              <p>{member.character_class.name}</p>
-              <p>Nível: {member.current_level}</p>
-            </S.GuildMemberTooltip>
-          </S.GuildMemberCircle>
-        ))}
-      </S.PreviousChapterMembers>
-      <S.NextChapterMembers>
-        {membersInNextChapters.map((member) => (
-          <S.GuildMemberCircle key={member.nickname}>
-            <img src={member.character_class.image_url} alt="Guild Member" />
-            <S.GuildMemberTooltip>
-              <h4>{member.nickname}</h4>
-              <p>{member.character_class.name}</p>
-              <p>Nível: {member.current_level}</p>
-            </S.GuildMemberTooltip>
-          </S.GuildMemberCircle>
-        ))}
-      </S.NextChapterMembers>
-    </motion.div>
+    <InteractiveMap
+      chapters={chapters}
+      guildMembers={guild_members}
+      currentChapterId={current_chapter.id}
+    />
   );
 };
 
