@@ -2,6 +2,7 @@ import { IVillage } from "../village/DTO";
 import { IGuild } from "../guild/DTO";
 import { ICharacterClass } from "../character-class/DTO";
 import { ISpecialization } from "../specialization/DTO";
+import { IHonoraryTitle } from "../honorary_title/DTO";
 export namespace IUser {
   export enum Role {
     NARRATOR = "narrator",
@@ -34,6 +35,7 @@ export namespace IUser {
     guild: IGuild.Model;
     character_class: ICharacterClass.Model;
     specialization: ISpecialization.Model;
+    active_title?: IHonoraryTitle.Model;
   };
 }
 

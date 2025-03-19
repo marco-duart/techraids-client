@@ -2,6 +2,7 @@ import { IQuest } from "../quest/DTO";
 import { IChapter } from "../chapter/DTO";
 import { ITask } from "../task/DTO";
 import { IMission } from "../mission/DTO";
+import { IHonoraryTitle } from "../honorary_title/DTO";
 
 export namespace IGuildMember {
   export interface Model {
@@ -14,7 +15,7 @@ export namespace IGuildMember {
       image_url: string;
     };
     current_chapter: IChapter.Model;
-    active_title: null;
+    active_title?: IHonoraryTitle.Model;
   }
 }
 
