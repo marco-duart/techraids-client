@@ -13,23 +13,18 @@ export const MapContainer = styled.div`
 
 export const MapImage = styled.img`
   width: 100%;
-  height: 100%;
+  height: auto;
+  max-width: 100%;
   object-fit: contain;
 `;
 
-export const ChapterPoint = styled.div<{
-  positionX: number;
-  positionY: number;
-  isCurrent: boolean;
-}>`
+export const ChapterPoint = styled.div<{ $isCurrent: boolean }>`
   position: absolute;
-  left: ${({ positionX }) => positionX - 10}px;
-  top: ${({ positionY }) => positionY - 10}px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: ${({ isCurrent }) =>
-    isCurrent
+  background: ${({ $isCurrent }) =>
+    $isCurrent
       ? "linear-gradient(45deg, #ff9a9e, #fad0c4)"
       : "linear-gradient(45deg, #a1c4fd, #c2e9fb)"};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -61,17 +56,12 @@ export const ChapterTooltip = styled.div`
   }
 `;
 
-export const GuildMemberPoint = styled(motion.div)<{
-  positionX: number;
-  positionY: number;
-}>`
+export const CharacterPoint = styled(motion.div)<{ $isUser?: boolean }>`
   position: absolute;
-  left: ${({ positionX }) => positionX - 10}px;
-  top: ${({ positionY }) => positionY - 10}px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid ${({ $isUser }) => ($isUser ? "#e67e22" : "#fff")};
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -80,6 +70,7 @@ export const GuildMemberPoint = styled(motion.div)<{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
   }
 
   &:hover {
@@ -87,22 +78,49 @@ export const GuildMemberPoint = styled(motion.div)<{
   }
 `;
 
-export const GuildMemberTooltip = styled(motion.div)`
+export const CharacterCard = styled.div`
   position: absolute;
-  top: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
+  width: 220px;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  border: 2px solid #e67e22;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   color: white;
-  padding: 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 1000;
 
-  ${GuildMemberPoint}:hover & {
-    opacity: 1;
+  h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #e67e22;
+  }
+
+  p {
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 768px) {
+    width: 180px;
+    padding: 12px;
+
+    h4 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 12px;
+    }
   }
 `;
 

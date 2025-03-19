@@ -102,7 +102,8 @@ const CharacterQuestDetail = ({
     <InteractiveMap
       chapters={chapters}
       guildMembers={guild_members}
-      currentChapterId={current_chapter.id}
+      currentChapter={current_chapter}
+      user={user}
     />
   );
 };
