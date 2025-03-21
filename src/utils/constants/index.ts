@@ -7,6 +7,7 @@ import paperTextureLight from "../../assets/images/paper-texture-light.jpg";
 import paperTextureDark from "../../assets/images/paper-texture-dark.jpg";
 import worldMap from "../../assets/images/world-map.jpg";
 import questMap from "../../assets/images/quest-map.jpg";
+import clouds from "../../assets/images/clouds.png";
 
 const SIZES = {
   mobileS: "320px",
@@ -36,4 +37,5 @@ export const IMAGES = {
   backgroundCharacter,
   worldMap,
   questMap,
+  clouds,
 };
