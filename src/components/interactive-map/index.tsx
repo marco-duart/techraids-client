@@ -5,6 +5,7 @@ import { IChapter } from "../../services/chapter/DTO";
 import { IGuildMember } from "../../services/character-quest/DTO";
 import { IUser } from "../../services/auth/DTO";
 import * as S from "./styles";
+import ChapterModal from "./chapter-modal";
 
 interface InteractiveMapProps {
   chapters: IChapter.Model[];
@@ -24,11 +25,10 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
 }) => {
   const [mapSize, setMapSize] = useState({ width: 1, height: 1 });
   const mapRef = useRef<HTMLDivElement>(null);
-  const [hoveredMember, setHoveredMember] = useState<IGuildMember.Model | null>(
+  const [selectedChapter, setSelectedChapter] = useState<IChapter.Model | null>(
     null
   );
-  const [hoveredUser, setHoveredUser] = useState(false);
-  const [cardPosition, setCardPosition] = useState({ left: 0, top: 0 });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const updateMapSize = () => {
@@ -48,45 +48,14 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
     top: `${(y / mapOriginalHeight) * mapSize.height}px`,
   });
 
-  const handleMouseEnter = (
-    event: React.MouseEvent,
-    member: IGuildMember.Model | null
-  ) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setCardPosition({
-      left: rect.left + rect.width / 2,
-      top: rect.top,
-    });
-    member ? setHoveredMember(member) : setHoveredUser(true);
+  const handleChapterClick = (chapter: IChapter.Model) => {
+    setSelectedChapter(chapter);
+    setIsModalOpen(true);
   };
 
-  const handleMouseLeave = () => {
-    setHoveredMember(null);
-    setHoveredUser(false);
-  };
-
-  const renderCharacterCard = () => {
-    const character = hoveredMember || user;
-    if (!character) return null;
-
-    return (
-      <S.CharacterCard
-        style={{
-          left: `${cardPosition.left}px`,
-          top: `${cardPosition.top}px`,
-          transform: "translate(-50%, -100%)",
-        }}
-      >
-        <img
-          src={character.character_class.image_url}
-          alt={character.nickname}
-        />
-        <h4>{character.nickname}</h4>
-        <p>Título: {character.active_title?.title}</p>
-        <p>{character.character_class.name}</p>
-        <p>Nível: {character.current_level}</p>
-        <p>Experiência: {character.experience}</p>
-      </S.CharacterCard>
+  const getChapterMembers = (chapterId: number) => {
+    return guildMembers.filter(
+      (member) => member.current_chapter.id === chapterId
     );
   };
 
@@ -104,56 +73,39 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
             <S.MapContainer ref={mapRef}>
               <S.MapImage src={IMAGES.questMap} alt="World Map" />
 
-              {chapters.map((chapter) => (
-                <S.ChapterPoint
-                  key={chapter.id}
-                  style={calculatePosition(
-                    chapter.position_x,
-                    chapter.position_y
-                  )}
-                  $isCurrent={chapter.id === currentChapter.id}
-                >
-                  <S.ChapterTooltip>{chapter.title}</S.ChapterTooltip>
-                </S.ChapterPoint>
-              ))}
+              {chapters.map((chapter) => {
+                const membersInChapter = getChapterMembers(chapter.id);
+                const hasUser =
+                  user && chapter.id === currentChapter.id || false;
+                const hasMembers = membersInChapter.length > 0;
 
-              {user && (
-                <S.CharacterPoint
-                  style={calculatePosition(
-                    currentChapter.position_x,
-                    currentChapter.position_y
-                  )}
-                  onMouseEnter={(e) => handleMouseEnter(e, null)}
-                  onMouseLeave={handleMouseLeave}
-                  $isUser
-                >
-                  <img
-                    src={user.character_class.image_url}
-                    alt={user.nickname}
-                  />
-                </S.CharacterPoint>
-              )}
-
-              {guildMembers.map((member, index) => (
-                <S.CharacterPoint
-                  key={member.nickname}
-                  style={calculatePosition(
-                    member.current_chapter.position_x + index * 20,
-                    member.current_chapter.position_y
-                  )}
-                  onMouseEnter={(e) => handleMouseEnter(e, member)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <img
-                    src={member.character_class.image_url}
-                    alt={member.nickname}
-                  />
-                </S.CharacterPoint>
-              ))}
-
-              {(hoveredMember || hoveredUser) && renderCharacterCard()}
+                return (
+                  <S.ChapterPoint
+                    key={chapter.id}
+                    style={calculatePosition(
+                      chapter.position_x,
+                      chapter.position_y
+                    )}
+                    $isCurrent={chapter.id === currentChapter.id}
+                    $hasUser={hasUser}
+                    $hasMembers={hasMembers}
+                    onClick={() => handleChapterClick(chapter)}
+                  >
+                    <S.ChapterTooltip>{chapter.title}</S.ChapterTooltip>
+                  </S.ChapterPoint>
+                );
+              })}
             </S.MapContainer>
           </TransformComponent>
+
+          {selectedChapter && (
+            <ChapterModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              chapter={selectedChapter}
+              members={getChapterMembers(selectedChapter.id)}
+            />
+          )}
         </>
       )}
     </TransformWrapper>
