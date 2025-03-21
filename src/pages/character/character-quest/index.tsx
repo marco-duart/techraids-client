@@ -11,6 +11,7 @@ import { IQuest } from "../../../services/quest/DTO";
 import { ITask } from "../../../services/task/DTO";
 import { IMission } from "../../../services/mission/DTO";
 import { IUser } from "../../../services/auth/DTO";
+import BackgroundMusic from "../../../components/background-music";
 
 const InteractiveMap = lazy(
   () => import("../../../components/interactive-map")
@@ -36,6 +37,7 @@ export const CharacterQuestPage = () => {
 
   return (
     <S.PageContainer>
+      <BackgroundMusic />
       {!isChallengeStarted ? (
         <CharacterQuestResume
           quest={quest}

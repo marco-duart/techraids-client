@@ -9,6 +9,8 @@ import worldMap from "../../assets/images/world-map.jpg";
 import questMap from "../../assets/images/quest-map.jpg";
 import clouds from "../../assets/images/clouds.png";
 
+import mainThemeSong from "../../assets/audios/celtic-main-theme.mp3";
+
 const SIZES = {
   mobileS: "320px",
   mobileM: "375px",
@@ -38,4 +40,8 @@ export const IMAGES = {
   worldMap,
   questMap,
   clouds,
+};
+
+export const SONGS = {
+  mainThemeSong,
 };
