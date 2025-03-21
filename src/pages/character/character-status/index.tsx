@@ -1,8 +1,8 @@
-import { useAuth } from "../../context/user-provider";
-import { useTheme } from "../../context/theme-provider";
+import { useAuth } from "../../../context/user-provider";
+import { useTheme } from "../../../context/theme-provider";
 import { Sword, Shield, Fire, Map, Coin } from "@styled-icons/remix-line";
 import * as S from "./styles";
-import { IMAGES } from "../../utils/constants";
+import { IMAGES } from "../../../utils/constants";
 
 export const CharacterPage = () => {
   const { user } = useAuth();

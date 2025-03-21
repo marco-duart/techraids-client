@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { ThemeMode } from "../../assets/styles/theme";
-import { IMAGES, DEVICE } from "../../utils/constants";
+import { ThemeMode } from "../../../assets/styles/theme";
+import { IMAGES, DEVICE } from "../../../utils/constants";
 
 export const CharacterContainer = styled.div`
   display: flex;
