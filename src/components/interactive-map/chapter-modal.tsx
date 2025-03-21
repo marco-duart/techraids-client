@@ -2,12 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { IChapter } from "../../services/chapter/DTO";
 import { IGuildMember } from "../../services/character-quest/DTO";
+import { IUser } from "../../services/auth/DTO";
 
 interface ChapterModalProps {
   isOpen: boolean;
   onClose: () => void;
   chapter: IChapter.Model;
-  members: IGuildMember.Model[];
+  members: {
+    user: IUser.UserWithRelations | undefined;
+    guildMembers: IGuildMember.Model[] | undefined;
+  };
 }
 
 const ModalOverlay = styled.div`
@@ -38,15 +42,15 @@ const ModalContent = styled.div`
 const MembersSection = styled.div`
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 10px;
 `;
 
-const MemberImage = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid #fff;
+const MemberImage = styled.img<{ $isUser?: boolean }>`
+  width: 100px;
+  height: 150px;
+  border-radius: 8px;
+  border: 2px solid ${({ $isUser }) => ($isUser ? "#e67e22" : "#fff")};
   object-fit: cover;
 `;
 
@@ -83,7 +87,16 @@ const ChapterModal: React.FC<ChapterModalProps> = ({
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>Fechar</CloseButton>
         <MembersSection>
-          {members.map((member) => (
+          {members.user && (
+            <MemberImage
+              key={members.user.nickname}
+              src={members.user.character_class.image_url}
+              alt={members.user.nickname}
+              $isUser
+            />
+          )}
+
+          {members.guildMembers?.map((member) => (
             <MemberImage
               key={member.nickname}
               src={member.character_class.image_url}

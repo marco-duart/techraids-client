@@ -23,53 +23,6 @@ export const CharacterPoint = styled(motion.div)<{ $isUser?: boolean }>`
   }
 `;
 
-export const CharacterCard = styled.div`
-  position: absolute;
-  width: 220px;
-  background: linear-gradient(135deg, #2c3e50, #34495e);
-  border: 2px solid #e67e22;
-  padding: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  color: white;
-  font-family: "Arial", sans-serif;
-  text-align: center;
-  opacity: 1;
-  pointer-events: none;
-  z-index: 1000;
-
-  h4 {
-    margin: 0;
-    font-size: 18px;
-    color: #e67e22;
-  }
-
-  p {
-    margin: 8px 0;
-    font-size: 14px;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 12px;
-  }
-
-  @media (max-width: 768px) {
-    width: 180px;
-    padding: 12px;
-
-    h4 {
-      font-size: 16px;
-    }
-
-    p {
-      font-size: 12px;
-    }
-  }
-`;
-
-
 export const MapContainer = styled.div`
   position: relative;
   width: 100%;

@@ -29,6 +29,9 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hoveredChapter, setHoveredChapter] = useState<IChapter.Model | null>(
+    null
+  );
 
   useEffect(() => {
     const updateMapSize = () => {
@@ -53,10 +56,24 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
     setIsModalOpen(true);
   };
 
-  const getChapterMembers = (chapterId: number) => {
-    return guildMembers.filter(
+  const getChapterCharacters = (chapterId: number): {
+    user: IUser.UserWithRelations | undefined;
+    guildMembers: IGuildMember.Model[] | undefined;
+  } => {
+    const guildMembersInChapter = guildMembers.filter(
       (member) => member.current_chapter.id === chapterId
     );
+  
+    const userInChapter = user && user.current_chapter_id === chapterId ? user : undefined;
+  
+    return {
+      user: userInChapter,
+      guildMembers: guildMembersInChapter.length > 0 ? guildMembersInChapter : undefined,
+    };
+  };
+
+  const handleChapterHover = (chapter: IChapter.Model | null) => {
+    setHoveredChapter(chapter);
   };
 
   return (
@@ -74,25 +91,60 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
               <S.MapImage src={IMAGES.questMap} alt="World Map" />
 
               {chapters.map((chapter) => {
-                const membersInChapter = getChapterMembers(chapter.id);
-                const hasUser =
-                  user && chapter.id === currentChapter.id || false;
-                const hasMembers = membersInChapter.length > 0;
+                const membersInChapter = getChapterCharacters(chapter.id);
+                const hasUser = (membersInChapter.user != undefined)!!;
+                const hasMembers = (membersInChapter.guildMembers && membersInChapter.guildMembers.length > 0)!!;
 
                 return (
-                  <S.ChapterPoint
-                    key={chapter.id}
-                    style={calculatePosition(
-                      chapter.position_x,
-                      chapter.position_y
+                  <React.Fragment key={chapter.id}>
+                    <S.ChapterPoint
+                      style={calculatePosition(
+                        chapter.position_x,
+                        chapter.position_y
+                      )}
+                      $isCurrent={chapter.id === currentChapter.id}
+                      $hasUser={hasUser}
+                      $hasMembers={hasMembers}
+                      onClick={() => handleChapterClick(chapter)}
+                      onMouseEnter={() => handleChapterHover(chapter)}
+                      onMouseLeave={() => handleChapterHover(null)}
+                    >
+                      <S.ChapterTooltip>{chapter.title}</S.ChapterTooltip>
+                    </S.ChapterPoint>
+
+                    {hoveredChapter?.id === chapter.id && (
+                      <>
+                        {hasUser && (
+                          <S.CharacterPoint
+                            style={calculatePosition(
+                              chapter.position_x + 30,
+                              chapter.position_y - 30
+                            )}
+                            $isUser
+                          >
+                            <img
+                              src={user?.character_class.image_url}
+                              alt={user?.nickname}
+                            />
+                          </S.CharacterPoint>
+                        )}
+                        {membersInChapter.guildMembers?.map((member, index) => (
+                          <S.CharacterPoint
+                            key={member.nickname}
+                            style={calculatePosition(
+                              chapter.position_x + (index + 1) * 30,
+                              chapter.position_y + (index + 1) * 30
+                            )}
+                          >
+                            <img
+                              src={member.character_class.image_url}
+                              alt={member.nickname}
+                            />
+                          </S.CharacterPoint>
+                        ))}
+                      </>
                     )}
-                    $isCurrent={chapter.id === currentChapter.id}
-                    $hasUser={hasUser}
-                    $hasMembers={hasMembers}
-                    onClick={() => handleChapterClick(chapter)}
-                  >
-                    <S.ChapterTooltip>{chapter.title}</S.ChapterTooltip>
-                  </S.ChapterPoint>
+                  </React.Fragment>
                 );
               })}
             </S.MapContainer>
@@ -103,7 +155,7 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               chapter={selectedChapter}
-              members={getChapterMembers(selectedChapter.id)}
+              members={getChapterCharacters(selectedChapter.id)}
             />
           )}
         </>
