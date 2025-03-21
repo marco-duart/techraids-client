@@ -56,19 +56,23 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
     setIsModalOpen(true);
   };
 
-  const getChapterCharacters = (chapterId: number): {
+  const getChapterCharacters = (
+    chapterId: number
+  ): {
     user: IUser.UserWithRelations | undefined;
     guildMembers: IGuildMember.Model[] | undefined;
   } => {
     const guildMembersInChapter = guildMembers.filter(
       (member) => member.current_chapter.id === chapterId
     );
-  
-    const userInChapter = user && user.current_chapter_id === chapterId ? user : undefined;
-  
+
+    const userInChapter =
+      user && user.current_chapter_id === chapterId ? user : undefined;
+
     return {
       user: userInChapter,
-      guildMembers: guildMembersInChapter.length > 0 ? guildMembersInChapter : undefined,
+      guildMembers:
+        guildMembersInChapter.length > 0 ? guildMembersInChapter : undefined,
     };
   };
 
@@ -88,12 +92,22 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
 
           <TransformComponent>
             <S.MapContainer ref={mapRef}>
+              <S.CloudsContainer>
+                <S.CloudsImage src={IMAGES.clouds} alt="Nuvens" />
+                <S.CloudsImage
+                  src={IMAGES.clouds}
+                  alt="Nuvens"
+                  style={{ left: "50%" }}
+                />
+              </S.CloudsContainer>
+
               <S.MapImage src={IMAGES.questMap} alt="World Map" />
 
               {chapters.map((chapter) => {
                 const membersInChapter = getChapterCharacters(chapter.id);
                 const hasUser = (membersInChapter.user != undefined)!!;
-                const hasMembers = (membersInChapter.guildMembers && membersInChapter.guildMembers.length > 0)!!;
+                const hasMembers = (membersInChapter.guildMembers &&
+                  membersInChapter.guildMembers.length > 0)!!;
 
                 return (
                   <React.Fragment key={chapter.id}>

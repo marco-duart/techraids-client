@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 
 export const CharacterPoint = styled(motion.div)<{ $isUser?: boolean }>`
@@ -106,4 +106,33 @@ export const Controls = styled.div`
       background: #f0f0f0;
     }
   }
+`;
+
+const cloudAnimation = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+`;
+
+export const CloudsContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.4;
+  pointer-events: none;
+`;
+
+export const CloudsImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  animation: ${cloudAnimation} 60s linear infinite;
 `;
