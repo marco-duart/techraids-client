@@ -5,7 +5,7 @@ import { IChapter } from "../../services/chapter/DTO";
 import { IGuildMember } from "../../services/character-quest/DTO";
 import { IUser } from "../../services/auth/DTO";
 import * as S from "./styles";
-import ChapterModal from "./chapter-modal";
+import ChapterModal from "../chapter-modal";
 
 interface InteractiveMapProps {
   chapters: IChapter.Model[];
