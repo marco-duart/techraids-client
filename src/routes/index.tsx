@@ -3,8 +3,12 @@ import { PrivateRoute } from "../components/private-route";
 import { IUser } from "../services/auth/DTO";
 import { useAuth } from "../context/user-provider";
 
-import { LoginPage, RegistrationPage, CharacterPage } from "../pages";
-import CharacterQuestPage from "../pages/character/character-quest";
+import {
+  LoginPage,
+  RegistrationPage,
+  CharacterPage,
+  CharacterQuestPage,
+} from "../pages";
 
 import { HomePage } from "../pages/home/home-page";
 import { NarratorLayout } from "../components/common/narrator-layout";

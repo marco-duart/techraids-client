@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import { useCharacterQuest } from "../../../hooks/use-character-quest";
 import { useAuth } from "../../../context/user-provider";
 import { motion } from "framer-motion";
@@ -11,9 +11,12 @@ import { IQuest } from "../../../services/quest/DTO";
 import { ITask } from "../../../services/task/DTO";
 import { IMission } from "../../../services/mission/DTO";
 import { IUser } from "../../../services/auth/DTO";
-import InteractiveMap from "../../../components/interactive-map";
 
-const CharacterQuestPage = () => {
+const InteractiveMap = lazy(
+  () => import("../../../components/interactive-map")
+);
+
+export const CharacterQuestPage = () => {
   const { data, isLoading, error } = useCharacterQuest();
   const { user } = useAuth();
   const [isChallengeStarted, setIsChallengeStarted] = useState(false);
@@ -41,12 +44,14 @@ const CharacterQuestPage = () => {
           onStartChallenge={() => setIsChallengeStarted(true)}
         />
       ) : (
-        <CharacterQuestDetail
-          chapters={chapters}
-          current_chapter={current_chapter}
-          guild_members={guild_members}
-          user={user}
-        />
+        <Suspense fallback={<div>Carregando mapa...</div>}>
+          <CharacterQuestDetail
+            chapters={chapters}
+            current_chapter={current_chapter}
+            guild_members={guild_members}
+            user={user}
+          />
+        </Suspense>
       )}
     </S.PageContainer>
   );
@@ -87,25 +92,25 @@ const CharacterQuestResume = ({
   );
 };
 
-const CharacterQuestDetail = ({
-  chapters,
-  current_chapter,
-  guild_members,
-  user,
-}: {
-  chapters: IChapter.Model[];
-  current_chapter: IChapter.Model;
-  guild_members: IGuildMember.Model[];
-  user: IUser.UserWithRelations | null;
-}) => {
-  return (
-    <InteractiveMap
-      chapters={chapters}
-      guildMembers={guild_members}
-      currentChapter={current_chapter}
-      user={user}
-    />
-  );
-};
-
-export default CharacterQuestPage;
+const CharacterQuestDetail = React.memo(
+  ({
+    chapters,
+    current_chapter,
+    guild_members,
+    user,
+  }: {
+    chapters: IChapter.Model[];
+    current_chapter: IChapter.Model;
+    guild_members: IGuildMember.Model[];
+    user: IUser.UserWithRelations | null;
+  }) => {
+    return (
+      <InteractiveMap
+        chapters={chapters}
+        guildMembers={guild_members}
+        currentChapter={current_chapter}
+        user={user}
+      />
+    );
+  }
+);
