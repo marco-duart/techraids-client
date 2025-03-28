@@ -5,7 +5,7 @@ export const taskStatusSchema = z.enum(["pending", "approved", "rejected"]);
 export const taskSchema = z.object({
   title: z
     .string()
-    .min(1, "O título da quest é obrigatório")
+    .min(1, "O título da tarefa é obrigatório")
     .max(100, "O título não pode ter mais que 100 caracteres"),
 
   description: z

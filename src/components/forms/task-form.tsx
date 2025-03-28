@@ -45,7 +45,7 @@ export const TaskForm = ({ task, onSubmit, onClose, isLoading }: Props) => {
 
       <S.InputGroup>
         <S.Label htmlFor="title">
-          <Sword size={16} /> Título da Quest
+          <Sword size={16} /> Título da Tarefa
         </S.Label>
         <S.Input
           id="title"

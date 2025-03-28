@@ -45,7 +45,7 @@ export const MissionForm = ({ mission, onSubmit, onClose, isLoading }: Props) =>
 
       <S.InputGroup>
         <S.Label htmlFor="title">
-          <Sword size={16} /> Título da Quest
+          <Sword size={16} /> Título da Missão
         </S.Label>
         <S.Input
           id="title"
