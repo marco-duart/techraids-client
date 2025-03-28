@@ -45,13 +45,13 @@ export const Input = styled.input`
 `;
 
 export const ErrorMessage = styled.p`
-  color: #ff4d4d;
+  color: ${({ theme }) => theme.rejected};
   font-size: 0.875rem;
   margin: 0;
 `;
 
 export const SuccessMessage = styled.p`
-  color: #4caf50;
+  color: ${({ theme }) => theme.approved};
   font-size: 0.875rem;
   margin: 0;
 `;
@@ -92,5 +92,87 @@ export const BackButton = styled.button`
 
   &:hover {
     color: ${({ theme }) => theme.accent};
+  }
+`;
+
+export const FormHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  .close-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+`;
+
+export const Textarea = styled.textarea`
+  padding: 0.75rem;
+  border: 2px solid ${({ theme }) => theme.border};
+  border-radius: 0;
+  font-size: 1rem;
+  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
+  resize: vertical;
+  min-height: 120px;
+  font-family: "Book Antiqua", serif;
+  letter-spacing: 0.5px;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.accent};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.accent}40;
+  }
+`;
+
+export const Select = styled.select`
+  padding: 0.75rem;
+  border: 2px solid ${({ theme }) => theme.border};
+  border-radius: 0;
+  font-size: 1rem;
+  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
+  cursor: pointer;
+  font-family: "MedievalSharp", cursive;
+  letter-spacing: 0.5px;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.accent};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.accent}40;
+  }
+`;
+
+export const FormFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid ${({ theme }) => theme.border};
+`;
+
+export const FormSeal = styled.div`
+  width: 60px;
+  height: 60px;
+  opacity: 0.7;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+`;
+
+export const InputIconWrapper = styled.div`
+  position: relative;
+
+  svg {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: ${({ theme }) => theme.text};
+    opacity: 0.6;
   }
 `;
