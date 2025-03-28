@@ -57,11 +57,11 @@ export const Header = () => {
           <Map size={24} />
           <span>Jornada</span>
         </S.CharacterNavLink>
-        <S.CharacterNavLink to="/character/mission">
+        <S.CharacterNavLink to="/character/missions">
           <Shield size={24} />
           <span>Missões</span>
         </S.CharacterNavLink>
-        <S.CharacterNavLink to="/character/task">
+        <S.CharacterNavLink to="/character/tasks">
           <Table size={24} />
           <span>Tarefas</span>
         </S.CharacterNavLink>

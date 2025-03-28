@@ -9,15 +9,12 @@ import {
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
-interface SidebarProps {
+interface Props {
   isCollapsed: boolean;
   onToggleSidebar: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
-  isCollapsed,
-  onToggleSidebar,
-}) => {
+export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
   const { user, logout } = useAuth();
   const { themeMode, setThemeMode } = useTheme();
   const navigate = useNavigate();

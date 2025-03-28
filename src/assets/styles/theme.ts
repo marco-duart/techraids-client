@@ -1,9 +1,4 @@
 export const themes = {
-  status: {
-    pending: "#FFC107",
-    accepted: "#28A745",
-    rejected: "#DC3545",
-  },
   narrator: {
     light: {
       primary: "#ffffff",
@@ -15,6 +10,9 @@ export const themes = {
       border: "#dee2e6",
       shadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
       background: "",
+      pending: "#FFC107",
+      approved: "#198754",
+      rejected: "#BB2D3B",
     },
     dark: {
       primary: "#1a1a1a",
@@ -26,6 +24,9 @@ export const themes = {
       border: "#444444",
       shadow: "0 4px 6px rgba(255, 255, 255, 0.1)",
       background: "",
+      pending: "#FFCA2C",
+      approved: "#20C997",
+      rejected: "#DC3545",
     },
   },
   character: {
@@ -40,6 +41,9 @@ export const themes = {
       texture: 'url("path/to/light-texture.jpg")',
       shadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
       background: "",
+      pending: "#D4A017",
+      approved: "#5D8C5A",
+      rejected: "#A52A2A",
     },
     dark: {
       primary: "#a1887f",
@@ -52,6 +56,9 @@ export const themes = {
       texture: 'url("path/to/dark-texture.jpg")',
       shadow: "0 4px 6px rgba(255, 255, 255, 0.2)",
       background: "",
+      pending: "#FFD700",
+      approved: "#4CAF50",
+      rejected: "#CD5C5C",
     },
   },
   auth: {
