@@ -6,8 +6,10 @@ import { useAuth } from "../context/user-provider";
 import {
   LoginPage,
   RegistrationPage,
-  CharacterPage,
+  CharacterStatusPage,
   CharacterQuestPage,
+  TasksPage,
+  MissionsPage,
 } from "../pages";
 
 import { HomePage } from "../pages/home/home-page";
@@ -48,8 +50,10 @@ export default function Router() {
           }
         >
           <Route path="home" element={<HomePage />} />
-          <Route path="status" element={<CharacterPage />} />
+          <Route path="status" element={<CharacterStatusPage />} />
           <Route path="quest" element={<CharacterQuestPage />} />
+          <Route path="tasks" element={<TasksPage />} />
+          <Route path="missions" element={<MissionsPage />} />
         </Route>
 
         <Route path="/access-denied" element={<AccessDeniedPage />} />
