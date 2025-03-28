@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { IUser } from "../../services/auth/DTO";
 import { ReactNode } from "react";
 
-interface PrivateRouteProps {
+interface Props {
   requiredRole: IUser.Role.CHARACTER | IUser.Role.NARRATOR;
   children?: ReactNode;
 }
 
-export const PrivateRoute = ({ requiredRole, children }: PrivateRouteProps) => {
+export const PrivateRoute = ({ requiredRole, children }: Props) => {
   const { user } = useAuth();
   const navigate = useNavigate();
 

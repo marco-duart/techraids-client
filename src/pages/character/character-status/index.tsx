@@ -4,7 +4,7 @@ import { Sword, Shield, Fire, Map, Coin } from "@styled-icons/remix-line";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
 
-export const CharacterPage = () => {
+export const CharacterStatusPage = () => {
   const { user } = useAuth();
   const { themeMode } = useTheme();
 

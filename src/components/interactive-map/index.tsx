@@ -7,7 +7,7 @@ import { IUser } from "../../services/auth/DTO";
 import * as S from "./styles";
 import ChapterModal from "../chapter-modal";
 
-interface InteractiveMapProps {
+interface Props {
   chapters: IChapter.Model[];
   guildMembers: IGuildMember.Model[];
   currentChapter: IChapter.Model;
@@ -17,7 +17,7 @@ interface InteractiveMapProps {
 const mapOriginalWidth = 2912;
 const mapOriginalHeight = 1632;
 
-const InteractiveMap: React.FC<InteractiveMapProps> = ({
+const InteractiveMap: React.FC<Props> = ({
   chapters,
   guildMembers,
   currentChapter,
