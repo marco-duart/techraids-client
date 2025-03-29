@@ -47,8 +47,8 @@ const InteractiveMap: React.FC<Props> = ({
   }, []);
 
   const calculatePosition = (x: number, y: number) => ({
-    left: `${(x / mapOriginalWidth) * mapSize.width}px`,
-    top: `${(y / mapOriginalHeight) * mapSize.height}px`,
+    left: `calc(${(x / mapOriginalWidth) * mapSize.width}px - 10px)`,
+    top: `calc(${(y / mapOriginalHeight) * mapSize.height}px - 10px)`,
   });
 
   const handleChapterClick = (chapter: IChapter.Model) => {
