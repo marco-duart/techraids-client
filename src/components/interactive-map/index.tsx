@@ -15,7 +15,7 @@ interface Props {
 }
 
 const mapOriginalWidth = 2912;
-const mapOriginalHeight = 1632;
+const mapOriginalHeight = 1631;
 
 const InteractiveMap: React.FC<Props> = ({
   chapters,
