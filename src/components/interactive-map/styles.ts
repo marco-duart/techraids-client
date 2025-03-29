@@ -45,9 +45,10 @@ export const ChapterPoint = styled.div<{
   $hasUser: boolean;
   $hasMembers: boolean;
 }>`
+  --point-size: 20px;
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: var(--point-size);
+  height: var(--point-size);
   border-radius: 50%;
   background: ${({ $isCurrent }) =>
     $isCurrent
