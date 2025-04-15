@@ -6,7 +6,47 @@ import {
   IGetCharacterClass,
   IGetCharacterClasses,
   IUpdateCharacterClass,
+  ISwitchCharacterClass
 } from "./DTO";
+
+export const SwitchCharacterClass = async (
+  params: ISwitchCharacterClass.Params
+) => {
+  try {
+    const { token, ...data } = params;
+
+    await api.put<ISwitchCharacterClass.Response>(
+      `/character/switch_class`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    return {
+      success: true,
+      message: "Classe de personagem trocada com sucesso!",
+    };
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error("Erro na requisição:", error);
+
+      return {
+        success: false,
+        message: error.message,
+        code: error.response?.status || 500,
+      };
+    }
+
+    console.error("Erro desconhecido:", error);
+
+    return {
+      success: false,
+      message: "Erro desconhecido!",
+      code: 500,
+    };
+  }
+};
 
 export const CreateCharacterClass = async (
   params: ICreateCharacterClass.Params
