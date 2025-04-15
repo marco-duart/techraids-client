@@ -5,6 +5,7 @@ import {
   IDeleteGuild,
   IGetGuild,
   IGetGuilds,
+  IGetPublicGuilds,
   IUpdateGuild,
 } from "./DTO";
 
@@ -154,6 +155,36 @@ export const GetGuilds = async (params: IGetGuilds.Params) => {
     const response = await api.get<IGetGuilds.Response>("/guilds", {
       headers: { Authorization: `Bearer ${token}` },
     });
+
+    return {
+      success: true,
+      message: "Guildas recuperadas com sucesso!",
+      data: response.data,
+    };
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error("Erro na requisição:", error);
+
+      return {
+        success: false,
+        message: error.message,
+        code: error.response?.status || 500,
+      };
+    }
+
+    console.error("Erro desconhecido:", error);
+
+    return {
+      success: false,
+      message: "Erro desconhecido!",
+      code: 500,
+    };
+  }
+};
+
+export const GetPublicGuilds = async () => {
+  try {
+    const response = await api.get<IGetPublicGuilds.Response>("/public/guilds");
 
     return {
       success: true,

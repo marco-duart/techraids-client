@@ -6,7 +6,47 @@ import {
   IGetSpecialization,
   IGetSpecializations,
   IUpdateSpecialization,
+  ISelectSpecialization,
 } from "./DTO";
+
+export const SelectSpecialization = async (
+  params: ISelectSpecialization.Params
+) => {
+  try {
+    const { token, ...data } = params;
+
+    await api.put<ISelectSpecialization.Response>(
+      `/character/select_specialization`,
+      data,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    return {
+      success: true,
+      message: "Especialização de personagem trocada com sucesso!",
+    };
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error("Erro na requisição:", error);
+
+      return {
+        success: false,
+        message: error.message,
+        code: error.response?.status || 500,
+      };
+    }
+
+    console.error("Erro desconhecido:", error);
+
+    return {
+      success: false,
+      message: "Erro desconhecido!",
+      code: 500,
+    };
+  }
+};
 
 export const CreateSpecialization = async (
   params: ICreateSpecialization.Params

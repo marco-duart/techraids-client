@@ -58,3 +58,8 @@ export namespace IGetGuilds {
   };
   export type Response = Array<IGuild.Model>;
 }
+
+export namespace IGetPublicGuilds {
+  export type Params = {};
+  export type Response = Array<{ id: number; name: string }>;
+}

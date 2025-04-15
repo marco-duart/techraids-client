@@ -8,6 +8,14 @@ export namespace ISpecialization {
   }
 }
 
+export namespace ISelectSpecialization {
+  export type Params = {
+    token: string;
+    specialization_id: number;
+  };
+  export type Response = { success: boolean; error?: string };
+}
+
 export namespace ICreateSpecialization {
   export type Params = {
     token: string;
