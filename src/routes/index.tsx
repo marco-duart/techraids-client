@@ -8,6 +8,7 @@ import {
   RegistrationPage,
   CharacterStatusPage,
   CharacterQuestPage,
+  CharacterRankingPage,
   TasksPage,
   MissionsPage,
 } from "../pages";
@@ -54,6 +55,7 @@ export default function Router() {
           <Route path="quest" element={<CharacterQuestPage />} />
           <Route path="tasks" element={<TasksPage />} />
           <Route path="missions" element={<MissionsPage />} />
+          <Route path="ranking" element={<CharacterRankingPage />} />
         </Route>
 
         <Route path="/access-denied" element={<AccessDeniedPage />} />

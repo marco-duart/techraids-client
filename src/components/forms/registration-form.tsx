@@ -7,15 +7,7 @@ import {
 import { useRegistration } from "../../hooks/use-registration";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "@styled-icons/bootstrap/ArrowLeft";
-import {
-  FormContainer,
-  InputGroup,
-  Label,
-  Input,
-  ErrorMessage,
-  SubmitButton,
-  BackButton,
-} from "./styles";
+import * as S from "./styles";
 
 export const RegistrationForm = () => {
   const {
@@ -26,7 +18,7 @@ export const RegistrationForm = () => {
     resolver: zodResolver(registrationSchema),
   });
 
-  const { registerUser, loading, error } = useRegistration();
+  const { publicGuilds, registerUser, loading, error } = useRegistration();
   const navigate = useNavigate();
 
   const onSubmit = async (data: RegistrationFormData) => {
@@ -38,44 +30,50 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <BackButton onClick={() => navigate("/")}>
+    <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
+      <S.BackButton onClick={() => navigate("/")}>
         <ArrowLeft size="24" />
-      </BackButton>
+      </S.BackButton>
 
-      <InputGroup>
-        <Label htmlFor="email">Email</Label>
+      <S.InputGroup>
+        <S.Label htmlFor="email">Email</S.Label>
         <Controller
           name="email"
           control={control}
           render={({ field }) => (
-            <Input {...field} type="email" placeholder="Digite seu email" />
+            <S.Input {...field} type="email" placeholder="Digite seu email" />
           )}
         />
-        {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-      </InputGroup>
+        {errors.email && (
+          <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
+        )}
+      </S.InputGroup>
 
-      <InputGroup>
-        <Label htmlFor="password">Senha</Label>
+      <S.InputGroup>
+        <S.Label htmlFor="password">Senha</S.Label>
         <Controller
           name="password"
           control={control}
           render={({ field }) => (
-            <Input {...field} type="password" placeholder="Digite sua senha" />
+            <S.Input
+              {...field}
+              type="password"
+              placeholder="Digite sua senha"
+            />
           )}
         />
         {errors.password && (
-          <ErrorMessage>{errors.password.message}</ErrorMessage>
+          <S.ErrorMessage>{errors.password.message}</S.ErrorMessage>
         )}
-      </InputGroup>
+      </S.InputGroup>
 
-      <InputGroup>
-        <Label htmlFor="password_confirmation">Confirme sua senha</Label>
+      <S.InputGroup>
+        <S.Label htmlFor="password_confirmation">Confirme sua senha</S.Label>
         <Controller
           name="password_confirmation"
           control={control}
           render={({ field }) => (
-            <Input
+            <S.Input
               {...field}
               type="password"
               placeholder="Confirme sua senha"
@@ -83,45 +81,68 @@ export const RegistrationForm = () => {
           )}
         />
         {errors.password_confirmation && (
-          <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>
+          <S.ErrorMessage>
+            {errors.password_confirmation.message}
+          </S.ErrorMessage>
         )}
-      </InputGroup>
+      </S.InputGroup>
 
-      <InputGroup>
-        <Label htmlFor="name">Nome Completo</Label>
+      <S.InputGroup>
+        <S.Label htmlFor="name">Nome Completo</S.Label>
         <Controller
           name="name"
           control={control}
           render={({ field }) => (
-            <Input
+            <S.Input
               {...field}
               type="text"
               placeholder="Digite seu nome completo"
             />
           )}
         />
-        {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
-      </InputGroup>
+        {errors.name && <S.ErrorMessage>{errors.name.message}</S.ErrorMessage>}
+      </S.InputGroup>
 
-      <InputGroup>
-        <Label htmlFor="nickname">Apelido</Label>
+      <S.InputGroup>
+        <S.Label htmlFor="nickname">Apelido</S.Label>
         <Controller
           name="nickname"
           control={control}
           render={({ field }) => (
-            <Input {...field} type="text" placeholder="Digite seu apelido" />
+            <S.Input {...field} type="text" placeholder="Digite seu apelido" />
           )}
         />
         {errors.nickname && (
-          <ErrorMessage>{errors.nickname.message}</ErrorMessage>
+          <S.ErrorMessage>{errors.nickname.message}</S.ErrorMessage>
         )}
-      </InputGroup>
+      </S.InputGroup>
 
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      <S.InputGroup>
+        <S.Label htmlFor="guild_id">Equipe</S.Label>
+        <Controller
+          name="guild_id"
+          control={control}
+          render={({ field }) => (
+            <S.Select {...field}>
+              <option value="">Selecione uma equipe</option>
+              {publicGuilds?.map((guild) => (
+                <option key={guild.id} value={guild.id}>
+                  {guild.name}
+                </option>
+              ))}
+            </S.Select>
+          )}
+        />
+        {errors.guild_id && (
+          <S.ErrorMessage>{errors.guild_id.message}</S.ErrorMessage>
+        )}
+      </S.InputGroup>
 
-      <SubmitButton type="submit" disabled={loading}>
+      {error && <S.ErrorMessage>{error}</S.ErrorMessage>}
+
+      <S.SubmitButton type="submit" disabled={loading}>
         {loading ? "Registrando..." : "Registrar"}
-      </SubmitButton>
-    </FormContainer>
+      </S.SubmitButton>
+    </S.FormContainer>
   );
 };
