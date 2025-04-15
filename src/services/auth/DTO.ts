@@ -49,6 +49,15 @@ export namespace ILogin {
   };
 }
 
+export namespace IValidateToken {
+  export type Params = {
+    token: string;
+  };
+  export type Response = {
+    data: IUser.UserWithRelations;
+  };
+}
+
 export namespace IRegistration {
   export type Params = {
     email: string;

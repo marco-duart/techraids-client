@@ -54,7 +54,7 @@ export const CharacterStatusPage = () => {
               <Coin size={20} />
               <span>Gold:</span>
             </S.CharacterLabel>
-            <S.CharacterValue>{gold.toFixed(2)}</S.CharacterValue>
+            <S.CharacterValue>{gold}</S.CharacterValue>
           </S.CharacterInfo>
 
           <S.CharacterInfo>
