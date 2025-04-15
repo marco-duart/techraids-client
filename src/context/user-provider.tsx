@@ -5,8 +5,8 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { IUser, ILogin } from "../services/auth/DTO";
-import { Login as LoginService } from "../services/auth/";
+import { IUser, ILogin, IValidateToken } from "../services/auth/DTO";
+import { Login as LoginService, ValidateToken } from "../services/auth/";
 import { useTheme } from "./theme-provider";
 
 interface UserContextType {
@@ -17,6 +17,9 @@ interface UserContextType {
   login: (params: ILogin.Params) => Promise<IUser.UserWithRelations>;
   logout: () => void;
   updateUser: (user: IUser.UserWithRelations) => void;
+  validateToken: (
+    params: IValidateToken.Params
+  ) => Promise<IUser.UserWithRelations>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -68,6 +71,28 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const validateToken = async (
+    params: IValidateToken.Params
+  ): Promise<IUser.UserWithRelations> => {
+    setIsLoading(true);
+    try {
+      const result = await ValidateToken(params);
+
+      if (result.success && result.data) {
+        const { user } = result.data;
+        setUser(user);
+        updateThemeType(user.role);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        return user;
+      } else {
+        throw new Error(result.message || "Token inválido.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = () => {
     setUser(null);
     setToken(null);
@@ -91,6 +116,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         login,
         logout,
         updateUser,
+        validateToken,
       }}
     >
       {children}

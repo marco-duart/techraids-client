@@ -65,6 +65,10 @@ export const Header = () => {
           <Table size={24} />
           <span>Tarefas</span>
         </S.CharacterNavLink>
+        <S.CharacterNavLink to="/character/ranking">
+          <Table size={24} />
+          <span>Ranking</span>
+        </S.CharacterNavLink>
       </S.CharacterNavLinks>
 
       <S.ThemeToggle onClick={toggleTheme}>
