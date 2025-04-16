@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PrivateRoute } from "../components/private-route";
 import { IUser } from "../services/auth/DTO";
 import { useAuth } from "../context/user-provider";
@@ -9,6 +9,7 @@ import {
   CharacterStatusPage,
   CharacterQuestPage,
   CharacterRankingPage,
+  CharacterSetupFlow,
   TasksPage,
   MissionsPage,
 } from "../pages";
@@ -19,7 +20,7 @@ import { CharacterLayout } from "../components/common/character-layout";
 import { AccessDeniedPage } from "../pages/auth/access-denied-page";
 
 export default function Router() {
-  const { isAuthChecked } = useAuth();
+  const { isAuthChecked, user } = useAuth();
 
   if (!isAuthChecked) {
     return <div>Carregando...</div>;
@@ -46,10 +47,15 @@ export default function Router() {
           path="/character/*"
           element={
             <PrivateRoute requiredRole={IUser.Role.CHARACTER}>
-              <CharacterLayout />
+              {user?.specialization && user?.character_class ? (
+                <CharacterLayout />
+              ) : (
+                <CharacterSetupFlow />
+              )}
             </PrivateRoute>
           }
         >
+          <Route index element={<Navigate to="home" replace />} />
           <Route path="home" element={<HomePage />} />
           <Route path="status" element={<CharacterStatusPage />} />
           <Route path="quest" element={<CharacterQuestPage />} />
