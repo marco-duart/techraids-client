@@ -9,7 +9,10 @@ export const registrationSchema = z
       .min(1, "Confirmação de senha é obrigatória"),
     name: z.string().min(1, "Nome completo é obrigatório"),
     nickname: z.string().min(1, "Apelido é obrigatório"),
-    guild_id: z.number().positive("Selecione uma equipe válida"),
+    guild_id: z
+      .string()
+      .transform(Number)
+      .pipe(z.number().positive("Selecione uma equipe válida")),
   })
   .refine((data) => data.password === data.password_confirmation, {
     message: "As senhas não coincidem",

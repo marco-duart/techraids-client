@@ -15,8 +15,8 @@ export const SelectSpecialization = async (
   try {
     const { token, ...data } = params;
 
-    await api.put<ISelectSpecialization.Response>(
-      `/character/select_specialization`,
+    await api.patch<ISelectSpecialization.Response>(
+      `/characters/select_specialization`,
       data,
       {
         headers: { Authorization: `Bearer ${token}` },
