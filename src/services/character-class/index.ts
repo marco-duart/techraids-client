@@ -6,7 +6,7 @@ import {
   IGetCharacterClass,
   IGetCharacterClasses,
   IUpdateCharacterClass,
-  ISwitchCharacterClass
+  ISwitchCharacterClass,
 } from "./DTO";
 
 export const SwitchCharacterClass = async (
@@ -15,8 +15,8 @@ export const SwitchCharacterClass = async (
   try {
     const { token, ...data } = params;
 
-    await api.put<ISwitchCharacterClass.Response>(
-      `/character/switch_class`,
+    await api.patch<ISwitchCharacterClass.Response>(
+      `/characters/switch_class`,
       data,
       {
         headers: { Authorization: `Bearer ${token}` },
