@@ -8,22 +8,23 @@ export const CharacterSetupFlow = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const onComplete = () => {
+    window.location.reload();
+  };
+
   useEffect(() => {
+    console.log("UseEffect do Setup: ", user);
     if (user?.specialization && user?.character_class) {
       navigate("/home");
     }
   }, [user, navigate]);
 
   if (!user?.specialization) {
-    return (
-      <SpecializationSelectionPage
-        onComplete={() => window.location.reload()}
-      />
-    );
+    return <SpecializationSelectionPage onComplete={() => onComplete()} />;
   }
 
   if (!user?.character_class) {
-    return <ClassSelectionPage onComplete={() => window.location.reload()} />;
+    return <ClassSelectionPage onComplete={() => onComplete()} />;
   }
 
   return null;

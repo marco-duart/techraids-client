@@ -14,7 +14,7 @@ export const ClassSelectionPage = ({
 }) => {
   const { characterClasses, switchCharacterClass, isLoading } =
     useCharacterClasses();
-  const { user, validateToken } = useAuth();
+  const { user } = useAuth();
   const { themeMode } = useTheme();
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -22,7 +22,6 @@ export const ClassSelectionPage = ({
     setSelectedId(id);
     const success = await switchCharacterClass({ character_class_id: id });
     if (success) {
-      await validateToken({ token: localStorage.getItem("token") || "" });
       onComplete();
     }
   };

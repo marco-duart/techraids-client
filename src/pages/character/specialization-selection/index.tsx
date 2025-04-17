@@ -15,7 +15,7 @@ export const SpecializationSelectionPage = ({
 }) => {
   const { specializations, selectSpecialization, isLoading } =
     useSpecializations();
-  const { user, validateToken } = useAuth();
+  const { user } = useAuth();
   const { themeMode } = useTheme();
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -23,7 +23,6 @@ export const SpecializationSelectionPage = ({
     setSelectedId(id);
     const success = await selectSpecialization({ specialization_id: id });
     if (success) {
-      await validateToken({ token: localStorage.getItem("token") || "" });
       onComplete();
     }
   };
