@@ -6,7 +6,7 @@ export const Footer = () => {
   const { themeType } = useTheme();
 
   return (
-    <S.FooterContainer themeType={themeType}>
+    <S.FooterContainer $themeType={themeType}>
       <S.FooterContent>
         <S.Copyright>
           © 2025 Marco Aurélio Duarte Bezerra. Todos os direitos reservados.

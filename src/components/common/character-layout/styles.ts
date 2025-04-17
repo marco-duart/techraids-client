@@ -3,7 +3,7 @@ import { ThemeType } from "../../../assets/styles/theme";
 import { NavLink } from "react-router-dom";
 import { DEVICE } from "../../../utils/constants";
 
-export const CharacterLayoutContainer = styled.div<{ themeType: ThemeType }>`
+export const CharacterLayoutContainer = styled.div<{ $themeType: ThemeType }>`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -16,7 +16,7 @@ export const CharacterContent = styled.main`
   overflow-y: auto;
 `;
 
-export const CharacterHeader = styled.header<{ themeType: ThemeType }>`
+export const CharacterHeader = styled.header<{ $themeType: ThemeType }>`
   display: flex;
   flex-direction: column;
   align-items: center;

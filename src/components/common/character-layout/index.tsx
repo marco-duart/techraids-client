@@ -7,7 +7,7 @@ export const CharacterLayout = () => {
   const { themeType } = useTheme();
 
   return (
-    <S.CharacterLayoutContainer themeType={themeType}>
+    <S.CharacterLayoutContainer $themeType={themeType}>
       <Header />
 
       <S.CharacterContent>

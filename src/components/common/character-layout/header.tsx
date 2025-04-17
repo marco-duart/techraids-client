@@ -31,7 +31,7 @@ export const Header = () => {
   };
 
   return (
-    <S.CharacterHeader themeType={themeType}>
+    <S.CharacterHeader $themeType={themeType}>
       <S.DropdownMenu>
         <S.UserPhoto
           src={user?.photo_url}

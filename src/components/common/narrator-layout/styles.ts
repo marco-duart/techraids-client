@@ -62,7 +62,7 @@ export const ContentWrapper = styled.div<{ isCollapsed: boolean }>`
   }
 `;
 
-export const FooterContainer = styled.footer<{ themeType: ThemeType }>`
+export const FooterContainer = styled.footer<{ $themeType: ThemeType }>`
   width: 100%;
   background-color: ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.text};
