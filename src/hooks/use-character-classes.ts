@@ -20,7 +20,7 @@ import {
 import { useAuth } from "../context/user-provider";
 
 export const useCharacterClasses = () => {
-  const { token } = useAuth();
+  const { token, validateToken } = useAuth();
   const [characterClasses, setCharacterClasses] = useState<
     ICharacterClass.Model[]
   >([]);
@@ -50,12 +50,16 @@ export const useCharacterClasses = () => {
 
     setIsLoading(true);
     const result = await SwitchCharacterClass({ ...data, token });
+
     if (result.success) {
       toast.success(result.message);
+      await validateToken({ token });
     } else {
       toast.error(result.message);
     }
+
     setIsLoading(false);
+    return result.success;
   };
 
   const createCharacterClass = async (

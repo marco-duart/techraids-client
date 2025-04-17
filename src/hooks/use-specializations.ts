@@ -20,7 +20,7 @@ import {
 import { useAuth } from "../context/user-provider";
 
 export const useSpecializations = () => {
-  const { token } = useAuth();
+  const { token, validateToken } = useAuth();
   const [specializations, setSpecializations] = useState<
     ISpecialization.Model[]
   >([]);
@@ -50,12 +50,16 @@ export const useSpecializations = () => {
 
     setIsLoading(true);
     const result = await SelectSpecialization({ ...data, token });
+
     if (result.success) {
       toast.success(result.message);
+      await validateToken({ token });
     } else {
       toast.error(result.message);
     }
+
     setIsLoading(false);
+    return result.success;
   };
 
   const createSpecialization = async (

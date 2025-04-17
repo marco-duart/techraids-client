@@ -16,7 +16,7 @@ interface UserContextType {
   isAuthChecked: boolean;
   login: (params: ILogin.Params) => Promise<IUser.UserWithRelations>;
   logout: () => void;
-  updateUser: (user: IUser.UserWithRelations) => void;
+  updateUserAndTheme: (user: IUser.UserWithRelations) => void;
   validateToken: (
     params: IValidateToken.Params
   ) => Promise<IUser.UserWithRelations>;
@@ -37,10 +37,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     if (storedUser && storedToken) {
       const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser);
+      updateUserAndTheme(parsedUser);
       setToken(storedToken);
-
-      updateThemeType(parsedUser.role);
     }
 
     setIsAuthChecked(true);
@@ -55,12 +53,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
       if (result.success && result.data) {
         const { user, token } = result.data;
-        setUser(user);
+        updateUserAndTheme(user);
         setToken(token);
 
-        updateThemeType(user.role);
-
-        localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", token);
         return user;
       } else {
@@ -75,20 +70,20 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     params: IValidateToken.Params
   ): Promise<IUser.UserWithRelations> => {
     setIsLoading(true);
+    console.log("Início do context: ", user)
     try {
       const result = await ValidateToken(params);
 
       if (result.success && result.data) {
         const { user } = result.data;
-        setUser(user);
-        updateThemeType(user.role);
-        localStorage.setItem("user", JSON.stringify(user));
+        updateUserAndTheme(user);
 
         return user;
       } else {
         throw new Error(result.message || "Token inválido.");
       }
     } finally {
+      console.log("Fim do context: ", user)
       setIsLoading(false);
     }
   };
@@ -101,8 +96,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem("token");
   };
 
-  const updateUser = (updatedUser: IUser.UserWithRelations) => {
+  const updateUserAndTheme = (updatedUser: IUser.UserWithRelations) => {
     setUser(updatedUser);
+    updateThemeType(updatedUser.role);
     localStorage.setItem("user", JSON.stringify(updatedUser));
   };
 
@@ -115,7 +111,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         isAuthChecked,
         login,
         logout,
-        updateUser,
+        updateUserAndTheme,
         validateToken,
       }}
     >
