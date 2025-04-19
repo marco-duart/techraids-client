@@ -8,6 +8,7 @@ import {
   Map,
   Table,
   BoxArrowRight,
+  Person,
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
@@ -40,6 +41,12 @@ export const Header = () => {
         />
         {isDropdownOpen && (
           <S.DropdownContent>
+            <S.DropdownItem>
+              <S.CharacterNavLink to="/character/account">
+                <Person size={16} />
+                Conta
+              </S.CharacterNavLink>
+            </S.DropdownItem>
             <S.DropdownItem onClick={handleLogout}>
               <BoxArrowRight size={16} />
               Sair
