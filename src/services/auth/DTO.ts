@@ -2,7 +2,7 @@ import { IVillage } from "../village/DTO";
 import { IGuild } from "../guild/DTO";
 import { ICharacterClass } from "../character-class/DTO";
 import { ISpecialization } from "../specialization/DTO";
-import { IHonoraryTitle } from "../honorary_title/DTO";
+import { IHonoraryTitle } from "../honorary-title/DTO";
 export namespace IUser {
   export enum Role {
     NARRATOR = "narrator",

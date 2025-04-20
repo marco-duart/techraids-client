@@ -2,7 +2,7 @@ import { IQuest } from "../quest/DTO";
 import { IChapter } from "../chapter/DTO";
 import { ITask } from "../task/DTO";
 import { IMission } from "../mission/DTO";
-import { IHonoraryTitle } from "../honorary_title/DTO";
+import { IHonoraryTitle } from "../honorary-title/DTO";
 
 export namespace IGuildMember {
   export interface Model {

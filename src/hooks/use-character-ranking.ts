@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { GetCharacterRanking } from "../services/character_ranking";
-import { IGetCharacterRanking } from "../services/character_ranking/DTO";
+import { GetCharacterRanking } from "../services/character-ranking";
+import { IGetCharacterRanking } from "../services/character-ranking/DTO";
 import { useAuth } from "../context/user-provider";
 
 export const useCharacterRanking = () => {
