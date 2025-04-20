@@ -176,3 +176,94 @@ export const InputIconWrapper = styled.div`
     opacity: 0.6;
   }
 `;
+
+export const PasswordSection = styled.section`
+  background: ${({ theme }) => theme.secondary};
+  border: 3px solid ${({ theme }) => theme.border};
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+`;
+
+export const PasswordHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed ${({ theme }) => theme.border};
+`;
+
+export const PasswordTitle = styled.h2`
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: ${({ theme }) => theme.textTitle};
+`;
+
+export const PasswordForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+export const FormLabel = styled.label`
+  font-weight: bold;
+  color: ${({ theme }) => theme.textTitle};
+`;
+
+export const FormInput = styled.input`
+  padding: 0.75rem;
+  background: ${({ theme }) => theme.primary}10;
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 4px;
+  color: ${({ theme }) => theme.text};
+  font-family: "Book Antiqua", serif;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.accent};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.accent}40;
+  }
+`;
+
+export const FormActions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const PasswordSubmitButton = styled.button`
+  padding: 0.75rem 1.5rem;
+  background: ${({ theme }) => theme.accent};
+  border: none;
+  border-radius: 4px;
+  color: ${({ theme }) => theme.textTitle};
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
+
+export const PasswordErrorMessage = styled.span`
+  color: ${({ theme }) => theme.error};
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-family: "Book Antiqua", serif;
+`;
