@@ -4,7 +4,7 @@ import { taskSchema, TaskFormData } from "../../schemas/task-schema";
 import * as S from "./styles";
 import { ITask } from "../../services/task/DTO";
 import { Scroll } from "@styled-icons/fa-solid";
-import { Sword, Coins } from "@styled-icons/remix-line";
+import { Sword } from "@styled-icons/remix-line";
 import { Times } from "@styled-icons/fa-solid";
 import { IconButton } from "../buttons/icon-button";
 
@@ -25,8 +25,8 @@ export const TaskForm = ({ task, onSubmit, onClose, isLoading }: Props) => {
     defaultValues: {
       title: task?.title || "",
       description: task?.description || "",
-      status: task?.status || "pending",
-      experience_reward: task?.experience_reward || 0,
+      status: "pending",
+      experience_reward: 0,
     },
   });
 
@@ -70,21 +70,6 @@ export const TaskForm = ({ task, onSubmit, onClose, isLoading }: Props) => {
         />
         {errors.description && (
           <S.ErrorMessage>{errors.description.message}</S.ErrorMessage>
-        )}
-      </S.InputGroup>
-
-      <S.InputGroup>
-        <S.Label htmlFor="experience_reward">
-          <Coins size={16} /> Recompensa (XP)
-        </S.Label>
-        <S.Input
-          id="experience_reward"
-          type="number"
-          {...register("experience_reward", { valueAsNumber: true })}
-          placeholder="0"
-        />
-        {errors.experience_reward && (
-          <S.ErrorMessage>{errors.experience_reward.message}</S.ErrorMessage>
         )}
       </S.InputGroup>
 
