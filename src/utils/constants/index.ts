@@ -9,6 +9,8 @@ import paperTextureDark from "../../assets/images/paper-texture-dark.jpg";
 import worldMap from "../../assets/images/world-map.jpg";
 import questMap from "../../assets/images/quest-map.jpg";
 import clouds from "../../assets/images/clouds.png";
+import openedChest from "../../assets/images/opened-chest.png";
+import closedChest from "../../assets/images/closed-chest.png";
 
 import mainThemeSong from "../../assets/audios/celtic-main-theme.mp3";
 
@@ -42,6 +44,8 @@ export const IMAGES = {
   worldMap,
   questMap,
   clouds,
+  openedChest,
+  closedChest,
 };
 
 export const SONGS = {
