@@ -1,5 +1,5 @@
 import { IReward } from "../rewards/DTO";
-import { ITreasureChest } from "../treasure_chest/DTO";
+import { ITreasureChest } from "../treasure-chest/DTO";
 
 export namespace IPurchaseChest {
   export type Params = {

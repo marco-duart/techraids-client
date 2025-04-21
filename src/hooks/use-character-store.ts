@@ -11,7 +11,7 @@ import {
 } from "../services/character-store/DTO";
 import { useAuth } from "../context/user-provider";
 import { IReward } from "../services/rewards/DTO";
-import { ITreasureChest } from "../services/treasure_chest/DTO";
+import { ITreasureChest } from "../services/treasure-chest/DTO";
 
 export const useCharacterStore = () => {
   const { token, user, validateToken } = useAuth();

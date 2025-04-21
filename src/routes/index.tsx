@@ -6,6 +6,7 @@ import { useAuth } from "../context/user-provider";
 import {
   LoginPage,
   RegistrationPage,
+  CharacterHomePage,
   CharacterAccountPage,
   CharacterStatusPage,
   CharacterQuestPage,
@@ -58,7 +59,7 @@ export default function Router() {
           }
         >
           <Route index element={<Navigate to="home" replace />} />
-          <Route path="home" element={<HomePage />} />
+          <Route path="home" element={<CharacterHomePage />} />
           <Route path="account" element={<CharacterAccountPage />} />
           <Route path="status" element={<CharacterStatusPage />} />
           <Route path="quest" element={<CharacterQuestPage />} />
