@@ -10,6 +10,7 @@ import {
   BoxArrowRight,
   Person,
 } from "@styled-icons/bootstrap";
+import { Trophy, Store, ShoppingCart } from "@styled-icons/fa-solid";
 import * as S from "./styles";
 
 export const Header = () => {
@@ -72,8 +73,12 @@ export const Header = () => {
           <Table size={24} />
           <span>Tarefas</span>
         </S.CharacterNavLink>
+        <S.CharacterNavLink to="/character/store">
+          <Store size={24} />
+          <span>Loja</span>
+        </S.CharacterNavLink>
         <S.CharacterNavLink to="/character/ranking">
-          <Table size={24} />
+          <Trophy size={24} />
           <span>Ranking</span>
         </S.CharacterNavLink>
       </S.CharacterNavLinks>
