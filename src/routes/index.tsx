@@ -11,8 +11,9 @@ import {
   CharacterQuestPage,
   CharacterRankingPage,
   CharacterSetupFlow,
-  TasksPage,
-  MissionsPage,
+  CharacterTasksPage,
+  CharacterMissionsPage,
+  CharacterStorePage,
 } from "../pages";
 
 import { HomePage } from "../pages/home/home-page";
@@ -61,8 +62,9 @@ export default function Router() {
           <Route path="account" element={<CharacterAccountPage />} />
           <Route path="status" element={<CharacterStatusPage />} />
           <Route path="quest" element={<CharacterQuestPage />} />
-          <Route path="tasks" element={<TasksPage />} />
-          <Route path="missions" element={<MissionsPage />} />
+          <Route path="tasks" element={<CharacterTasksPage />} />
+          <Route path="missions" element={<CharacterMissionsPage />} />
+          <Route path="store" element={<CharacterStorePage />} />
           <Route path="ranking" element={<CharacterRankingPage />} />
         </Route>
 
