@@ -124,14 +124,6 @@ export const SpecializationCard = styled(motion.div)<{
   }
 `;
 
-export const SpecIcon = styled.div`
-  margin-bottom: 1rem;
-  svg {
-    color: ${({ theme }) => theme.accent};
-    filter: drop-shadow(0 0 5px ${({ theme }) => theme.accent}80);
-  }
-`;
-
 export const SpecTitle = styled.h2`
   font-size: 1.8rem;
   margin-bottom: 1rem;

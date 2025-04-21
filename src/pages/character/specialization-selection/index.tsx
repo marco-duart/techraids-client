@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSpecializations } from "../../../hooks/use-specializations";
 import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
 import { motion } from "framer-motion";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
-// import { Shield, MagicWand, BowArrow, Sword } from "@styled-icons/remix-fill";
-import { Shield, Sword } from "@styled-icons/remix-fill";
+import { Sword } from "@styled-icons/remix-fill";
 
 export const SpecializationSelectionPage = ({
   onComplete,
@@ -24,19 +23,6 @@ export const SpecializationSelectionPage = ({
     const success = await selectSpecialization({ specialization_id: id });
     if (success) {
       onComplete();
-    }
-  };
-
-  const getIconForSpecialization = (title: string) => {
-    switch (title.toLowerCase()) {
-      case "combate":
-        return <Sword size={48} />;
-      case "magia":
-        return <Sword size={48} />;
-      case "arqueiro":
-        return <Sword size={48} />;
-      default:
-        return <Shield size={48} />;
     }
   };
 
@@ -78,7 +64,6 @@ export const SpecializationSelectionPage = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <S.SpecIcon>{getIconForSpecialization(spec.title)}</S.SpecIcon>
             <S.SpecTitle>{spec.title}</S.SpecTitle>
             <S.SpecDescription>{spec.description}</S.SpecDescription>
             <S.SelectButton selected={selectedId === spec.id}>

@@ -72,7 +72,7 @@ export const CharacterAccountPage = () => {
 
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
-    const size = 200; // Tamanho final desejado
+    const size = 200;
 
     canvas.width = size;
     canvas.height = size;
