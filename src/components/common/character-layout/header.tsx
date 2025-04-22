@@ -10,7 +10,7 @@ import {
   BoxArrowRight,
   Person,
 } from "@styled-icons/bootstrap";
-import { Trophy, Store, ShoppingCart } from "@styled-icons/fa-solid";
+import { Trophy, Store, Home } from "@styled-icons/fa-solid";
 import * as S from "./styles";
 
 export const Header = () => {
@@ -57,6 +57,10 @@ export const Header = () => {
       </S.DropdownMenu>
 
       <S.CharacterNavLinks>
+        <S.CharacterNavLink to="/character/home">
+          <Home size={24} />
+          <span>Home</span>
+        </S.CharacterNavLink>
         <S.CharacterNavLink to="/character/status">
           <PersonCircle size={24} />
           <span>Personagem</span>
