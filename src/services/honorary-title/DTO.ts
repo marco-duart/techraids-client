@@ -9,3 +9,11 @@ export namespace IHonoraryTitle {
     narrator_id: number;
   }
 }
+
+export namespace ISwitchActiveTitle {
+  export type Params = {
+    token: string;
+    honorary_title_id: number;
+  };
+  export type Response = { success: boolean; error?: string };
+}
