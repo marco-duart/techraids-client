@@ -1,12 +1,16 @@
 import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
 import { Sword, Shield, Fire, Map, Coin } from "@styled-icons/remix-line";
+import { Crown } from "@styled-icons/boxicons-regular";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
+import { useHonoraryTitles } from "../../../hooks/use-honorary-titles";
+import { Dropdown } from "../../../components/dropdown";
 
 export const CharacterStatusPage = () => {
   const { user } = useAuth();
   const { themeMode } = useTheme();
+  const { isLoading, switchHonoraryTitle } = useHonoraryTitles();
 
   if (!user) {
     return <div>Carregando...</div>;
@@ -21,7 +25,14 @@ export const CharacterStatusPage = () => {
     gold,
     experience,
     current_level,
+    active_title,
+    acquired_titles,
   } = user;
+
+  const handleTitleChange = async (titleId: number) => {
+    if (active_title?.id === titleId) return;
+    await switchHonoraryTitle({ honorary_title_id: titleId });
+  };
 
   return (
     <S.CharacterContainer>
@@ -44,15 +55,43 @@ export const CharacterStatusPage = () => {
         />
 
         <S.CharacterTitle>{nickname}</S.CharacterTitle>
+
+        {active_title && (
+          <S.ActiveTitleContainer>
+            <Crown size={20} />
+            <S.ActiveTitleText>{active_title.title}</S.ActiveTitleText>
+            <S.ActiveTitleSlogan>"{active_title.slogan}"</S.ActiveTitleSlogan>
+          </S.ActiveTitleContainer>
+        )}
+
         <S.CharacterSubtitle>"{character_class.slogan}"</S.CharacterSubtitle>
 
         <S.DecorativeBorder />
+
+        {acquired_titles.length > 0 && (
+          <S.TitleSelectorContainer>
+            <S.CharacterLabel>
+              <Crown size={20} />
+              <span>Selecione um Título:</span>
+            </S.CharacterLabel>
+            <Dropdown
+              options={acquired_titles.map((title) => ({
+                value: title.id,
+                label: title.title,
+                selected: active_title?.id === title.id,
+              }))}
+              onSelect={handleTitleChange}
+              disabled={isLoading}
+              placeholder="Choose a title..."
+            />
+          </S.TitleSelectorContainer>
+        )}
 
         <S.CharacterInfoGroup>
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Coin size={20} />
-              <span>Gold:</span>
+              <span>Ouro:</span>
             </S.CharacterLabel>
             <S.CharacterValue>{gold}</S.CharacterValue>
           </S.CharacterInfo>
@@ -60,7 +99,7 @@ export const CharacterStatusPage = () => {
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Fire size={20} />
-              <span>Experience:</span>
+              <span>Experiência:</span>
             </S.CharacterLabel>
             <S.CharacterValue>{experience}</S.CharacterValue>
           </S.CharacterInfo>
@@ -72,7 +111,7 @@ export const CharacterStatusPage = () => {
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Shield size={20} />
-              <span>Specialization:</span>
+              <span>Especialização:</span>
             </S.CharacterLabel>
             <S.CharacterValue>{specialization.title}</S.CharacterValue>
           </S.CharacterInfo>
@@ -80,7 +119,7 @@ export const CharacterStatusPage = () => {
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Sword size={20} />
-              <span>Class:</span>
+              <span>Classe:</span>
             </S.CharacterLabel>
             <S.CharacterValue>{character_class.name}</S.CharacterValue>
           </S.CharacterInfo>
@@ -92,7 +131,7 @@ export const CharacterStatusPage = () => {
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Map size={20} />
-              <span>Village:</span>
+              <span>Vilarejo:</span>
             </S.CharacterLabel>
             <S.CharacterValue>{village.name}</S.CharacterValue>
           </S.CharacterInfo>
@@ -100,7 +139,7 @@ export const CharacterStatusPage = () => {
           <S.CharacterInfo>
             <S.CharacterLabel>
               <Map size={20} />
-              <span>Guild:</span>
+              <span>Guilda:</span>
             </S.CharacterLabel>
             <S.CharacterValue>{guild.name}</S.CharacterValue>
           </S.CharacterInfo>

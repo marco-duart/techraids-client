@@ -264,3 +264,46 @@ export const DecorativeLine = styled.div`
   );
   margin: 0.5rem 0;
 `;
+
+export const ActiveTitleContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  background: ${({ theme }) => theme.secondary};
+  border: 2px solid ${({ theme }) => theme.accent};
+  border-radius: 8px;
+  box-shadow: ${({ theme }) => theme.shadow};
+`;
+
+export const ActiveTitleText = styled.span`
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.accent};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  @media ${DEVICE.tablet} {
+    font-size: 1.4rem;
+  }
+`;
+
+export const ActiveTitleSlogan = styled.span`
+  font-size: 0.9rem;
+  font-style: italic;
+  color: ${({ theme }) => theme.emphasis};
+
+  @media ${DEVICE.tablet} {
+    font-size: 1rem;
+  }
+`;
+
+export const TitleSelectorContainer = styled.div`
+  width: 100%;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
