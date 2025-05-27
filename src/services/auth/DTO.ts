@@ -36,6 +36,7 @@ export namespace IUser {
     character_class: ICharacterClass.Model;
     specialization: ISpecialization.Model;
     active_title?: IHonoraryTitle.Model;
+    acquired_titles: IHonoraryTitle.Model[];
   };
 }
 
