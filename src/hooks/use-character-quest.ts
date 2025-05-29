@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/user-provider";
-import { GetCharacterQuest } from "../services/character-quest";
+import {
+  GetCharacterQuest,
+  ProgressChapter,
+  DefeatBoss,
+} from "../services/character-quest";
 import { IGetCharacterQuest } from "../services/character-quest/DTO";
 
 export const useCharacterQuest = () => {
@@ -22,6 +26,8 @@ export const useCharacterQuest = () => {
 
     if (result.success && result.data) {
       setData(result.data);
+    } else {
+      setError(result.message);
     }
 
     setIsLoading(false);
@@ -30,6 +36,54 @@ export const useCharacterQuest = () => {
   useEffect(() => {
     fetchCharacterQuest();
   }, [token]);
+
+  const progressChapter = async () => {
+    if (!token) {
+      setError("Token não disponível.");
+      return { success: false };
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await ProgressChapter({ token });
+
+      if (result.success) {
+        await fetchCharacterQuest();
+      } else {
+        setError(result.message);
+      }
+
+      return result;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const defeatBoss = async () => {
+    if (!token) {
+      setError("Token não disponível.");
+      return { success: false };
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const result = await DefeatBoss({ token });
+
+      if (result.success) {
+        await fetchCharacterQuest();
+      } else {
+        setError(result.message);
+      }
+
+      return result;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const refresh = () => {
     fetchCharacterQuest();
@@ -40,5 +94,7 @@ export const useCharacterQuest = () => {
     isLoading,
     error,
     refresh,
+    progressChapter,
+    defeatBoss,
   };
 };
