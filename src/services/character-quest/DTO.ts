@@ -3,6 +3,7 @@ import { IChapter } from "../chapter/DTO";
 import { ITask } from "../task/DTO";
 import { IMission } from "../mission/DTO";
 import { IHonoraryTitle } from "../honorary-title/DTO";
+import { IBoss } from "../boss/DTO";
 
 export namespace IGuildMember {
   export interface Model {
@@ -30,5 +31,27 @@ export namespace IGetCharacterQuest {
     guild_members: IGuildMember.Model[];
     last_task: ITask.Model;
     last_mission: IMission.Model;
+    current_boss:
+      | (IBoss.Model & { team_can_defeat: boolean; is_finishing_hero: boolean })
+      | null;
+  };
+}
+
+export namespace IProgressChapter {
+  export type Params = {
+    token: string;
+  };
+  export type Response = {
+    success: boolean;
+    chapter: IChapter.Model | null;
+  };
+}
+
+export namespace IDefeatBoss {
+  export type Params = {
+    token: string;
+  };
+  export type Response = {
+    success: boolean;
   };
 }
