@@ -29,6 +29,8 @@ interface Props {
     guildMembers: IGuildMember.Model[] | undefined;
   };
   currentExperience: number;
+  onProgressChapter: () => Promise<{ success: boolean }>;
+  onDefeatBoss: () => Promise<{ success: boolean }>;
 }
 
 const ChapterModal: React.FC<Props> = ({
@@ -38,8 +40,10 @@ const ChapterModal: React.FC<Props> = ({
   boss,
   members,
   currentExperience,
+  onProgressChapter,
+  onDefeatBoss,
 }) => {
-  const { progressChapter, defeatBoss, isLoading } = useCharacterQuest();
+  const { isLoading } = useCharacterQuest();
   const [currentView, setCurrentView] = useState<"info" | "battle">("info");
   const hasCharacters =
     members.user || (members.guildMembers && members.guildMembers.length > 0);
@@ -236,7 +240,7 @@ const ChapterModal: React.FC<Props> = ({
           currentExperience >= chapter.required_experience &&
           (!boss || boss.defeated) && (
             <>
-              <S.ProgressButton onClick={progressChapter} disabled={isLoading}>
+              <S.ProgressButton onClick={onProgressChapter} disabled={isLoading}>
                 {isLoading ? (
                   <S.LoadingSpinner />
                 ) : (
@@ -255,7 +259,7 @@ const ChapterModal: React.FC<Props> = ({
           boss?.team_can_defeat &&
           boss?.is_finishing_hero && (
             <>
-              <S.DefeatButton onClick={defeatBoss} disabled={isLoading}>
+              <S.DefeatButton onClick={onDefeatBoss} disabled={isLoading}>
                 {isLoading ? (
                   <S.LoadingSpinner />
                 ) : (

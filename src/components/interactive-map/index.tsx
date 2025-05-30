@@ -16,6 +16,8 @@ interface Props {
     | (IBoss.Model & { team_can_defeat: boolean; is_finishing_hero: boolean })
     | null;
   user: IUser.UserWithRelations | null;
+  onProgressChapter: () => Promise<{ success: boolean }>;
+  onDefeatBoss: () => Promise<{ success: boolean }>;
 }
 
 const mapOriginalWidth = 2912;
@@ -27,6 +29,8 @@ const InteractiveMap: React.FC<Props> = ({
   currentChapter,
   currentBoss,
   user,
+  onProgressChapter,
+  onDefeatBoss,
 }) => {
   const [mapSize, setMapSize] = useState({ width: 1, height: 1 });
   const mapRef = useRef<HTMLDivElement>(null);
@@ -177,6 +181,8 @@ const InteractiveMap: React.FC<Props> = ({
               boss={currentBoss}
               members={getChapterCharacters(selectedChapter.id)}
               currentExperience={user?.experience || 0}
+              onProgressChapter={onProgressChapter}
+              onDefeatBoss={onDefeatBoss}
             />
           )}
         </>
