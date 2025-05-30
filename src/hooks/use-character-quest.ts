@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "../context/user-provider";
 import {
   GetCharacterQuest,
@@ -13,7 +13,7 @@ export const useCharacterQuest = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchCharacterQuest = async () => {
+  const fetchCharacterQuest = useCallback(async () => {
     if (!token) {
       setError("Token não disponível.");
       return;
@@ -31,13 +31,13 @@ export const useCharacterQuest = () => {
     }
 
     setIsLoading(false);
-  };
+  }, [token]);
 
   useEffect(() => {
     fetchCharacterQuest();
-  }, [token]);
+  }, [token, fetchCharacterQuest]);
 
-  const progressChapter = async () => {
+  const progressChapter = useCallback(async () => {
     if (!token) {
       setError("Token não disponível.");
       return { success: false };
@@ -59,9 +59,9 @@ export const useCharacterQuest = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [token, fetchCharacterQuest]);
 
-  const defeatBoss = async () => {
+  const defeatBoss = useCallback(async () => {
     if (!token) {
       setError("Token não disponível.");
       return { success: false };
@@ -83,11 +83,11 @@ export const useCharacterQuest = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [token, fetchCharacterQuest]);
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     fetchCharacterQuest();
-  };
+  }, [fetchCharacterQuest]);
 
   return {
     data,
