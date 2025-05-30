@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { IMAGES } from "../../utils/constants";
 import { IChapter } from "../../services/chapter/DTO";
+import { IBoss } from "../../services/boss/DTO";
 import { IGuildMember } from "../../services/character-quest/DTO";
 import { IUser } from "../../services/auth/DTO";
 import * as S from "./styles";
@@ -11,6 +12,9 @@ interface Props {
   chapters: IChapter.Model[];
   guildMembers: IGuildMember.Model[];
   currentChapter: IChapter.Model;
+  currentBoss?:
+    | (IBoss.Model & { team_can_defeat: boolean; is_finishing_hero: boolean })
+    | null;
   user: IUser.UserWithRelations | null;
 }
 
@@ -21,6 +25,7 @@ const InteractiveMap: React.FC<Props> = ({
   chapters,
   guildMembers,
   currentChapter,
+  currentBoss,
   user,
 }) => {
   const [mapSize, setMapSize] = useState({ width: 1, height: 1 });
@@ -169,7 +174,9 @@ const InteractiveMap: React.FC<Props> = ({
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               chapter={selectedChapter}
+              boss={currentBoss}
               members={getChapterCharacters(selectedChapter.id)}
+              currentExperience={user?.experience || 0}
             />
           )}
         </>
