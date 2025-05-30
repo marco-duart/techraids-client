@@ -202,6 +202,22 @@ const ChapterModal: React.FC<Props> = ({
     );
   };
 
+  const canProgressChapter =
+    members.user?.current_chapter_id === chapter.id &&
+    currentExperience >= chapter.required_experience &&
+    (!boss || boss.defeated);
+
+  const canClaimVictory =
+    members.user?.current_chapter_id === boss?.chapter_id &&
+    !boss?.defeated &&
+    boss?.team_can_defeat &&
+    boss?.is_finishing_hero;
+
+  const teamCanDefeatBoss =
+    members.user?.current_chapter_id === boss?.chapter_id &&
+    boss?.team_can_defeat &&
+    !boss?.is_finishing_hero;
+
   return (
     <S.ModalOverlay onClick={onClose}>
       <S.ModalContent onClick={(e) => e.stopPropagation()} themeMode="dark">
@@ -236,52 +252,46 @@ const ChapterModal: React.FC<Props> = ({
           </S.StateSwitchButton>
         )}
 
-        {members.user?.current_chapter_id === chapter.id &&
-          currentExperience >= chapter.required_experience &&
-          (!boss || boss.defeated) && (
-            <>
-              <S.ProgressButton onClick={onProgressChapter} disabled={isLoading}>
-                {isLoading ? (
-                  <S.LoadingSpinner />
-                ) : (
-                  "🏰 Avançar para o Próximo Capítulo"
-                )}
-              </S.ProgressButton>
-              {isLoading && (
-                <S.LoadingMessage>
-                  Preparando o próximo capítulo...
-                </S.LoadingMessage>
+        {canProgressChapter && (
+          <>
+            <S.ProgressButton onClick={onProgressChapter} disabled={isLoading}>
+              {isLoading ? (
+                <S.LoadingSpinner />
+              ) : (
+                "🏰 Avançar para o Próximo Capítulo"
               )}
-            </>
-          )}
+            </S.ProgressButton>
+            {isLoading && (
+              <S.LoadingMessage>
+                Preparando o próximo capítulo...
+              </S.LoadingMessage>
+            )}
+          </>
+        )}
 
-        {members.user?.current_chapter_id === boss?.chapter_id && !boss?.defeated &&
-          boss?.team_can_defeat &&
-          boss?.is_finishing_hero && (
-            <>
-              <S.DefeatButton onClick={onDefeatBoss} disabled={isLoading}>
-                {isLoading ? (
-                  <S.LoadingSpinner />
-                ) : (
-                  `⚔️ Reivindicar Vitória sobre ${boss.name}`
-                )}
-              </S.DefeatButton>
-              {isLoading && (
-                <S.LoadingMessage>
-                  Preparando a batalha épica...
-                </S.LoadingMessage>
+        {canClaimVictory && (
+          <>
+            <S.DefeatButton onClick={onDefeatBoss} disabled={isLoading}>
+              {isLoading ? (
+                <S.LoadingSpinner />
+              ) : (
+                `⚔️ Reivindicar Vitória sobre ${boss?.name}`
               )}
-            </>
-          )}
+            </S.DefeatButton>
+            {isLoading && (
+              <S.LoadingMessage>
+                Preparando a batalha épica...
+              </S.LoadingMessage>
+            )}
+          </>
+        )}
 
-        {members.user?.current_chapter_id === boss?.chapter_id &&
-          boss?.team_can_defeat &&
-          !boss?.is_finishing_hero && (
-            <S.TeamMessage>
-              💡 Sua equipe tem poder suficiente para desafiar {boss.name}!
-              Complete suas missões para reivindicar a vitória.
-            </S.TeamMessage>
-          )}
+        {teamCanDefeatBoss && (
+          <S.TeamMessage>
+            💡 Sua equipe tem poder suficiente para desafiar {boss?.name}!
+            Complete suas missões para reivindicar a vitória.
+          </S.TeamMessage>
+        )}
       </S.ModalContent>
     </S.ModalOverlay>
   );
