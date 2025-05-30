@@ -21,12 +21,21 @@ export namespace IGuildMember {
 }
 
 export namespace IGetCharacterQuest {
+  type FinishingCharacter = {
+    id: number;
+    nickname: string;
+    image_url: string;
+  };
   export type Params = {
     token: string;
   };
   export type Response = {
     quest: IQuest.Model;
-    chapters: IChapter.Model[];
+    chapters: Array<
+      IChapter.Model & {
+        boss?: IBoss.Model & { finishing_character?: FinishingCharacter };
+      }
+    >;
     current_chapter: IChapter.Model;
     guild_members: IGuildMember.Model[];
     last_task: ITask.Model;
