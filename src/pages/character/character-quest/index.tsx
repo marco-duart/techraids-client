@@ -19,24 +19,16 @@ const InteractiveMap = lazy(
 );
 
 export const CharacterQuestPage = () => {
-  const { data, isLoading, error, progressChapter, defeatBoss, refresh } = useCharacterQuest();
+  const { data, isLoading, error, progressChapter, defeatBoss } = useCharacterQuest();
   const { user } = useAuth();
   const [isChallengeStarted, setIsChallengeStarted] = useState(false);
 
   const handleProgressChapter = async () => {
-    const result = await progressChapter();
-    if (result.success) {
-      await refresh();
-    }
-    return result;
+    return await progressChapter();
   };
 
   const handleDefeatBoss = async () => {
-    const result = await defeatBoss();
-    if (result.success) {
-      await refresh();
-    }
-    return result;
+    return await defeatBoss();
   };
 
 
