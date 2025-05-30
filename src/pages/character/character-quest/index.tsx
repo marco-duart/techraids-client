@@ -7,6 +7,7 @@ import { IMAGES } from "../../../utils/constants";
 
 import { IGuildMember } from "../../../services/character-quest/DTO";
 import { IChapter } from "../../../services/chapter/DTO";
+import { IBoss } from "../../../services/boss/DTO";
 import { IQuest } from "../../../services/quest/DTO";
 import { ITask } from "../../../services/task/DTO";
 import { IMission } from "../../../services/mission/DTO";
@@ -32,6 +33,7 @@ export const CharacterQuestPage = () => {
     last_task,
     last_mission,
     current_chapter,
+    current_boss,
     guild_members,
   } = data;
 
@@ -50,6 +52,7 @@ export const CharacterQuestPage = () => {
           <CharacterQuestDetail
             chapters={chapters}
             current_chapter={current_chapter}
+            current_boss={current_boss}
             guild_members={guild_members}
             user={user}
           />
@@ -98,11 +101,18 @@ const CharacterQuestDetail = React.memo(
   ({
     chapters,
     current_chapter,
+    current_boss,
     guild_members,
     user,
   }: {
     chapters: IChapter.Model[];
     current_chapter: IChapter.Model;
+    current_boss?:
+      | (IBoss.Model & {
+          team_can_defeat: boolean;
+          is_finishing_hero: boolean;
+        })
+      | null;
     guild_members: IGuildMember.Model[];
     user: IUser.UserWithRelations | null;
   }) => {
@@ -111,6 +121,7 @@ const CharacterQuestDetail = React.memo(
         chapters={chapters}
         guildMembers={guild_members}
         currentChapter={current_chapter}
+        currentBoss={current_boss}
         user={user}
       />
     );
