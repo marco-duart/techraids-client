@@ -8,13 +8,13 @@ import { IBoss } from "../../services/boss/DTO";
 import { Sword, Skull } from "@styled-icons/remix-fill";
 import { Scroll } from "@styled-icons/fa-solid";
 import { Users } from "@styled-icons/entypo";
-import { useCharacterQuest } from "../../hooks";
 
 type FinishingCharacter = {
   id: number;
   nickname: string;
   image_url: string;
 };
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -29,8 +29,10 @@ interface Props {
     guildMembers: IGuildMember.Model[] | undefined;
   };
   currentExperience: number;
-  onProgressChapter: () => Promise<{ success: boolean }>;
-  onDefeatBoss: () => Promise<{ success: boolean }>;
+  onProgressChapter: () => Promise<void>;
+  onDefeatBoss: () => Promise<void>;
+  isProgressing: boolean;
+  isDefeating: boolean;
 }
 
 const ChapterModal: React.FC<Props> = ({
@@ -42,8 +44,9 @@ const ChapterModal: React.FC<Props> = ({
   currentExperience,
   onProgressChapter,
   onDefeatBoss,
+  isProgressing,
+  isDefeating,
 }) => {
-  const { isLoading } = useCharacterQuest();
   const [currentView, setCurrentView] = useState<"info" | "battle">("info");
   const hasCharacters =
     members.user || (members.guildMembers && members.guildMembers.length > 0);
@@ -254,14 +257,14 @@ const ChapterModal: React.FC<Props> = ({
 
         {canProgressChapter && (
           <>
-            <S.ProgressButton onClick={onProgressChapter} disabled={isLoading}>
-              {isLoading ? (
+            <S.ProgressButton onClick={onProgressChapter} disabled={isProgressing}>
+              {isProgressing ? (
                 <S.LoadingSpinner />
               ) : (
                 "🏰 Avançar para o Próximo Capítulo"
               )}
             </S.ProgressButton>
-            {isLoading && (
+            {isProgressing && (
               <S.LoadingMessage>
                 Preparando o próximo capítulo...
               </S.LoadingMessage>
@@ -271,14 +274,14 @@ const ChapterModal: React.FC<Props> = ({
 
         {canClaimVictory && (
           <>
-            <S.DefeatButton onClick={onDefeatBoss} disabled={isLoading}>
-              {isLoading ? (
+            <S.DefeatButton onClick={onDefeatBoss} disabled={isDefeating}>
+              {isDefeating ? (
                 <S.LoadingSpinner />
               ) : (
                 `⚔️ Reivindicar Vitória sobre ${boss?.name}`
               )}
             </S.DefeatButton>
-            {isLoading && (
+            {isDefeating && (
               <S.LoadingMessage>
                 Preparando a batalha épica...
               </S.LoadingMessage>
