@@ -19,21 +19,37 @@ const InteractiveMap = lazy(
 );
 
 export const CharacterQuestPage = () => {
-  const { data, isLoading, error, progressChapter, defeatBoss } = useCharacterQuest();
+  const {
+    data,
+    isLoading,
+    error,
+    progressChapter,
+    defeatBoss,
+    isProgressing,
+    isDefeating,
+  } = useCharacterQuest();
+
   const { user } = useAuth();
   const [isChallengeStarted, setIsChallengeStarted] = useState(false);
 
   const handleProgressChapter = async () => {
-    return await progressChapter();
+    try {
+      await progressChapter();
+    } catch (error) {
+      console.error("Erro ao progredir capítulo:", error);
+    }
   };
 
   const handleDefeatBoss = async () => {
-    return await defeatBoss();
+    try {
+      await defeatBoss();
+    } catch (error) {
+      console.error("Erro ao derrotar boss:", error);
+    }
   };
 
-
   if (isLoading) return <div>Carregando...</div>;
-  if (error) return <div>Erro: {error}</div>;
+  if (error) return <div>Erro: {error.message}</div>;
   if (!data) return <div>Nenhum dado disponível.</div>;
 
   const {
@@ -66,6 +82,8 @@ export const CharacterQuestPage = () => {
             user={user}
             onProgressChapter={handleProgressChapter}
             onDefeatBoss={handleDefeatBoss}
+            isProgressing={isProgressing}
+            isDefeating={isDefeating}
           />
         </Suspense>
       )}
@@ -117,6 +135,8 @@ const CharacterQuestDetail = React.memo(
     user,
     onProgressChapter,
     onDefeatBoss,
+    isProgressing,
+    isDefeating,
   }: {
     chapters: IChapter.Model[];
     current_chapter: IChapter.Model;
@@ -128,8 +148,10 @@ const CharacterQuestDetail = React.memo(
       | null;
     guild_members: IGuildMember.Model[];
     user: IUser.UserWithRelations | null;
-    onProgressChapter: () => Promise<{ success: boolean }>;
-    onDefeatBoss: () => Promise<{ success: boolean }>;
+    onProgressChapter: () => Promise<void>;
+    onDefeatBoss: () => Promise<void>;
+    isProgressing: boolean;
+    isDefeating: boolean;
   }) => {
     return (
       <InteractiveMap
@@ -140,6 +162,8 @@ const CharacterQuestDetail = React.memo(
         user={user}
         onProgressChapter={onProgressChapter}
         onDefeatBoss={onDefeatBoss}
+        isProgressing={isProgressing}
+        isDefeating={isDefeating}
       />
     );
   }
