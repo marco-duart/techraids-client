@@ -4,10 +4,13 @@ import Router from "./routes";
 import { UserProvider } from "./context/user-provider";
 import { Toaster } from "react-hot-toast";
 import { toastConfig } from "./config/toast-config";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultThemeType="auth" defaultThemeMode="light">
         <GlobalStyles />
         <UserProvider>
@@ -15,7 +18,7 @@ const App = () => {
           <Router />
         </UserProvider>
       </ThemeProvider>
-    </>
+    </QueryClientProvider>
   );
 };
 
