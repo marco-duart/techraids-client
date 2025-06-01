@@ -16,8 +16,10 @@ interface Props {
     | (IBoss.Model & { team_can_defeat: boolean; is_finishing_hero: boolean })
     | null;
   user: IUser.UserWithRelations | null;
-  onProgressChapter: () => Promise<{ success: boolean }>;
-  onDefeatBoss: () => Promise<{ success: boolean }>;
+  onProgressChapter: () => Promise<void>;
+  onDefeatBoss: () => Promise<void>;
+  isProgressing: boolean;
+  isDefeating: boolean;
 }
 
 const mapOriginalWidth = 2912;
@@ -31,6 +33,8 @@ const InteractiveMap: React.FC<Props> = ({
   user,
   onProgressChapter,
   onDefeatBoss,
+  isProgressing,
+  isDefeating,
 }) => {
   const [mapSize, setMapSize] = useState({ width: 1, height: 1 });
   const mapRef = useRef<HTMLDivElement>(null);
@@ -114,9 +118,11 @@ const InteractiveMap: React.FC<Props> = ({
 
               {chapters.map((chapter) => {
                 const membersInChapter = getChapterCharacters(chapter.id);
-                const hasUser = (membersInChapter.user != undefined)!!;
-                const hasMembers = (membersInChapter.guildMembers &&
-                  membersInChapter.guildMembers.length > 0)!!;
+                const hasUser = !!membersInChapter.user;
+                const hasMembers = !!(
+                  membersInChapter.guildMembers &&
+                  membersInChapter.guildMembers.length > 0
+                );
 
                 return (
                   <React.Fragment key={chapter.id}>
@@ -183,6 +189,8 @@ const InteractiveMap: React.FC<Props> = ({
               currentExperience={user?.experience || 0}
               onProgressChapter={onProgressChapter}
               onDefeatBoss={onDefeatBoss}
+              isProgressing={isProgressing}
+              isDefeating={isDefeating}
             />
           )}
         </>
