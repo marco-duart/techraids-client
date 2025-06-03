@@ -22,37 +22,24 @@ export const CharacterQuestPage = () => {
   const { user } = useAuth();
   const [isChallengeStarted, setIsChallengeStarted] = useState(false);
 
-  const handleProgressChapter = async () => {
-    return await progressChapter();
-  };
-
-  const handleDefeatBoss = async () => {
-    return await defeatBoss();
-  };
-
-  if (isLoading) return <LoadingSpinner />;
-  if (!data) return <div>Nenhum dado disponível.</div>;
-
-  const { quest, last_task, last_mission } = data;
-
   return (
     <S.PageContainer>
       <BackgroundMusic />
       {!isChallengeStarted ? (
         <CharacterQuestResume
-          quest={quest}
-          last_task={last_task}
-          last_mission={last_mission}
+          quest={data?.quest}
+          last_task={data?.last_task}
+          last_mission={data?.last_mission}
           onStartChallenge={() => setIsChallengeStarted(true)}
         />
       ) : (
         <Suspense fallback={<LoadingSpinner />}>
           <CharacterQuestDetail
             user={user}
-            chapters={data.chapters}
+            chapters={data?.chapters}
             isLoading={isLoading}
-            onProgressChapter={handleProgressChapter}
-            onDefeatBoss={handleDefeatBoss}
+            onProgressChapter={progressChapter}
+            onDefeatBoss={defeatBoss}
           />
         </Suspense>
       )}
@@ -66,9 +53,9 @@ const CharacterQuestResume = ({
   last_mission,
   onStartChallenge,
 }: {
-  quest: IQuest.Model;
-  last_task: ITask.Model;
-  last_mission: IMission.Model;
+  quest?: IQuest.Model;
+  last_task?: ITask.Model;
+  last_mission?: IMission.Model;
   onStartChallenge: () => void;
 }) => {
   return (
@@ -79,13 +66,13 @@ const CharacterQuestResume = ({
     >
       <S.BackgroundImage src={IMAGES.worldMap} alt="World Map" />
       <S.QuestCard>
-        <S.QuestTitle>{quest.title}</S.QuestTitle>
-        <S.QuestSubtitle>{quest.description}</S.QuestSubtitle>
-        <S.TaskStatus $status={last_task.status}>
-          Última Tarefa: {last_task.title} ({last_task.status})
+        <S.QuestTitle>{quest?.title || "Consultando os pergaminhos"}</S.QuestTitle>
+        <S.QuestSubtitle>{quest?.description}</S.QuestSubtitle>
+        <S.TaskStatus $status={last_task?.status || "pending"}>
+          Última Tarefa: {last_task?.title || "Consultando os pergaminhos"} ({last_task?.status})
         </S.TaskStatus>
-        <S.MissionStatus $status={last_mission.status}>
-          Última Missão: {last_mission.title} ({last_mission.status})
+        <S.MissionStatus $status={last_mission?.status || "pending"}>
+          Última Missão: {last_mission?.title || "Consultando os pergaminhos"} ({last_mission?.status})
         </S.MissionStatus>
         <S.StartButton onClick={onStartChallenge}>
           Continuar Jornada
@@ -104,7 +91,7 @@ const CharacterQuestDetail = React.memo(
     onDefeatBoss,
   }: {
     user: IUser.UserWithRelations | null;
-    chapters: IGetCharacterQuest.ChapterWithCharactersAndBoss[];
+    chapters?: IGetCharacterQuest.ChapterWithCharactersAndBoss[];
     isLoading: boolean;
     onProgressChapter: () => Promise<{ success: boolean }>;
     onDefeatBoss: () => Promise<{ success: boolean }>;
