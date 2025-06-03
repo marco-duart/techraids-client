@@ -26,23 +26,24 @@ export namespace IGetCharacterQuest {
     nickname: string;
     image_url: string;
   };
+  export type ChapterWithCharactersAndBoss = IChapter.Model & {
+    boss?: IBoss.Model & {
+      finishing_character?: FinishingCharacter;
+      team_can_defeat: boolean;
+      is_finishing_hero?: boolean;
+    };
+    character?: IGuildMember.Model;
+    guild_members?: IGuildMember.Model[];
+    is_hero_chapter: boolean;
+  };
   export type Params = {
     token: string;
   };
   export type Response = {
     quest: IQuest.Model;
-    chapters: Array<
-      IChapter.Model & {
-        boss?: IBoss.Model & { finishing_character?: FinishingCharacter };
-      }
-    >;
-    current_chapter: IChapter.Model;
-    guild_members: IGuildMember.Model[];
+    chapters: ChapterWithCharactersAndBoss[];
     last_task: ITask.Model;
     last_mission: IMission.Model;
-    current_boss:
-      | (IBoss.Model & { team_can_defeat: boolean; is_finishing_hero: boolean })
-      | null;
   };
 }
 
