@@ -50,13 +50,13 @@ export const TabsContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const TabButton = styled.button<{ active: boolean }>`
+export const TabButton = styled.button<{ $active: boolean }>`
   padding: 0.75rem 1.5rem;
-  background: ${({ theme, active }) =>
-    active ? theme.accent : theme.secondary};
+  background: ${({ theme, $active }) =>
+    $active ? theme.accent : theme.secondary};
   border: 2px solid
-    ${({ theme, active }) => (active ? theme.accent : theme.border)};
-  color: ${({ theme, active }) => (active ? theme.textTitle : theme.text)};
+    ${({ theme, $active }) => ($active ? theme.accent : theme.border)};
+  color: ${({ theme, $active }) => ($active ? theme.textTitle : theme.text)};
   border-radius: 30px;
   font-family: "MedievalSharp", cursive;
   font-size: 1rem;

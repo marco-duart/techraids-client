@@ -20,19 +20,6 @@ export const CharacterHomePage = () => {
     userGuildId,
   } = useJournal();
 
-  // const getPriorityColor = (priority: string) => {
-  //   switch (priority.toLowerCase()) {
-  //     case "high":
-  //       return "#ff5252";
-  //     case "medium":
-  //       return "#ffc107";
-  //     case "low":
-  //       return "#4caf50";
-  //     default:
-  //       return "#9e9e9e";
-  //   }
-  // };
-
   const getAnnouncementIcon = (type: string) => {
     switch (type.toLowerCase()) {
       case "warning":
@@ -73,14 +60,14 @@ export const CharacterHomePage = () => {
 
       <S.TabsContainer>
         <S.TabButton
-          active={activeTab === "arcane"}
+          $active={activeTab === "arcane"}
           onClick={() => setActiveTab("arcane")}
         >
           <FileText size={20} />
           <span>Anúncios Arcanos</span>
         </S.TabButton>
         <S.TabButton
-          active={activeTab === "guild"}
+          $active={activeTab === "guild"}
           onClick={() => setActiveTab("guild")}
         >
           <Castle size={20} />
