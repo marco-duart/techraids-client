@@ -1,33 +1,16 @@
 import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import * as S from "./styles";
-import { IChapter } from "../../services/chapter/DTO";
-import { IGuildMember } from "../../services/character-quest/DTO";
-import { IUser } from "../../services/auth/DTO";
-import { IBoss } from "../../services/boss/DTO";
 import { Sword, Skull } from "@styled-icons/remix-fill";
 import { Scroll } from "@styled-icons/fa-solid";
 import { Users } from "@styled-icons/entypo";
-import { useCharacterQuest } from "../../hooks";
+import { IGetCharacterQuest } from "../../services/character-quest/DTO";
 
-type FinishingCharacter = {
-  id: number;
-  nickname: string;
-  image_url: string;
-};
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  chapter: IChapter.Model & {
-    boss?: IBoss.Model & { finishing_character?: FinishingCharacter };
-  };
-  boss?:
-    | (IBoss.Model & { team_can_defeat: boolean; is_finishing_hero: boolean })
-    | null;
-  members: {
-    user: IUser.UserWithRelations | undefined;
-    guildMembers: IGuildMember.Model[] | undefined;
-  };
+  chapter: IGetCharacterQuest.ChapterWithCharactersAndBoss;
+  isLoading: boolean;
   currentExperience: number;
   onProgressChapter: () => Promise<{ success: boolean }>;
   onDefeatBoss: () => Promise<{ success: boolean }>;
@@ -37,17 +20,16 @@ const ChapterModal: React.FC<Props> = ({
   isOpen,
   onClose,
   chapter,
-  boss,
-  members,
+  isLoading,
   currentExperience,
   onProgressChapter,
   onDefeatBoss,
 }) => {
-  const { isLoading } = useCharacterQuest();
   const [currentView, setCurrentView] = useState<"info" | "battle">("info");
+
   const hasCharacters =
-    members.user || (members.guildMembers && members.guildMembers.length > 0);
-  const hasBoss = chapter.boss;
+    chapter.is_hero_chapter || !!chapter.guild_members?.length;
+  const hasBoss = !!chapter.boss;
 
   if (!isOpen) return null;
 
@@ -125,9 +107,9 @@ const ChapterModal: React.FC<Props> = ({
             </h3>
 
             <AnimatePresence>
-              {members.user && (
+              {chapter.character && (
                 <S.MemberCard
-                  key={`user-${members.user.id}`}
+                  key={`user-${chapter.character.nickname}`}
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.2 }}
@@ -135,18 +117,18 @@ const ChapterModal: React.FC<Props> = ({
                 >
                   <S.MemberImage>
                     <img
-                      src={members.user.character_class.image_url}
-                      alt={members.user.nickname}
+                      src={chapter.character.character_class.image_url}
+                      alt={chapter.character.nickname}
                     />
                   </S.MemberImage>
-                  <S.MemberName>{members.user.nickname}</S.MemberName>
+                  <S.MemberName>{chapter.character.nickname}</S.MemberName>
                   <S.MemberClass>
-                    {members.user.character_class.name}
+                    {chapter.character.character_class.name}
                   </S.MemberClass>
                 </S.MemberCard>
               )}
 
-              {members.guildMembers?.map((member, index) => (
+              {chapter.guild_members?.map((member, index) => (
                 <S.MemberCard
                   key={`member-${member.nickname}`}
                   initial={{ y: 50, opacity: 0 }}
@@ -203,20 +185,22 @@ const ChapterModal: React.FC<Props> = ({
   };
 
   const canProgressChapter =
-    members.user?.current_chapter_id === chapter.id &&
+    chapter.is_hero_chapter &&
     currentExperience >= chapter.required_experience &&
-    (!boss || boss.defeated);
+    (!chapter.boss || chapter.boss.defeated);
 
   const canClaimVictory =
-    members.user?.current_chapter_id === boss?.chapter_id &&
-    !boss?.defeated &&
-    boss?.team_can_defeat &&
-    boss?.is_finishing_hero;
+    chapter.is_hero_chapter &&
+    chapter.boss &&
+    !chapter.boss.defeated &&
+    chapter.boss.team_can_defeat &&
+    chapter.boss.is_finishing_hero;
 
   const teamCanDefeatBoss =
-    members.user?.current_chapter_id === boss?.chapter_id &&
-    boss?.team_can_defeat &&
-    !boss?.is_finishing_hero;
+    chapter.is_hero_chapter &&
+    chapter.boss &&
+    chapter.boss.team_can_defeat &&
+    !chapter.boss.is_finishing_hero;
 
   return (
     <S.ModalOverlay onClick={onClose}>
@@ -275,21 +259,20 @@ const ChapterModal: React.FC<Props> = ({
               {isLoading ? (
                 <S.LoadingSpinner />
               ) : (
-                `⚔️ Reivindicar Vitória sobre ${boss?.name}`
+                `⚔️ Reivindicar Vitória sobre ${chapter.boss?.name}`
               )}
             </S.DefeatButton>
             {isLoading && (
-              <S.LoadingMessage>
-                Preparando a batalha épica...
-              </S.LoadingMessage>
+              <S.LoadingMessage>Preparando a batalha épica...</S.LoadingMessage>
             )}
           </>
         )}
 
         {teamCanDefeatBoss && (
           <S.TeamMessage>
-            💡 Sua equipe tem poder suficiente para desafiar {boss?.name}!
-            Complete suas missões para reivindicar a vitória.
+            💡 Sua equipe tem poder suficiente para desafiar{" "}
+            {chapter.boss?.name}! Complete suas missões para reivindicar a
+            vitória.
           </S.TeamMessage>
         )}
       </S.ModalContent>
