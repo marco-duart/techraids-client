@@ -31,9 +31,14 @@ export const MapContainer = styled.div<{ $isLoading: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-
   pointer-events: ${({ $isLoading }) => ($isLoading ? 'none' : 'auto')};
   opacity: ${({ $isLoading }) => ($isLoading ? 0.7 : 1)};
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  
+  &.closing {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 `;
 
 export const MapImage = styled.img`
