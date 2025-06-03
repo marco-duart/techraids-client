@@ -69,14 +69,14 @@ export const CharacterStorePage = () => {
 
       <S.TabsContainer>
         <S.TabButton
-          active={activeTab === "store"}
+          $active={activeTab === "store"}
           onClick={() => setActiveTab("store")}
         >
           <Coin size={20} />
           <span>Báu dos Tesouros</span>
         </S.TabButton>
         <S.TabButton
-          active={activeTab === "history"}
+          $active={activeTab === "history"}
           onClick={() => setActiveTab("history")}
         >
           <History size={20} />
