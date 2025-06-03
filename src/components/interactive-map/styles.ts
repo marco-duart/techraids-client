@@ -23,7 +23,7 @@ export const CharacterPoint = styled(motion.div)<{ $isUser?: boolean }>`
   }
 `;
 
-export const MapContainer = styled.div`
+export const MapContainer = styled.div<{ $isLoading: boolean }>`
   position: relative;
   width: 100%;
   height: 100%;
@@ -31,6 +31,9 @@ export const MapContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  pointer-events: ${({ $isLoading }) => ($isLoading ? 'none' : 'auto')};
+  opacity: ${({ $isLoading }) => ($isLoading ? 0.7 : 1)};
 `;
 
 export const MapImage = styled.img`
@@ -41,7 +44,6 @@ export const MapImage = styled.img`
 `;
 
 export const ChapterPoint = styled.div<{
-  $isCurrent: boolean;
   $hasUser: boolean;
   $hasMembers: boolean;
 }>`
@@ -50,13 +52,13 @@ export const ChapterPoint = styled.div<{
   width: var(--point-size);
   height: var(--point-size);
   border-radius: 50%;
-  background: ${({ $isCurrent }) =>
-    $isCurrent
-      ? "linear-gradient(45deg, #ff9a9e, #fad0c4)"
-      : "linear-gradient(45deg, #a1c4fd, #c2e9fb)"};
+  background: ${({ $hasUser }) =>
+    $hasUser
+      ? "linear-gradient(45deg,rgb(253, 135, 135),rgb(255, 193, 176))"
+      : "linear-gradient(45deg,rgb(175, 161, 253),rgb(204, 194, 251))"};
   border: 2px solid
     ${({ $hasUser, $hasMembers }) =>
-      $hasUser ? "#e67e22" : $hasMembers ? "#4caf50" : "transparent"};
+      $hasUser ? "#FF2E2E" : $hasMembers ? "#5F2DFF" : "transparent"};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -136,4 +138,24 @@ export const CloudsImage = styled.img`
   width: 50%;
   height: 100%;
   animation: ${cloudAnimation} 60s linear infinite;
+`;
+
+export const LoadingOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const LoadingText = styled.div`
+  color: white;
+  font-size: 1.5rem;
+  margin-top: 1rem;
 `;

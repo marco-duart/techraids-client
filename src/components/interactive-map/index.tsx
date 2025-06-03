@@ -8,7 +8,7 @@ import { IGetCharacterQuest } from "../../services/character-quest/DTO";
 
 interface Props {
   user: IUser.UserWithRelations | null;
-  chapters: IGetCharacterQuest.ChapterWithCharactersAndBoss[];
+  chapters?: IGetCharacterQuest.ChapterWithCharactersAndBoss[];
   isLoading: boolean;
   onProgressChapter: () => Promise<{ success: boolean }>;
   onDefeatBoss: () => Promise<{ success: boolean }>;
@@ -63,13 +63,26 @@ const InteractiveMap: React.FC<Props> = ({
     setHoveredChapter(chapter);
   };
 
-  if (isLoading) return <div>Carregando...</div>;
-  if (!chapters) return <div>Nenhum dado disponível.</div>;
+  const handleProgressChapter = async () => {
+    setIsModalOpen(false);
+    return await onProgressChapter();
+  };
+
+  const handleDefeatBoss = async () => {
+    setIsModalOpen(false);
+    return await onDefeatBoss();
+  };
 
   return (
     <TransformWrapper initialScale={1} minScale={1} maxScale={3} centerOnInit>
       {({ zoomIn, zoomOut, resetTransform }) => (
         <>
+          {isLoading && (
+            <S.LoadingOverlay>
+              <S.LoadingText>Carregando...</S.LoadingText>
+            </S.LoadingOverlay>
+          )}
+
           <S.Controls>
             <button onClick={() => zoomIn()}>+</button>
             <button onClick={() => zoomOut()}>-</button>
@@ -77,7 +90,7 @@ const InteractiveMap: React.FC<Props> = ({
           </S.Controls>
 
           <TransformComponent>
-            <S.MapContainer ref={mapRef}>
+            <S.MapContainer ref={mapRef} $isLoading={isLoading}>
               <S.CloudsContainer>
                 <S.CloudsImage src={IMAGES.clouds} alt="Nuvens" />
                 <S.CloudsImage
@@ -89,7 +102,7 @@ const InteractiveMap: React.FC<Props> = ({
 
               <S.MapImage src={IMAGES.questMap} alt="World Map" />
 
-              {chapters.map((chapter) => {
+              {chapters?.map((chapter) => {
                 const hasUser = chapter.is_hero_chapter;
                 const hasMembers =
                   !!chapter.guild_members && chapter.guild_members.length > 0;
@@ -153,8 +166,8 @@ const InteractiveMap: React.FC<Props> = ({
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               chapter={selectedChapter}
-              onDefeatBoss={onDefeatBoss}
-              onProgressChapter={onProgressChapter}
+              onDefeatBoss={handleDefeatBoss}
+              onProgressChapter={handleProgressChapter}
               isLoading={isLoading}
               currentExperience={user?.experience || 0}
             />
