@@ -5,21 +5,20 @@ import { motion } from "framer-motion";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
 
-import { IGuildMember } from "../../../services/character-quest/DTO";
-import { IChapter } from "../../../services/chapter/DTO";
-import { IBoss } from "../../../services/boss/DTO";
 import { IQuest } from "../../../services/quest/DTO";
 import { ITask } from "../../../services/task/DTO";
 import { IMission } from "../../../services/mission/DTO";
 import { IUser } from "../../../services/auth/DTO";
 import BackgroundMusic from "../../../components/background-music";
+import LoadingSpinner from "../../../components/loading-spinner";
+import { IGetCharacterQuest } from "../../../services/character-quest/DTO";
 
 const InteractiveMap = lazy(
   () => import("../../../components/interactive-map")
 );
 
 export const CharacterQuestPage = () => {
-  const { data, isLoading, error, progressChapter, defeatBoss } = useCharacterQuest();
+  const { data, isLoading, defeatBoss, progressChapter } = useCharacterQuest();
   const { user } = useAuth();
   const [isChallengeStarted, setIsChallengeStarted] = useState(false);
 
@@ -31,20 +30,10 @@ export const CharacterQuestPage = () => {
     return await defeatBoss();
   };
 
-
-  if (isLoading) return <div>Carregando...</div>;
-  if (error) return <div>Erro: {error}</div>;
+  if (isLoading) return <LoadingSpinner />;
   if (!data) return <div>Nenhum dado disponível.</div>;
 
-  const {
-    quest,
-    chapters,
-    last_task,
-    last_mission,
-    current_chapter,
-    current_boss,
-    guild_members,
-  } = data;
+  const { quest, last_task, last_mission } = data;
 
   return (
     <S.PageContainer>
@@ -57,13 +46,11 @@ export const CharacterQuestPage = () => {
           onStartChallenge={() => setIsChallengeStarted(true)}
         />
       ) : (
-        <Suspense fallback={<div>Carregando mapa...</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
           <CharacterQuestDetail
-            chapters={chapters}
-            current_chapter={current_chapter}
-            current_boss={current_boss}
-            guild_members={guild_members}
             user={user}
+            chapters={data.chapters}
+            isLoading={isLoading}
             onProgressChapter={handleProgressChapter}
             onDefeatBoss={handleDefeatBoss}
           />
@@ -94,10 +81,10 @@ const CharacterQuestResume = ({
       <S.QuestCard>
         <S.QuestTitle>{quest.title}</S.QuestTitle>
         <S.QuestSubtitle>{quest.description}</S.QuestSubtitle>
-        <S.TaskStatus status={last_task.status}>
+        <S.TaskStatus $status={last_task.status}>
           Última Tarefa: {last_task.title} ({last_task.status})
         </S.TaskStatus>
-        <S.MissionStatus status={last_mission.status}>
+        <S.MissionStatus $status={last_mission.status}>
           Última Missão: {last_mission.title} ({last_mission.status})
         </S.MissionStatus>
         <S.StartButton onClick={onStartChallenge}>
@@ -110,34 +97,23 @@ const CharacterQuestResume = ({
 
 const CharacterQuestDetail = React.memo(
   ({
-    chapters,
-    current_chapter,
-    current_boss,
-    guild_members,
     user,
+    chapters,
+    isLoading,
     onProgressChapter,
     onDefeatBoss,
   }: {
-    chapters: IChapter.Model[];
-    current_chapter: IChapter.Model;
-    current_boss?:
-      | (IBoss.Model & {
-          team_can_defeat: boolean;
-          is_finishing_hero: boolean;
-        })
-      | null;
-    guild_members: IGuildMember.Model[];
     user: IUser.UserWithRelations | null;
+    chapters: IGetCharacterQuest.ChapterWithCharactersAndBoss[];
+    isLoading: boolean;
     onProgressChapter: () => Promise<{ success: boolean }>;
     onDefeatBoss: () => Promise<{ success: boolean }>;
   }) => {
     return (
       <InteractiveMap
-        chapters={chapters}
-        guildMembers={guild_members}
-        currentChapter={current_chapter}
-        currentBoss={current_boss}
         user={user}
+        chapters={chapters}
+        isLoading={isLoading}
         onProgressChapter={onProgressChapter}
         onDefeatBoss={onDefeatBoss}
       />
