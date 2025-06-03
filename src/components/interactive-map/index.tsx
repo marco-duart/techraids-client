@@ -1,21 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { IMAGES } from "../../utils/constants";
-import { IChapter } from "../../services/chapter/DTO";
-import { IBoss } from "../../services/boss/DTO";
-import { IGuildMember } from "../../services/character-quest/DTO";
 import { IUser } from "../../services/auth/DTO";
 import * as S from "./styles";
 import ChapterModal from "../chapter-modal";
+import { IGetCharacterQuest } from "../../services/character-quest/DTO";
 
 interface Props {
-  chapters: IChapter.Model[];
-  guildMembers: IGuildMember.Model[];
-  currentChapter: IChapter.Model;
-  currentBoss?:
-    | (IBoss.Model & { team_can_defeat: boolean; is_finishing_hero: boolean })
-    | null;
   user: IUser.UserWithRelations | null;
+  chapters: IGetCharacterQuest.ChapterWithCharactersAndBoss[];
+  isLoading: boolean;
   onProgressChapter: () => Promise<{ success: boolean }>;
   onDefeatBoss: () => Promise<{ success: boolean }>;
 }
@@ -24,23 +18,19 @@ const mapOriginalWidth = 2912;
 const mapOriginalHeight = 1631;
 
 const InteractiveMap: React.FC<Props> = ({
-  chapters,
-  guildMembers,
-  currentChapter,
-  currentBoss,
   user,
+  chapters,
+  isLoading,
   onProgressChapter,
   onDefeatBoss,
 }) => {
   const [mapSize, setMapSize] = useState({ width: 1, height: 1 });
   const mapRef = useRef<HTMLDivElement>(null);
-  const [selectedChapter, setSelectedChapter] = useState<IChapter.Model | null>(
-    null
-  );
+  const [selectedChapter, setSelectedChapter] =
+    useState<IGetCharacterQuest.ChapterWithCharactersAndBoss | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hoveredChapter, setHoveredChapter] = useState<IChapter.Model | null>(
-    null
-  );
+  const [hoveredChapter, setHoveredChapter] =
+    useState<IGetCharacterQuest.ChapterWithCharactersAndBoss | null>(null);
 
   useEffect(() => {
     const updateMapSize = () => {
@@ -60,34 +50,21 @@ const InteractiveMap: React.FC<Props> = ({
     top: `calc(${(y / mapOriginalHeight) * mapSize.height}px - 10px)`,
   });
 
-  const handleChapterClick = (chapter: IChapter.Model) => {
+  const handleChapterClick = (
+    chapter: IGetCharacterQuest.ChapterWithCharactersAndBoss
+  ) => {
     setSelectedChapter(chapter);
     setIsModalOpen(true);
   };
 
-  const getChapterCharacters = (
-    chapterId: number
-  ): {
-    user: IUser.UserWithRelations | undefined;
-    guildMembers: IGuildMember.Model[] | undefined;
-  } => {
-    const guildMembersInChapter = guildMembers.filter(
-      (member) => member.current_chapter.id === chapterId
-    );
-
-    const userInChapter =
-      user && user.current_chapter_id === chapterId ? user : undefined;
-
-    return {
-      user: userInChapter,
-      guildMembers:
-        guildMembersInChapter.length > 0 ? guildMembersInChapter : undefined,
-    };
-  };
-
-  const handleChapterHover = (chapter: IChapter.Model | null) => {
+  const handleChapterHover = (
+    chapter: IGetCharacterQuest.ChapterWithCharactersAndBoss | null
+  ) => {
     setHoveredChapter(chapter);
   };
+
+  if (isLoading) return <div>Carregando...</div>;
+  if (!chapters) return <div>Nenhum dado disponível.</div>;
 
   return (
     <TransformWrapper initialScale={1} minScale={1} maxScale={3} centerOnInit>
@@ -113,10 +90,9 @@ const InteractiveMap: React.FC<Props> = ({
               <S.MapImage src={IMAGES.questMap} alt="World Map" />
 
               {chapters.map((chapter) => {
-                const membersInChapter = getChapterCharacters(chapter.id);
-                const hasUser = (membersInChapter.user != undefined)!!;
-                const hasMembers = (membersInChapter.guildMembers &&
-                  membersInChapter.guildMembers.length > 0)!!;
+                const hasUser = chapter.is_hero_chapter;
+                const hasMembers =
+                  !!chapter.guild_members && chapter.guild_members.length > 0;
 
                 return (
                   <React.Fragment key={chapter.id}>
@@ -125,7 +101,6 @@ const InteractiveMap: React.FC<Props> = ({
                         chapter.position_x,
                         chapter.position_y
                       )}
-                      $isCurrent={chapter.id === currentChapter.id}
                       $hasUser={hasUser}
                       $hasMembers={hasMembers}
                       onClick={() => handleChapterClick(chapter)}
@@ -146,12 +121,12 @@ const InteractiveMap: React.FC<Props> = ({
                             $isUser
                           >
                             <img
-                              src={user?.character_class.image_url}
-                              alt={user?.nickname}
+                              src={chapter.character?.character_class.image_url}
+                              alt={chapter.character?.nickname}
                             />
                           </S.CharacterPoint>
                         )}
-                        {membersInChapter.guildMembers?.map((member, index) => (
+                        {chapter.guild_members?.map((member, index) => (
                           <S.CharacterPoint
                             key={member.nickname}
                             style={calculatePosition(
@@ -178,11 +153,10 @@ const InteractiveMap: React.FC<Props> = ({
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               chapter={selectedChapter}
-              boss={currentBoss}
-              members={getChapterCharacters(selectedChapter.id)}
-              currentExperience={user?.experience || 0}
-              onProgressChapter={onProgressChapter}
               onDefeatBoss={onDefeatBoss}
+              onProgressChapter={onProgressChapter}
+              isLoading={isLoading}
+              currentExperience={user?.experience || 0}
             />
           )}
         </>
