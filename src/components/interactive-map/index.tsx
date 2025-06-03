@@ -65,11 +65,13 @@ const InteractiveMap: React.FC<Props> = ({
 
   const handleProgressChapter = async () => {
     setIsModalOpen(false);
+    await new Promise((resolve) => setTimeout(resolve, 300));
     return await onProgressChapter();
   };
 
   const handleDefeatBoss = async () => {
     setIsModalOpen(false);
+    await new Promise((resolve) => setTimeout(resolve, 300));
     return await onDefeatBoss();
   };
 
