@@ -6,31 +6,36 @@ import {
   DefeatBoss,
 } from "../services/character-quest";
 import { IGetCharacterQuest } from "../services/character-quest/DTO";
+import toast from "react-hot-toast";
 
 export const useCharacterQuest = () => {
   const { token } = useAuth();
   const [data, setData] = useState<IGetCharacterQuest.Response | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchCharacterQuest = useCallback(async () => {
     if (!token) {
-      setError("Token não disponível.");
+      toast.error("Token não disponível.");
       return;
     }
 
     setIsLoading(true);
-    setError(null);
 
-    const result = await GetCharacterQuest({ token });
+    try {
+      const result = await GetCharacterQuest({ token });
 
-    if (result.success && result.data) {
-      setData(result.data);
-    } else {
-      setError(result.message);
+      if (result.success && result.data) {
+        setData(result.data);
+        toast.success("Dados da missão carregados com sucesso!");
+      } else {
+        toast.error(result.message || "Erro ao carregar dados da missão");
+      }
+    } catch (error) {
+      toast.error("Erro ao carregar dados da missão");
+      console.error("fetchCharacterQuest error:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   }, [token]);
 
   useEffect(() => {
@@ -39,23 +44,27 @@ export const useCharacterQuest = () => {
 
   const progressChapter = useCallback(async () => {
     if (!token) {
-      setError("Token não disponível.");
+      toast.error("Token não disponível.");
       return { success: false };
     }
 
     setIsLoading(true);
-    setError(null);
 
     try {
       const result = await ProgressChapter({ token });
 
       if (result.success) {
+        toast.success("Capítulo avançado com sucesso!");
         await fetchCharacterQuest();
       } else {
-        setError(result.message);
+        toast.error(result.message || "Erro ao avançar capítulo");
       }
 
       return result;
+    } catch (error) {
+      toast.error("Erro ao avançar capítulo");
+      console.error("progressChapter error:", error);
+      return { success: false };
     } finally {
       setIsLoading(false);
     }
@@ -63,36 +72,43 @@ export const useCharacterQuest = () => {
 
   const defeatBoss = useCallback(async () => {
     if (!token) {
-      setError("Token não disponível.");
+      toast.error("Token não disponível.");
       return { success: false };
     }
 
     setIsLoading(true);
-    setError(null);
 
     try {
       const result = await DefeatBoss({ token });
 
       if (result.success) {
+        toast.success("Chefe derrotado com sucesso!");
         await fetchCharacterQuest();
       } else {
-        setError(result.message);
+        toast.error(result.message || "Erro ao derrotar chefe");
       }
 
       return result;
+    } catch (error) {
+      toast.error("Erro ao derrotar chefe");
+      console.error("defeatBoss error:", error);
+      return { success: false };
     } finally {
       setIsLoading(false);
     }
   }, [token, fetchCharacterQuest]);
 
   const refresh = useCallback(() => {
-    fetchCharacterQuest();
+    toast.promise(fetchCharacterQuest(), {
+      loading: "Atualizando dados...",
+      success: "Dados atualizados com sucesso!",
+      error: "Erro ao atualizar dados",
+    });
   }, [fetchCharacterQuest]);
 
   return {
     data,
     isLoading,
-    error,
     refresh,
     progressChapter,
     defeatBoss,
