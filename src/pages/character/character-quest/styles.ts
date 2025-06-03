@@ -44,23 +44,23 @@ export const QuestSubtitle = styled.p`
   margin-bottom: 1.5rem;
 `;
 
-export const TaskStatus = styled.div<{ status: string }>`
+export const TaskStatus = styled.div<{ $status: string }>`
   font-size: 1rem;
-  color: ${({ theme, status }) =>
-    status === "pending"
+  color: ${({ theme, $status }) =>
+    $status === "pending"
       ? theme.accent
-      : status === "accepted"
+      : $status === "accepted"
       ? theme.success
       : theme.error};
   margin-bottom: 1rem;
 `;
 
-export const MissionStatus = styled.div<{ status: string }>`
+export const MissionStatus = styled.div<{ $status: string }>`
   font-size: 1rem;
-  color: ${({ theme, status }) =>
-    status === "pending"
+  color: ${({ theme, $status }) =>
+    $status === "pending"
       ? theme.accent
-      : status === "accepted"
+      : $status === "accepted"
       ? theme.success
       : theme.error};
   margin-bottom: 1.5rem;
