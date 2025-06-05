@@ -2,7 +2,7 @@ import { JSX, useState } from "react";
 import { useCharacterRanking } from "../../../hooks/use-character-ranking";
 import { useTheme } from "../../../context/theme-provider";
 import { Trophy, ArrowDown, ArrowUp } from "@styled-icons/remix-fill";
-import { Sword, Coins } from "@styled-icons/remix-line";
+import { Sword, Coins, Fire } from "@styled-icons/remix-line";
 import { Scroll } from "@styled-icons/fa-solid";
 import { Crown } from "@styled-icons/boxicons-regular";
 
@@ -157,8 +157,16 @@ export const CharacterRankingPage = () => {
           "Sábios da Experiência",
           "Já viram coisas que vocês não acreditariam",
           ranking.experience,
-          <Sword size={24} />,
+          <Fire size={24} />,
           "experience"
+        )}
+
+        {renderRankingSection(
+          "Caçadores de Chefes",
+          "Transformam batalhas difíceis em lanches gratuitos",
+          ranking.bosses_killed,
+          <Sword size={24} />,
+          "bosses"
         )}
       </S.RankingsGrid>
 
