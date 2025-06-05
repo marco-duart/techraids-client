@@ -7,5 +7,6 @@ export namespace IGetCharacterRanking {
     tasks_completed: [string, number][];
     gold_earned: [string, number][];
     experience: [string, number][];
+    bosses_killed: [string, number][];
   };
 }
