@@ -105,6 +105,7 @@ export const MessageCard = styled.div<{
     guildNotice ? theme.primary + "20" : theme.secondary};
   border: 2px solid ${({ priority }) => getPriorityColor(priority)};
   border-radius: 10px;
+  margin-bottom: 0.5rem;
   padding: 1.5rem;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
