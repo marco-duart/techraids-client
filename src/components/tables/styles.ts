@@ -338,3 +338,80 @@ export const LoadingOverlay = styled.div`
     }
   }
 `;
+
+export const MembersTable = styled.div`
+  margin-top: 2rem;
+  overflow-x: auto;
+
+  h2 {
+    color: ${({ theme }) => theme.textTitle};
+    margin-bottom: 1rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: ${({ theme }) => theme.secondary};
+    box-shadow: ${({ theme }) => theme.shadow};
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid ${({ theme }) => theme.border};
+  }
+
+  th {
+    background-color: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.primary};
+    font-weight: 500;
+  }
+
+  tr:hover {
+    background-color: ${({ theme }) => theme.emphasis}20;
+  }
+`;
+
+export const ProgressBar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 20px;
+  background-color: ${({ theme }) => theme.border};
+  border-radius: 10px;
+  padding: 0 0.5rem;
+  position: relative;
+`;
+
+export const ProgressFill = styled.div<{ $percentage: number; $color: "pending" | "approved" | "rejected" }>`
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: ${({ $percentage }) => $percentage}%;
+  background-color: ${({ theme, $color }) => theme[$color]};
+  border-radius: 10px;
+  transition: width 0.5s ease;
+`;
+
+export const StatusDetails = styled.div`
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.emphasis};
+  margin-top: 0.25rem;
+`;
+
+export const PerformanceScore = styled.div<{ $score: number }>`
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: ${({ theme, $score }) => {
+    if ($score >= 80) return theme.approved;
+    if ($score >= 50) return theme.pending;
+    return theme.rejected;
+  }};
+  color: ${({ theme }) => theme.primary};
+`;
