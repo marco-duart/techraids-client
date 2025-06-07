@@ -15,6 +15,7 @@ import {
   CharacterTasksPage,
   CharacterMissionsPage,
   CharacterStorePage,
+  PerformanceReportPage,
 } from "../pages";
 
 import { HomePage } from "../pages/home/home-page";
@@ -43,7 +44,7 @@ export default function Router() {
             </PrivateRoute>
           }
         >
-          <Route path="home" element={<HomePage />} />
+          <Route path="home" element={<PerformanceReportPage />} />
         </Route>
 
         <Route

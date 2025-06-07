@@ -9,3 +9,4 @@ export * from "./character/character-ranking";
 export * from "./character/character-setup-flow";
 export * from "./character/character-task";
 export * from "./character/character-mission";
+export * from "./narrator/performance-report";
