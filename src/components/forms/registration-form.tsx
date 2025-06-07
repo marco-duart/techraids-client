@@ -4,7 +4,7 @@ import {
   registrationSchema,
   RegistrationFormData,
 } from "../../schemas/registration-schema";
-import { useRegistration } from "../../hooks/use-registration";
+import { useRegistration } from "../../hooks";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "@styled-icons/bootstrap/ArrowLeft";
 import * as S from "./styles";

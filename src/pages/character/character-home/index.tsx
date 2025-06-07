@@ -1,4 +1,4 @@
-import { useJournal } from "../../../hooks/use-journal";
+import { useJournal } from "../../../hooks";
 import { Book } from "@styled-icons/remix-fill";
 import { Mailbox } from "@styled-icons/bootstrap";
 import { Castle } from "@styled-icons/boxicons-solid";

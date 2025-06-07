@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCharacterClasses } from "../../../hooks/use-character-classes";
+import { useCharacterClasses } from "../../../hooks";
 import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
 import { motion } from "framer-motion";

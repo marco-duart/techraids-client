@@ -1,5 +1,5 @@
 import { JSX, useState } from "react";
-import { useCharacterRanking } from "../../../hooks/use-character-ranking";
+import { useCharacterRanking } from "../../../hooks";
 import { useTheme } from "../../../context/theme-provider";
 import { Trophy, ArrowDown, ArrowUp } from "@styled-icons/remix-fill";
 import { Sword, Coins, Fire } from "@styled-icons/remix-line";

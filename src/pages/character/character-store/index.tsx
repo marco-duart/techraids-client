@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCharacterStore } from "../../../hooks/use-character-store";
+import { useCharacterStore } from "../../../hooks";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "@styled-icons/boxicons-regular";
 import { MagicWand } from "@styled-icons/boxicons-solid";

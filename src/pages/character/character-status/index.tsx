@@ -4,7 +4,7 @@ import { Sword, Shield, Fire, Map, Coin } from "@styled-icons/remix-line";
 import { Crown } from "@styled-icons/boxicons-regular";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
-import { useHonoraryTitles } from "../../../hooks/use-honorary-titles";
+import { useHonoraryTitles } from "../../../hooks";
 import { Dropdown } from "../../../components/dropdown";
 
 export const CharacterStatusPage = () => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSpecializations } from "../../../hooks/use-specializations";
+import { useSpecializations } from "../../../hooks";
 import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
 import { motion } from "framer-motion";

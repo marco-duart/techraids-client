@@ -1,5 +1,5 @@
 import React, { useState, Suspense, lazy } from "react";
-import { useCharacterQuest } from "../../../hooks/use-character-quest";
+import { useCharacterQuest } from "../../../hooks";
 import { useAuth } from "../../../context/user-provider";
 import { motion } from "framer-motion";
 import * as S from "./styles";

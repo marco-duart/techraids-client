@@ -5,7 +5,7 @@ import {
   passwordSchema,
   PasswordFormData,
 } from "../../../schemas/password-schema";
-import { useAccount } from "../../../hooks/use-account";
+import { useAccount } from "../../../hooks";
 import { motion } from "framer-motion";
 import ReactCrop, {
   Crop,
