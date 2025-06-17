@@ -9,6 +9,7 @@ interface Props {
   disabled?: boolean;
   ariaLabel?: string;
   className?: string;
+  type?: "button" | "submit" | "reset";
 }
 
 export const IconButton = ({
@@ -19,6 +20,7 @@ export const IconButton = ({
   disabled = false,
   ariaLabel,
   className,
+  type = "button",
 }: Props) => {
   return (
     <S.ButtonContainer
@@ -28,6 +30,7 @@ export const IconButton = ({
       disabled={disabled}
       aria-label={ariaLabel}
       className={className}
+      type={type}
     >
       <Icon />
     </S.ButtonContainer>
