@@ -1,30 +1,70 @@
 import { useState } from "react";
-import * as S from "./styles"
+import * as S from "./styles";
 import { useMissions } from "../../../hooks/use-missions";
 import { NarratorMissionTable } from "../../../components/tables/narrator-mission-table";
 import { MissionModal } from "../../../components/modals/mission-modal";
 import { IconButton } from "../../../components/buttons/icon-button";
 import { Plus } from "@styled-icons/boxicons-regular";
-import { ConfirmModal } from "../../components/modals/confirm-modal";
+import { ConfirmModal } from "../../../components/modals/confirm-modal";
 import { toast } from "react-hot-toast";
-import { LoadingSpinner } from "../../components/loading-spinner";
+import LoadingSpinner from "../../../components/loading-spinner";
+import {
+  ICreateMission,
+  IMission,
+  IUpdateMission,
+} from "../../../services/mission/DTO";
 
 export const NarratorMissionPage = () => {
-  const { missions, isLoading, createMission, updateMission, deleteMission } = useMissions();
-  const [selectedMission, setSelectedMission] = useState<IMission.Model | null>(null);
+  const { missions, isLoading, createMission, updateMission, deleteMission } =
+    useMissions();
+  const [selectedMission, setSelectedMission] = useState<
+    IMission.Model | undefined
+  >(undefined);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [missionToDelete, setMissionToDelete] = useState<number | null>(null);
+  const [missionToDelete, setMissionToDelete] = useState<number | undefined>(
+    undefined
+  );
 
-  const handleCreate = async (data: Omit<ICreateMission.Params, "token">) => {
-    await createMission(data);
+  const handleCreate = async (data: {
+    title: string;
+    character_id: number;
+    description: string;
+    status: "pending" | "approved" | "rejected";
+    gold_reward: number;
+  }) => {
+    await createMission({
+      mission: {
+        title: data.title,
+        description: data.description,
+        status:
+          data.status === "pending" ? 0 : data.status === "approved" ? 1 : 2,
+        gold_reward: data.gold_reward,
+        character_id: data.character_id,
+      },
+    });
     setIsCreateModalOpen(false);
   };
 
-  const handleUpdate = async (data: Omit<IUpdateMission.Params, "token">) => {
+  const handleUpdate = async (data: {
+    title: string;
+    character_id: number;
+    description: string;
+    status: "pending" | "approved" | "rejected";
+    gold_reward: number;
+  }) => {
     if (!selectedMission) return;
-    await updateMission({ id: selectedMission.id, ...data });
-    setSelectedMission(null);
+    await updateMission({
+      id: selectedMission.id,
+      mission: {
+        title: data.title,
+        description: data.description,
+        status:
+          data.status === "pending" ? 0 : data.status === "approved" ? 1 : 2,
+        gold_reward: data.gold_reward,
+      },
+    });
+    setSelectedMission(undefined);
   };
 
   const handleDelete = async () => {
@@ -34,7 +74,7 @@ export const NarratorMissionPage = () => {
       toast.success("Missão deletada com sucesso!");
     }
     setIsDeleteModalOpen(false);
-    setMissionToDelete(null);
+    setMissionToDelete(undefined);
   };
 
   return (
@@ -42,10 +82,11 @@ export const NarratorMissionPage = () => {
       <S.Header>
         <S.Title>Missões</S.Title>
         <S.Actions>
-          <IconButton 
-            variant="primary" 
+          <IconButton
+            variant="primary"
             onClick={() => setIsCreateModalOpen(true)}
-            icon={Plus} />
+            icon={Plus}
+          />
         </S.Actions>
       </S.Header>
 
@@ -73,7 +114,7 @@ export const NarratorMissionPage = () => {
 
       <MissionModal
         isOpen={!!selectedMission}
-        onClose={() => setSelectedMission(null)}
+        onClose={() => setSelectedMission(undefined)}
         onSubmit={handleUpdate}
         mission={selectedMission}
       />
