@@ -27,7 +27,6 @@ export namespace ICreateMission {
       status: number;
       gold_reward: number;
       character_id: number;
-      chapter_id: number;
     };
   };
   export type Response = IMission.Model;
