@@ -9,13 +9,16 @@ import { Modal } from "./modal";
 import { IconButton } from "../buttons/icon-button";
 import { useNarratorGuild } from "../../hooks/use-narrator-guild";
 import * as S from "./styles";
+import { useEffect } from "react";
 
 interface Props {
   mission?: IMission.Model;
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (data: MissionFormData) => void;
+  onSubmit?: (data: MissionFormData) => void;
   isLoading?: boolean;
+  readOnly?: boolean;
+  resetKey?: number;
 }
 
 export const MissionModal = ({
@@ -24,6 +27,8 @@ export const MissionModal = ({
   onClose,
   onSubmit,
   isLoading,
+  readOnly,
+  resetKey,
 }: Props) => {
   const { guildMembers } = useNarratorGuild();
 
@@ -43,6 +48,16 @@ export const MissionModal = ({
     },
   });
 
+  useEffect(() => {
+    reset({
+      title: mission?.title || "",
+      description: mission?.description || "",
+      status: mission?.status || "pending",
+      gold_reward: mission?.gold_reward || 0,
+      character_id: mission?.character_id || undefined,
+    });
+  }, [mission, reset, resetKey]);
+
   const handleClose = () => {
     reset();
     onClose();
@@ -50,9 +65,13 @@ export const MissionModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
+      <S.FormContainer onSubmit={handleSubmit(onSubmit ?? (() => {}))}>
         <S.FormHeader>
-          {mission ? "Editar Missão" : "Nova Missão"}
+          {readOnly
+            ? "Visualizar Missão"
+            : mission
+            ? "Editar Missão"
+            : "Nova Missão"}
           <IconButton
             icon={Times}
             onClick={handleClose}
@@ -71,6 +90,7 @@ export const MissionModal = ({
             type="text"
             {...register("title")}
             placeholder="Nome da Missão"
+            disabled={readOnly}
           />
           {errors.title && (
             <S.ErrorMessage>{errors.title.message}</S.ErrorMessage>
@@ -86,6 +106,7 @@ export const MissionModal = ({
             {...register("description")}
             placeholder="Detalhes da Missão..."
             rows={5}
+            disabled={readOnly}
           />
           {errors.description && (
             <S.ErrorMessage>{errors.description.message}</S.ErrorMessage>
@@ -99,6 +120,7 @@ export const MissionModal = ({
             type="number"
             {...register("gold_reward", { valueAsNumber: true })}
             placeholder="Quantidade de ouro"
+            disabled={readOnly}
           />
           {errors.gold_reward && (
             <S.ErrorMessage>{errors.gold_reward.message}</S.ErrorMessage>
@@ -110,7 +132,7 @@ export const MissionModal = ({
           <S.Select
             id="character_id"
             {...register("character_id", { valueAsNumber: true })}
-            disabled={!!mission}
+            disabled={readOnly || !!mission}
           >
             <option value="">Selecione um personagem</option>
             {guildMembers?.map((member) => (
@@ -127,7 +149,7 @@ export const MissionModal = ({
         {mission && (
           <S.InputGroup>
             <S.Label htmlFor="status">Status</S.Label>
-            <S.Select id="status" {...register("status")}>
+            <S.Select id="status" {...register("status")} disabled={readOnly}>
               <option value="pending">Pendente</option>
               <option value="approved">Aprovado</option>
               <option value="rejected">Rejeitado</option>
@@ -138,20 +160,22 @@ export const MissionModal = ({
           </S.InputGroup>
         )}
 
-        <S.FormFooter>
-          <IconButton
-            variant="default"
-            icon={Cancel}
-            onClick={handleClose}
-            disabled={isLoading}
-          />
-          <IconButton
-            variant="primary"
-            icon={Save}
-            type="submit"
-            disabled={isLoading}
-          />
-        </S.FormFooter>
+        {!readOnly && (
+          <S.FormFooter>
+            <IconButton
+              variant="default"
+              icon={Cancel}
+              onClick={handleClose}
+              disabled={isLoading}
+            />
+            <IconButton
+              variant="primary"
+              icon={Save}
+              type="submit"
+              disabled={isLoading}
+            />
+          </S.FormFooter>
+        )}
       </S.FormContainer>
     </Modal>
   );
