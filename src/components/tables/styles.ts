@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TableWrapper = styled.div`
+export const TableWrapper = styled.div<{ isNarrator?: boolean }>`
   position: relative;
   border: 3px solid ${({ theme }) => theme.border};
   border-radius: 4px;
@@ -8,10 +8,10 @@ export const TableWrapper = styled.div`
   box-shadow: 
     0 0 10px rgba(0, 0, 0, 0.5),
     inset 0 0 20px rgba(0, 0, 0, 0.3);
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)),
-    url('https://www.transparenttextures.com/patterns/old-map.png'),
-    ${({ theme }) => theme.secondary};
+  background: ${(props) => props.isNarrator 
+    ? null
+    : `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://www.transparenttextures.com/patterns/old-map.png'), ${props.theme.secondary}`};
+  padding: 1rem;
   font-family: "MedievalSharp", cursive;
   color: ${({ theme }) => theme.text};
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
