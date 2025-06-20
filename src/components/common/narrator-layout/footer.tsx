@@ -1,12 +1,9 @@
-import { useTheme } from "../../../context/theme-provider";
 import { Github, Linkedin, PersonCircle } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
 export const Footer = () => {
-  const { themeType } = useTheme();
-
   return (
-    <S.FooterContainer $themeType={themeType}>
+    <S.FooterContainer>
       <S.FooterContent>
         <S.Copyright>
           © 2025 Marco Aurélio Duarte Bezerra. Todos os direitos reservados.
