@@ -17,9 +17,9 @@ import {
   CharacterStorePage,
   PerformanceReportPage,
   NarratorMissionPage,
+  NarratorTaskPage,
 } from "../pages";
 
-import { HomePage } from "../pages/home/home-page";
 import { NarratorLayout } from "../components/common/narrator-layout";
 import { CharacterLayout } from "../components/common/character-layout";
 import { AccessDeniedPage } from "../pages/auth/access-denied-page";
@@ -47,6 +47,7 @@ export default function Router() {
         >
           <Route path="home" element={<PerformanceReportPage />} />
           <Route path="mission" element={<NarratorMissionPage />} />
+          <Route path="task" element={<NarratorTaskPage />} />
         </Route>
 
         <Route

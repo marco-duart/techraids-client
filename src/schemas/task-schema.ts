@@ -3,6 +3,10 @@ import { z } from "zod";
 export const taskStatusSchema = z.enum(["pending", "approved", "rejected"]);
 
 export const taskSchema = z.object({
+  character_id: z
+    .number()
+    .int("O ID do personagem deve ser um número inteiro")
+    .min(1, "O ID do personagem é obrigatório"),
   title: z
     .string()
     .min(1, "O título da tarefa é obrigatório")

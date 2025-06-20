@@ -11,3 +11,4 @@ export * from "./character/character-task";
 export * from "./character/character-mission";
 export * from "./narrator/performance-report";
 export * from "./narrator/narrator-mission";
+export * from "./narrator/narrator-task";
