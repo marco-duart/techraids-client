@@ -17,7 +17,6 @@ export const useNarratorGuild = () => {
     const result = await GetGuildMembers({ token });
     if (result.success && result.data) {
       setGuildMembers(result.data);
-      toast.success(result.message);
     } else {
       toast.error(result.message);
     }
