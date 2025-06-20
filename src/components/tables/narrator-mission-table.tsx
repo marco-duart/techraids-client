@@ -19,7 +19,7 @@ export const NarratorMissionTable = ({
   onView,
 }: Props) => {
   return (
-    <S.TableWrapper>
+    <S.TableWrapper isNarrator={true}>
       <S.Table>
         <S.TableHead>
           <tr>
@@ -48,11 +48,15 @@ export const NarratorMissionTable = ({
                 <S.TableCell>
                   <S.ActionsCell>
                     <IconButton icon={Eye} onClick={() => onView(mission)} />
-                    <IconButton icon={Edit} onClick={() => onEdit(mission)} />
-                    <IconButton
-                      icon={Trash}
-                      onClick={() => onDelete(mission.id)}
-                    />
+                    {mission.status === IMission.Status.PENDING && (
+                      <IconButton icon={Edit} onClick={() => onEdit(mission)} />
+                    )}
+                    {mission.status === IMission.Status.PENDING && (
+                      <IconButton
+                        icon={Trash}
+                        onClick={() => onDelete(mission.id)}
+                      />
+                    )}
                   </S.ActionsCell>
                 </S.TableCell>
               </S.TableRow>
