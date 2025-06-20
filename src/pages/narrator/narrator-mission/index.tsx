@@ -8,11 +8,7 @@ import { Plus } from "@styled-icons/boxicons-regular";
 import { ConfirmModal } from "../../../components/modals/confirm-modal";
 import { toast } from "react-hot-toast";
 import LoadingSpinner from "../../../components/loading-spinner";
-import {
-  ICreateMission,
-  IMission,
-  IUpdateMission,
-} from "../../../services/mission/DTO";
+import { IMission } from "../../../services/mission/DTO";
 
 export const NarratorMissionPage = () => {
   const { missions, isLoading, createMission, updateMission, deleteMission } =
@@ -20,11 +16,28 @@ export const NarratorMissionPage = () => {
   const [selectedMission, setSelectedMission] = useState<
     IMission.Model | undefined
   >(undefined);
+  const [viewingMission, setViewingMission] = useState<
+    IMission.Model | undefined
+  >(undefined);
+  const [createModalKey, setCreateModalKey] = useState(0);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [missionToDelete, setMissionToDelete] = useState<number | undefined>(
     undefined
   );
+
+  const statusToNumber = (status: string): number => {
+    switch (status) {
+      case "pending":
+        return 0;
+      case "approved":
+        return 1;
+      case "rejected":
+        return 2;
+      default:
+        return 0;
+    }
+  };
 
   const handleCreate = async (data: {
     title: string;
@@ -37,18 +50,17 @@ export const NarratorMissionPage = () => {
       mission: {
         title: data.title,
         description: data.description,
-        status:
-          data.status === "pending" ? 0 : data.status === "approved" ? 1 : 2,
+        status: statusToNumber(data.status),
         gold_reward: data.gold_reward,
         character_id: data.character_id,
       },
     });
     setIsCreateModalOpen(false);
+    setCreateModalKey((prev) => prev + 1);
   };
 
   const handleUpdate = async (data: {
     title: string;
-    character_id: number;
     description: string;
     status: "pending" | "approved" | "rejected";
     gold_reward: number;
@@ -59,8 +71,7 @@ export const NarratorMissionPage = () => {
       mission: {
         title: data.title,
         description: data.description,
-        status:
-          data.status === "pending" ? 0 : data.status === "approved" ? 1 : 2,
+        status: statusToNumber(data.status),
         gold_reward: data.gold_reward,
       },
     });
@@ -102,7 +113,7 @@ export const NarratorMissionPage = () => {
             setMissionToDelete(id);
             setIsDeleteModalOpen(true);
           }}
-          onView={(mission) => setSelectedMission(mission)}
+          onView={(mission) => setViewingMission(mission)}
         />
       )}
 
@@ -110,6 +121,7 @@ export const NarratorMissionPage = () => {
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onSubmit={handleCreate}
+        resetKey={createModalKey}
       />
 
       <MissionModal
@@ -117,6 +129,13 @@ export const NarratorMissionPage = () => {
         onClose={() => setSelectedMission(undefined)}
         onSubmit={handleUpdate}
         mission={selectedMission}
+      />
+
+      <MissionModal
+        isOpen={!!viewingMission}
+        onClose={() => setViewingMission(undefined)}
+        mission={viewingMission}
+        readOnly={true}
       />
 
       <ConfirmModal
