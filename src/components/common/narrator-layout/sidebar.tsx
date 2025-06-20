@@ -9,6 +9,7 @@ import {
   FileText,
   Map,
   BarChart,
+  Question,
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
@@ -66,6 +67,12 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
           <Link to="/narrator/task">
             <FileText size={20} />
             {!isCollapsed && " Tarefas"}
+          </Link>
+        </S.MenuItem>
+        <S.MenuItem>
+          <Link to="/narrator/how-to-use">
+            <Question size={20} />
+            {!isCollapsed && " Como Usar"}
           </Link>
         </S.MenuItem>
       </S.SidebarMenu>
