@@ -34,7 +34,9 @@ export namespace IUpdateTask {
     token: string;
     id: number;
     task: {
-      status: number;
+      title?: string;
+      description?: string;
+      status?: number;
       experience_reward: number;
     };
   };
