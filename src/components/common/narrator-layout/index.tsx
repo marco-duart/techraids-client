@@ -17,7 +17,7 @@ export const NarratorLayout = () => {
         isCollapsed={isCollapsed}
         onToggleSidebar={handleToggleSidebar}
       />
-      <S.ContentWrapper isCollapsed={isCollapsed}>
+      <S.ContentWrapper $isCollapsed={isCollapsed}>
         <S.MainContent>
           <Outlet />
         </S.MainContent>

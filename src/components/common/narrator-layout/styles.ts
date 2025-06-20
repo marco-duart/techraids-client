@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ThemeType } from "../../../assets/styles/theme";
 import { Link } from "react-router-dom";
 import { DEVICE } from "../../../utils/constants";
 
@@ -20,8 +19,7 @@ export const MainContent = styled.main`
 `;
 
 export const SidebarContainer = styled.div<{
-  isCollapsed: boolean;
-  themeType: ThemeType;
+  $isCollapsed: boolean;
 }>`
   width: 100%;
   height: 60px;
@@ -40,7 +38,7 @@ export const SidebarContainer = styled.div<{
   box-shadow: ${({ theme }) => theme.shadow};
 
   @media ${DEVICE.tablet} {
-    width: ${({ isCollapsed }) => (isCollapsed ? "80px" : "250px")};
+    width: ${({ $isCollapsed }) => ($isCollapsed ? "80px" : "250px")};
     height: 100vh;
     flex-direction: column;
     justify-content: flex-start;
@@ -48,7 +46,7 @@ export const SidebarContainer = styled.div<{
   }
 `;
 
-export const ContentWrapper = styled.div<{ isCollapsed: boolean }>`
+export const ContentWrapper = styled.div<{ $isCollapsed: boolean }>`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -57,12 +55,12 @@ export const ContentWrapper = styled.div<{ isCollapsed: boolean }>`
   transition: padding-left 0.3s ease;
 
   @media ${DEVICE.tablet} {
-    padding-left: ${({ isCollapsed }) => (isCollapsed ? "80px" : "250px")};
+    padding-left: ${({ $isCollapsed }) => ($isCollapsed ? "80px" : "250px")};
     margin-top: 0;
   }
 `;
 
-export const FooterContainer = styled.footer<{ $themeType: ThemeType }>`
+export const FooterContainer = styled.footer`
   width: 100%;
   background-color: ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.text};
