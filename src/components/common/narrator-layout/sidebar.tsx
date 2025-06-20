@@ -6,6 +6,9 @@ import {
   ArrowRight,
   BoxArrowRight,
   PersonCircle,
+  FileText,
+  Map,
+  BarChart,
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
@@ -25,7 +28,7 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
   };
 
   return (
-    <S.SidebarContainer isCollapsed={isCollapsed} themeType="narrator">
+    <S.SidebarContainer $isCollapsed={isCollapsed}>
       <S.ThemeToggle
         onClick={() => setThemeMode(themeMode === "light" ? "dark" : "light")}
       >
@@ -42,26 +45,26 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
 
       <S.SidebarMenu>
         <S.MenuItem>
-          <Link to="/narrator/status">
-            <PersonCircle size={20} />
-            {!isCollapsed && " Personagem"}
+          <Link to="/narrator/home">
+            <BarChart size={20} />
+            {!isCollapsed && " Equipe"}
           </Link>
         </S.MenuItem>
-        <S.MenuItem>
-          <Link to="/narrator/quest">
+        {/* <S.MenuItem>
+          <Link to="/narrator/account">
             <PersonCircle size={20} />
-            {!isCollapsed && " Jornada"}
+            {!isCollapsed && " Perfil"}
           </Link>
-        </S.MenuItem>
+        </S.MenuItem> */}
         <S.MenuItem>
           <Link to="/narrator/mission">
-            <PersonCircle size={20} />
+            <Map size={20} />
             {!isCollapsed && " Missões"}
           </Link>
         </S.MenuItem>
         <S.MenuItem>
           <Link to="/narrator/task">
-            <PersonCircle size={20} />
+            <FileText size={20} />
             {!isCollapsed && " Tarefas"}
           </Link>
         </S.MenuItem>
