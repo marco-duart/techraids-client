@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { ThemeType } from "../../../assets/styles/theme";
 import { NavLink } from "react-router-dom";
 import { DEVICE } from "../../../utils/constants";
 
-export const CharacterLayoutContainer = styled.div<{ $themeType: ThemeType }>`
+export const CharacterLayoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -16,7 +15,7 @@ export const CharacterContent = styled.main`
   overflow-y: auto;
 `;
 
-export const CharacterHeader = styled.header<{ $themeType: ThemeType }>`
+export const CharacterHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -135,5 +134,39 @@ export const DropdownItem = styled.div`
 
   &:hover {
     background-color: ${({ theme }) => theme.accent};
+  }
+`;
+
+export const ComingSoonOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+`;
+
+export const ComingSoonText = styled.span`
+  color: white;
+  font-weight: bold;
+  background-color: ${({ theme }) => theme.accent};
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+`;
+
+export const DisabledLink = styled.div`
+  position: relative;
+  cursor: not-allowed;
+
+  &:hover ${ComingSoonOverlay} {
+    opacity: 1;
   }
 `;

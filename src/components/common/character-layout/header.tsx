@@ -10,11 +10,12 @@ import {
   BoxArrowRight,
   Person,
 } from "@styled-icons/bootstrap";
+import { Paw, FeatherAlt } from "@styled-icons/fa-solid";
 import { Trophy, Store, Home } from "@styled-icons/fa-solid";
 import * as S from "./styles";
 
 export const Header = () => {
-  const { themeType, themeMode, setThemeMode } = useTheme();
+  const { themeMode, setThemeMode } = useTheme();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -33,7 +34,7 @@ export const Header = () => {
   };
 
   return (
-    <S.CharacterHeader $themeType={themeType}>
+    <S.CharacterHeader>
       <S.DropdownMenu>
         <S.UserPhoto
           src={user?.photo_url}
@@ -65,6 +66,15 @@ export const Header = () => {
           <PersonCircle size={24} />
           <span>Personagem</span>
         </S.CharacterNavLink>
+        <S.DisabledLink>
+          <S.CharacterNavLink to="#" onClick={(e) => e.preventDefault()}>
+            <Paw size={24} />
+            <span>Pet</span>
+          </S.CharacterNavLink>
+          <S.ComingSoonOverlay>
+            <S.ComingSoonText>Em breve</S.ComingSoonText>
+          </S.ComingSoonOverlay>
+        </S.DisabledLink>
         <S.CharacterNavLink to="/character/quest">
           <Map size={24} />
           <span>Jornada</span>
@@ -85,6 +95,15 @@ export const Header = () => {
           <Trophy size={24} />
           <span>Ranking</span>
         </S.CharacterNavLink>
+        <S.DisabledLink>
+          <S.CharacterNavLink to="#" onClick={(e) => e.preventDefault()}>
+            <FeatherAlt size={24} />
+            <span>Ascensão</span>
+          </S.CharacterNavLink>
+          <S.ComingSoonOverlay>
+            <S.ComingSoonText>Em breve</S.ComingSoonText>
+          </S.ComingSoonOverlay>
+        </S.DisabledLink>
       </S.CharacterNavLinks>
 
       <S.ThemeToggle onClick={toggleTheme}>
