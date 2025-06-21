@@ -10,7 +10,7 @@ import {
   IGetStoreItens,
 } from "../services/character-store/DTO";
 import { useAuth } from "../context/user-provider";
-import { IReward } from "../services/rewards/DTO";
+import { IReward } from "../services/reward/DTO";
 import { ITreasureChest } from "../services/treasure-chest/DTO";
 
 export const useCharacterStore = () => {

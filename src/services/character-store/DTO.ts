@@ -1,4 +1,4 @@
-import { IReward } from "../rewards/DTO";
+import { IReward } from "../reward/DTO";
 import { ITreasureChest } from "../treasure-chest/DTO";
 
 export namespace IPurchaseChest {

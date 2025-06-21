@@ -7,7 +7,7 @@ import { Coin, History, Sword, Shield } from "@styled-icons/remix-fill";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
 import { useAuth } from "../../../context/user-provider";
-import { IReward } from "../../../services/rewards/DTO";
+import { IReward } from "../../../services/reward/DTO";
 
 export const CharacterStorePage = () => {
   const {

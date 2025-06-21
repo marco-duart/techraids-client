@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { IReward } from "../../../services/rewards/DTO";
+import { IReward } from "../../../services/reward/DTO";
 
 export const StoreContainer = styled.div`
   position: relative;
