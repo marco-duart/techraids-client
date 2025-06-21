@@ -97,15 +97,15 @@ export const NarratorHowToUsePage = () => {
           <S.StatusList>
             <li>
               <S.StatusBadge $status="pending">Pendente</S.StatusBadge> -
-              Aguardando conclusão pelo colaborador
+              Aguardando validação e aprovação pelo gestor
             </li>
             <li>
               <S.StatusBadge $status="approved">Aprovado</S.StatusBadge> -
-              Missão concluída com sucesso
+              Tarefa concluída e aprovada
             </li>
             <li>
               <S.StatusBadge $status="rejected">Reprovado</S.StatusBadge> -
-              Missão não atendida
+              Tarefa não atendida
             </li>
           </S.StatusList>
 
@@ -124,12 +124,12 @@ export const NarratorHowToUsePage = () => {
             <S.WorkflowStep>
               <S.StepNumber>3</S.StepNumber>
               <S.StepText>
-                Equipe acumula pontos para desafios coletivos
+                Equipe acumula pontos de experiencia para desafios coletivos
               </S.StepText>
             </S.WorkflowStep>
             <S.WorkflowStep>
               <S.StepNumber>4</S.StepNumber>
-              <S.StepText>Conclusão de desafios libera recompensas</S.StepText>
+              <S.StepText>Conclusão de desafios(chefes derrotados) libera recompensas coletivas</S.StepText>
             </S.WorkflowStep>
           </S.Workflow>
         </S.Section>
