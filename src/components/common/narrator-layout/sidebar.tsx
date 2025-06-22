@@ -1,6 +1,6 @@
 import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -10,6 +10,7 @@ import {
   Map,
   BarChart,
   Question,
+  Gift,
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
@@ -46,34 +47,43 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
 
       <S.SidebarMenu>
         <S.MenuItem>
-          <Link to="/narrator/home">
+          <S.NarratorNavLink to="/narrator/home">
             <BarChart size={20} />
             {!isCollapsed && " Equipe"}
-          </Link>
+          </S.NarratorNavLink>
         </S.MenuItem>
-        {/* <S.MenuItem>
-          <Link to="/narrator/account">
-            <PersonCircle size={20} />
+        <S.DisabledLink>
+          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
+            <PersonCircle size={24} />
             {!isCollapsed && " Perfil"}
-          </Link>
-        </S.MenuItem> */}
+          </S.NarratorNavLink>
+          <S.ComingSoonOverlay>
+            <S.ComingSoonText>Em breve</S.ComingSoonText>
+          </S.ComingSoonOverlay>
+        </S.DisabledLink>
         <S.MenuItem>
-          <Link to="/narrator/mission">
+          <S.NarratorNavLink to="/narrator/missions">
             <Map size={20} />
             {!isCollapsed && " Missões"}
-          </Link>
+          </S.NarratorNavLink>
         </S.MenuItem>
         <S.MenuItem>
-          <Link to="/narrator/task">
+          <S.NarratorNavLink to="/narrator/tasks">
             <FileText size={20} />
             {!isCollapsed && " Tarefas"}
-          </Link>
+          </S.NarratorNavLink>
         </S.MenuItem>
         <S.MenuItem>
-          <Link to="/narrator/how-to-use">
+          <S.NarratorNavLink to="/narrator/treasure-chests">
+            <Gift size={20} />
+            {!isCollapsed && " Premiações"}
+          </S.NarratorNavLink>
+        </S.MenuItem>
+        <S.MenuItem>
+          <S.NarratorNavLink to="/narrator/how-to-use">
             <Question size={20} />
             {!isCollapsed && " Como Usar"}
-          </Link>
+          </S.NarratorNavLink>
         </S.MenuItem>
       </S.SidebarMenu>
 

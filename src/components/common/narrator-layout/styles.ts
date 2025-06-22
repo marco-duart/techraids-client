@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { DEVICE } from "../../../utils/constants";
 
 export const LayoutContainer = styled.div`
@@ -218,5 +218,56 @@ export const AboutLink = styled(Link)`
 
   &:hover {
     color: ${({ theme }) => theme.accent};
+  }
+`;
+
+export const NarratorNavLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
+  font-size: 14px;
+
+  &:hover {
+    color: ${({ theme }) => theme.accent};
+  }
+
+  @media ${DEVICE.tablet} {
+    font-size: 16px;
+  }
+`;
+
+export const ComingSoonOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+`;
+
+export const ComingSoonText = styled.span`
+  color: white;
+  font-weight: bold;
+  background-color: ${({ theme }) => theme.accent};
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+`;
+
+export const DisabledLink = styled.div`
+  position: relative;
+  cursor: not-allowed;
+
+  &:hover ${ComingSoonOverlay} {
+    opacity: 1;
   }
 `;
