@@ -24,7 +24,7 @@ export namespace ICreateReward {
     reward: {
       name: string;
       description: string;
-      reward_type: number; //physical_item 0, digital_content 1, in_game_benefit 2, real_life_experience 3
+      reward_type: number;
       is_limited: boolean;
       stock_quantity: number;
       treasure_chest_id: number;
