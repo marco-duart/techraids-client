@@ -148,3 +148,34 @@ export const FormFooter = styled.div`
   gap: 1rem;
   margin-top: 1.5rem;
 `;
+
+export const StatusActions = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+`;
+
+export const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: ${({ theme }) => theme.text};
+  }
+
+  &:hover {
+    span {
+      color: ${({ theme }) => theme.primary};
+    }
+  }
+`;
