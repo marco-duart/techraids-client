@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "./styles";
-import { useTasks } from "../../../hooks/use-tasks";
+import { useTasks } from "../../../hooks";
 import { NarratorTaskTable } from "../../../components/tables/narrator-task-table";
 import { TaskModal } from "../../../components/modals/task-modal";
 import LoadingSpinner from "../../../components/loading-spinner";
