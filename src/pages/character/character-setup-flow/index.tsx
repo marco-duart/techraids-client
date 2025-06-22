@@ -13,7 +13,6 @@ export const CharacterSetupFlow = () => {
   };
 
   useEffect(() => {
-    console.log("UseEffect do Setup: ", user);
     if (user?.specialization && user?.character_class) {
       navigate("/home");
     }

@@ -13,3 +13,4 @@ export * from "./narrator/performance-report";
 export * from "./narrator/narrator-mission";
 export * from "./narrator/narrator-task";
 export * from "./narrator/narrator-how-to-use";
+export * from "./narrator/narrator-treasure-chest";

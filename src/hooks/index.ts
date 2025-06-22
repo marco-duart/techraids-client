@@ -10,3 +10,6 @@ export * from "./use-honorary-titles";
 export * from "./use-journal";
 export * from "./use-perfomance-report.ts";
 export * from "./use-specializations.ts";
+export * from "./use-narrator-guild.ts";
+export * from "./use-treasure-chests.ts";
+export * from "./use-rewards.ts";
