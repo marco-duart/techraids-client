@@ -5,12 +5,11 @@ export const TableWrapper = styled.div<{ isNarrator?: boolean }>`
   border: 3px solid ${({ theme }) => theme.border};
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 
-    0 0 10px rgba(0, 0, 0, 0.5),
-    inset 0 0 20px rgba(0, 0, 0, 0.3);
-  background: ${(props) => props.isNarrator 
-    ? null
-    : `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://www.transparenttextures.com/patterns/old-map.png'), ${props.theme.secondary}`};
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
+  background: ${(props) =>
+    props.isNarrator
+      ? null
+      : `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://www.transparenttextures.com/patterns/old-map.png'), ${props.theme.secondary}`};
   padding: 1rem;
   font-family: "MedievalSharp", cursive;
   color: ${({ theme }) => theme.text};
@@ -25,12 +24,11 @@ export const Table = styled.table`
 `;
 
 export const TableHead = styled.thead`
-  background: 
-    linear-gradient(
-      to bottom,
-      ${({ theme }) => theme.primary} 0%,
-      ${({ theme }) => theme.border} 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    ${({ theme }) => theme.primary} 0%,
+    ${({ theme }) => theme.border} 100%
+  );
   border-bottom: 3px double ${({ theme }) => theme.border};
 `;
 
@@ -43,7 +41,7 @@ export const TableHeader = styled.th`
   letter-spacing: 1px;
   position: relative;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-  
+
   &:not(:last-child)::after {
     content: "";
     position: absolute;
@@ -62,39 +60,36 @@ export const TableHeader = styled.th`
 
 export const TableBody = styled.tbody`
   tr {
-    background: 
-      linear-gradient(
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.1) 0%,
+      transparent 5%,
+      transparent 95%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+
+    &:nth-child(odd) {
+      background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0.2) 0%,
         transparent 5%,
         transparent 95%,
-        rgba(0, 0, 0, 0.1) 100%
+        rgba(0, 0, 0, 0.2) 100%
       );
-    
-    &:nth-child(odd) {
-      background: 
-        linear-gradient(
-          to right,
-          rgba(0, 0, 0, 0.2) 0%,
-          transparent 5%,
-          transparent 95%,
-          rgba(0, 0, 0, 0.2) 100%
-        );
     }
-    
+
     &:not(:last-child) {
       border-bottom: 1px solid ${({ theme }) => theme.border};
     }
-    
+
     &:hover {
-      background: 
-        linear-gradient(
-          to right,
-          rgba(0, 0, 0, 0.3) 0%,
-          ${({ theme }) => theme.primary}20 5%,
-          ${({ theme }) => theme.primary}20 95%,
-          rgba(0, 0, 0, 0.3) 100%
-        );
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.3) 0%,
+        ${({ theme }) => theme.primary}20 5%,
+        ${({ theme }) => theme.primary}20 95%,
+        rgba(0, 0, 0, 0.3) 100%
+      );
     }
   }
 `;
@@ -107,7 +102,7 @@ export const TableCell = styled.td`
   padding: 1.25rem 1rem;
   vertical-align: middle;
   position: relative;
-  
+
   &:not(:first-child)::before {
     content: "";
     position: absolute;
@@ -130,7 +125,7 @@ export const QuestTitle = styled.div`
   letter-spacing: 0.5px;
   position: relative;
   display: inline-block;
-  
+
   &::after {
     content: "";
     position: absolute;
@@ -167,14 +162,14 @@ export const GoldCell = styled.div`
   gap: 0.25rem;
   position: relative;
   padding-left: 1.25rem;
-  
+
   &::before {
     content: "🪙";
     position: absolute;
     left: 0;
     font-size: 0.9em;
   }
-  
+
   &::after {
     content: "Peças de Ouro";
     font-size: 0.7em;
@@ -207,7 +202,7 @@ export const XPCell = styled.div`
   position: relative;
   padding-left: 1.5rem;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
-  
+
   &::before {
     content: "✨";
     position: absolute;
@@ -216,7 +211,7 @@ export const XPCell = styled.div`
     filter: drop-shadow(0 0 2px ${({ theme }) => theme.accent});
     animation: glow 2s infinite alternate;
   }
-  
+
   &::after {
     content: "Pontos de Experiência";
     font-size: 0.7em;
@@ -243,20 +238,20 @@ export const XPCell = styled.div`
 export const ActionsCell = styled.div`
   display: flex;
   gap: 0.75rem;
-  
+
   button {
     background: ${({ theme }) => theme.border};
     border: 1px solid ${({ theme }) => theme.text};
     border-radius: 3px;
     padding: 0.25rem;
     transition: all 0.3s ease;
-    
+
     &:hover {
       background: ${({ theme }) => theme.accent};
       transform: translateY(-1px);
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
-    
+
     &:active {
       transform: translateY(0);
     }
@@ -271,21 +266,22 @@ export const EmptyMessage = styled.div`
   font-family: "Book Antiqua", serif;
   font-size: 1.1rem;
   border-top: 1px dashed ${({ theme }) => theme.border};
-  background: url('https://www.transparenttextures.com/patterns/parchment.png');
+  background: url("https://www.transparenttextures.com/patterns/parchment.png");
   position: relative;
-  
-  &::before, &::after {
+
+  &::before,
+  &::after {
     content: "✧";
     position: absolute;
     top: 1rem;
     color: ${({ theme }) => theme.accent};
     font-size: 1.5rem;
   }
-  
+
   &::before {
     left: 1rem;
   }
-  
+
   &::after {
     right: 1rem;
   }
@@ -297,8 +293,7 @@ export const LoadingOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    url('https://www.transparenttextures.com/patterns/black-paper.png'),
+  background: url("https://www.transparenttextures.com/patterns/black-paper.png"),
     rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
@@ -319,7 +314,8 @@ export const LoadingOverlay = styled.div`
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.7;
       transform: scale(1) rotate(-10deg);
     }
@@ -328,9 +324,10 @@ export const LoadingOverlay = styled.div`
       transform: scale(1.1) rotate(-10deg);
     }
   }
-  
+
   @keyframes swing {
-    0%, 100% {
+    0%,
+    100% {
       transform: rotate(-10deg);
     }
     50% {
@@ -357,7 +354,8 @@ export const MembersTable = styled.div`
     overflow: hidden;
   }
 
-  th, td {
+  th,
+  td {
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid ${({ theme }) => theme.border};
@@ -386,7 +384,10 @@ export const ProgressBar = styled.div`
   position: relative;
 `;
 
-export const ProgressFill = styled.div<{ $percentage: number; $color: "pending" | "approved" | "rejected" }>`
+export const ProgressFill = styled.div<{
+  $percentage: number;
+  $color: "pending" | "approved" | "rejected";
+}>`
   position: absolute;
   left: 0;
   top: 0;
@@ -414,4 +415,10 @@ export const PerformanceScore = styled.div<{ $score: number }>`
     return theme.rejected;
   }};
   color: ${({ theme }) => theme.primary};
+`;
+
+export const QuantityInput = styled.input`
+  width: 60px;
+  padding: 0.25rem;
+  margin-right: 0.5rem;
 `;
