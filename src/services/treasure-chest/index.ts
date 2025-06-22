@@ -55,6 +55,7 @@ export const ActivateTreasureChest = async (
 
     const response = await api.patch<IActivateTreasureChest.Response>(
       `/treasure_chests/${id}/activate`,
+      {},
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -94,6 +95,7 @@ export const DeactivateTreasureChest = async (
 
     await api.patch<IDeactivateTreasureChest.Response>(
       `/treasure_chests/${id}/deactivate`,
+      {},
       {
         headers: { Authorization: `Bearer ${token}` },
       }
