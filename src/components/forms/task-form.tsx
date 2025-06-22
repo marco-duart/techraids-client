@@ -7,6 +7,7 @@ import { Scroll } from "@styled-icons/fa-solid";
 import { Sword } from "@styled-icons/remix-line";
 import { Times } from "@styled-icons/fa-solid";
 import { IconButton } from "../buttons/icon-button";
+import { useAuth } from "../../context/user-provider";
 
 interface Props {
   task?: ITask.Model;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export const TaskForm = ({ task, onSubmit, onClose, isLoading }: Props) => {
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -23,6 +25,7 @@ export const TaskForm = ({ task, onSubmit, onClose, isLoading }: Props) => {
   } = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
+      character_id: user?.id,
       title: task?.title || "",
       description: task?.description || "",
       status: "pending",
