@@ -27,7 +27,6 @@ export const useTreasureChests = () => {
     const result = await GetTreasureChests({ token });
     if (result.success && result.data) {
       setTreasureChests(result.data);
-      toast.success(result.message);
     } else {
       toast.error(result.message);
     }
