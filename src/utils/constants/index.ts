@@ -11,6 +11,7 @@ import questMap from "../../assets/images/quest-map.jpg";
 import clouds from "../../assets/images/clouds.png";
 import openedChest from "../../assets/images/opened-chest.png";
 import closedChest from "../../assets/images/closed-chest.png";
+import alphaLogo from "../../assets/images/alpha-logo.png"
 
 import mainThemeSong from "../../assets/audios/celtic-main-theme.mp3";
 
@@ -46,6 +47,7 @@ export const IMAGES = {
   clouds,
   openedChest,
   closedChest,
+  alphaLogo,
 };
 
 export const SONGS = {

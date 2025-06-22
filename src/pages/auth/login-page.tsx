@@ -20,6 +20,10 @@ export const LoginPage = () => {
           </S.RegisterLink>
         </S.FormWrapper>
       </S.ContentWrapper>
+
+      <S.AlphaVersionBadge>
+        <img src={IMAGES.alphaLogo} alt="Alpha Version" />
+      </S.AlphaVersionBadge>
     </S.PageContainer>
   );
 };

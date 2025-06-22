@@ -109,3 +109,40 @@ export const RegisterLink = styled.p`
     }
   }
 `;
+
+export const AlphaVersionBadge = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+  
+  img {
+    width: 80px;
+    height: auto;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  @media ${DEVICE.tablet} {
+    img {
+      width: 100px;
+    }
+  }
+
+  @media ${DEVICE.desktop} {
+    img {
+      width: 120px;
+    }
+  }
+
+  @media ${DEVICE.fullHd} {
+    img {
+      width: 150px;
+    }
+  }
+`;
