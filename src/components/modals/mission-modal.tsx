@@ -7,7 +7,7 @@ import { Cancel, Save } from "@styled-icons/material";
 import { Sword } from "@styled-icons/remix-line";
 import { Modal } from "./modal";
 import { IconButton } from "../buttons/icon-button";
-import { useNarratorGuild } from "../../hooks/use-narrator-guild";
+import { useNarratorGuild } from "../../hooks";
 import * as S from "./styles";
 import { useEffect } from "react";
 
