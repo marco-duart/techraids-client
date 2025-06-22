@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import {
   CreateReward,
@@ -26,7 +26,6 @@ export const useRewards = ({
     const result = await GetRewards({ token, treasure_chest_id });
     if (result.success && result.data) {
       setRewards(result.data);
-      toast.success(result.message);
     } else {
       toast.error(result.message);
     }
@@ -78,6 +77,10 @@ export const useRewards = ({
 
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    fetchRewards();
+  }, [treasure_chest_id]);
 
   return {
     rewards,
