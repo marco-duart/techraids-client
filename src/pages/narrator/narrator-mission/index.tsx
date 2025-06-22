@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "./styles";
-import { useMissions } from "../../../hooks/use-missions";
+import { useMissions } from "../../../hooks";
 import { NarratorMissionTable } from "../../../components/tables/narrator-mission-table";
 import { MissionModal } from "../../../components/modals/mission-modal";
 import { IconButton } from "../../../components/buttons/icon-button";

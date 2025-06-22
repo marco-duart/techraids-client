@@ -20,7 +20,7 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${({ theme }) => theme.textTitle};
+  color: ${({ theme }) => theme.accent};
   font-size: 1.5rem;
   font-weight: 500;
 
