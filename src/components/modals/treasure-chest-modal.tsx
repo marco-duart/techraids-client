@@ -59,7 +59,6 @@ export const TreasureChestModal = ({
 
   const {
     rewards,
-    isLoading: isLoadingRewards,
     createReward,
     restockReward,
     removeRewardStock,

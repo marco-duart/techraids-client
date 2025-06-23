@@ -7,7 +7,6 @@ import { Scroll } from "@styled-icons/fa-solid";
 import { Crown } from "@styled-icons/boxicons-regular";
 
 import * as S from "./styles";
-import { IMAGES } from "../../../utils/constants";
 import { motion } from "framer-motion";
 
 export const CharacterRankingPage = () => {

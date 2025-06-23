@@ -4,7 +4,6 @@ import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
 import { motion } from "framer-motion";
 import * as S from "./styles";
-import { IMAGES } from "../../../utils/constants";
 import { Sword } from "@styled-icons/remix-fill";
 
 export const SpecializationSelectionPage = ({

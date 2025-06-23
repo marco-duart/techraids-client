@@ -15,7 +15,6 @@ import ReactCrop, {
 } from "react-image-crop";
 import { Sword, Shield, Camera } from "@styled-icons/remix-fill";
 import * as S from "./styles";
-import { IMAGES } from "../../../utils/constants";
 import { PasswordForm } from "../../../components/forms/password-form";
 
 function centerAspectCrop(mediaWidth: number, mediaHeight: number) {

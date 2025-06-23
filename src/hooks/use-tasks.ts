@@ -2,10 +2,8 @@ import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { GetTasks, CreateTask, UpdateTask, DeleteTask } from "../services/task";
 import {
-  IGetTasks,
   ICreateTask,
   IUpdateTask,
-  IDeleteTask,
   ITask,
 } from "../services/task/DTO";
 import { useAuth } from "../context/user-provider";

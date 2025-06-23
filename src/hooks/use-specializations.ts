@@ -3,16 +3,12 @@ import { toast } from "react-hot-toast";
 import {
   CreateSpecialization,
   DeleteSpecialization,
-  GetSpecialization,
   GetSpecializations,
   UpdateSpecialization,
   SelectSpecialization,
 } from "../services/specialization";
 import {
   ICreateSpecialization,
-  IDeleteSpecialization,
-  IGetSpecialization,
-  IGetSpecializations,
   IUpdateSpecialization,
   ISelectSpecialization,
   ISpecialization,
