@@ -102,7 +102,7 @@ export const ClassCard = styled(motion.div)<{
 }>`
   width: 280px;
   background: ${({ theme, selected }) =>
-    selected ? theme.accent + "10" : theme.secondary};
+    selected ? theme.accent + "10" : "#FFFFFF"};
   border: 3px solid
     ${({ theme, selected }) => (selected ? theme.accent : theme.border)};
   border-radius: 8px;
@@ -115,14 +115,22 @@ export const ClassCard = styled(motion.div)<{
 export const ClassImageContainer = styled.div`
   position: relative;
   height: 400px;
+  width: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ClassImage = styled.img`
-  width: 100%;
   height: 100%;
+  width: auto;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.5s ease;
+
+  ${ClassCard}:hover & {
+    transform: scale(1.05);
+  }
 `;
 
 export const ClassOverlay = styled.div<{ selected: boolean }>`
