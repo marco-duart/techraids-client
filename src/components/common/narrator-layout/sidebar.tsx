@@ -11,6 +11,7 @@ import {
   BarChart,
   Question,
   Gift,
+  CurrencyExchange,
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
@@ -76,9 +77,18 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
         <S.MenuItem>
           <S.NarratorNavLink to="/narrator/treasure-chests">
             <Gift size={20} />
-            {!isCollapsed && " Premiações"}
+            {!isCollapsed && " Prêmios Cadastrados"}
           </S.NarratorNavLink>
         </S.MenuItem>
+        <S.DisabledLink>
+          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
+            <CurrencyExchange size={24} />
+            {!isCollapsed && " Prêmios Pendentes"}
+          </S.NarratorNavLink>
+          <S.ComingSoonOverlay>
+            <S.ComingSoonText>Em breve</S.ComingSoonText>
+          </S.ComingSoonOverlay>
+        </S.DisabledLink>
         <S.MenuItem>
           <S.NarratorNavLink to="/narrator/how-to-use">
             <Question size={20} />
