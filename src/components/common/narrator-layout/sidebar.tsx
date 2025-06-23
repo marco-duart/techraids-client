@@ -11,7 +11,8 @@ import {
   BarChart,
   Question,
   Gift,
-  CurrencyExchange,
+  CurrencyDollar,
+  Megaphone,
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
@@ -82,8 +83,17 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
         </S.MenuItem>
         <S.DisabledLink>
           <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
-            <CurrencyExchange size={24} />
+            <CurrencyDollar size={24} />
             {!isCollapsed && " Prêmios Pendentes"}
+          </S.NarratorNavLink>
+          <S.ComingSoonOverlay>
+            <S.ComingSoonText>Em breve</S.ComingSoonText>
+          </S.ComingSoonOverlay>
+        </S.DisabledLink>
+        <S.DisabledLink>
+          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
+            <Megaphone size={24} />
+            {!isCollapsed && " Comunicação"}
           </S.NarratorNavLink>
           <S.ComingSoonOverlay>
             <S.ComingSoonText>Em breve</S.ComingSoonText>
