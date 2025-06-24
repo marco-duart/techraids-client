@@ -197,6 +197,7 @@ export const MemberImage = styled.div`
   width: 80px;
   height: 120px;
   border-radius: 4px;
+  background-color: #FFFFFF;
   overflow: hidden;
   border: 2px solid ${({ theme }) => theme.border};
   position: relative;
@@ -204,7 +205,7 @@ export const MemberImage = styled.div`
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: top;
   }
 `;

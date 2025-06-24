@@ -30,6 +30,7 @@ export const CharacterQuestPage = () => {
           quest={data?.quest}
           last_task={data?.last_task}
           last_mission={data?.last_mission}
+          isLoading={isLoading}
           onStartChallenge={() => setIsChallengeStarted(true)}
         />
       ) : (
@@ -51,14 +52,21 @@ const CharacterQuestResume = ({
   quest,
   last_task,
   last_mission,
+  isLoading,
   onStartChallenge,
 }: {
   quest?: IQuest.Model;
   last_task?: ITask.Model;
   last_mission?: IMission.Model;
+  isLoading: boolean;
   onStartChallenge: () => void;
 }) => {
-  const isDisabled = !quest || !last_task || !last_mission;
+  const isDisabled = !quest || !last_task || !last_mission || isLoading;
+  const phrase = isLoading
+    ? "Consultando os pergaminhos..."
+    : "Nenhuma missão ou tarefa designada.";
+  const buttonText = isLoading ? "Aguarde..." : "Continuar Jornada";
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -67,20 +75,17 @@ const CharacterQuestResume = ({
     >
       <S.BackgroundImage src={IMAGES.worldMap} alt="World Map" />
       <S.QuestCard>
-        <S.QuestTitle>
-          {quest?.title || "Consultando os pergaminhos"}
-        </S.QuestTitle>
+        <S.QuestTitle>{quest?.title || phrase}</S.QuestTitle>
         <S.QuestSubtitle>{quest?.description}</S.QuestSubtitle>
         <S.TaskStatus $status={last_task?.status || "pending"}>
-          Última Tarefa: {last_task?.title || "Consultando os pergaminhos"} (
-          {last_task?.status})
+          Última Tarefa: {last_task?.title || phrase} ({last_task?.status})
         </S.TaskStatus>
         <S.MissionStatus $status={last_mission?.status || "pending"}>
-          Última Missão: {last_mission?.title || "Consultando os pergaminhos"} (
-          {last_mission?.status})
+          Última Missão: {last_mission?.title || phrase} ({last_mission?.status}
+          )
         </S.MissionStatus>
         <S.StartButton onClick={onStartChallenge} disabled={isDisabled}>
-          Continuar Jornada
+          {buttonText}
         </S.StartButton>
       </S.QuestCard>
     </motion.div>
