@@ -13,6 +13,7 @@ import {
   Gift,
   CurrencyDollar,
   Megaphone,
+  Award,
 } from "@styled-icons/bootstrap";
 import * as S from "./styles";
 
@@ -85,6 +86,15 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
           <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
             <CurrencyDollar size={24} />
             {!isCollapsed && " Prêmios Pendentes"}
+          </S.NarratorNavLink>
+          <S.ComingSoonOverlay>
+            <S.ComingSoonText>Em breve</S.ComingSoonText>
+          </S.ComingSoonOverlay>
+        </S.DisabledLink>
+        <S.DisabledLink>
+          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
+            <Award size={24} />
+            {!isCollapsed && " Títulos Honoríficos"}
           </S.NarratorNavLink>
           <S.ComingSoonOverlay>
             <S.ComingSoonText>Em breve</S.ComingSoonText>
