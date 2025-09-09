@@ -14,7 +14,7 @@ export const PageContainer = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  justify-content: space-between;
+  gap: 2rem;
   align-items: center;
   margin-bottom: 1rem;
 `;
