@@ -20,6 +20,7 @@ import {
   NarratorTaskPage,
   NarratorHowToUsePage,
   NarratorTreasureChestPage,
+  NarratorGuildRewardsPage,
 } from "../pages";
 
 import { NarratorLayout } from "../components/common/narrator-layout";
@@ -52,6 +53,7 @@ export default function Router() {
           <Route path="tasks" element={<NarratorTaskPage />} />
           <Route path="treasure-chests" element={<NarratorTreasureChestPage />} />
           <Route path="how-to-use" element={<NarratorHowToUsePage />} />
+          <Route path="pending-rewards" element={<NarratorGuildRewardsPage />} />
         </Route>
 
         <Route
