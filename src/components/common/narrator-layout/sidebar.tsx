@@ -82,15 +82,12 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
             {!isCollapsed && " Prêmios Cadastrados"}
           </S.NarratorNavLink>
         </S.MenuItem>
-        <S.DisabledLink>
-          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
-            <CurrencyDollar size={24} />
+        <S.MenuItem>
+          <S.NarratorNavLink to="/narrator/pending-rewards">
+            <CurrencyDollar size={20} />
             {!isCollapsed && " Prêmios Pendentes"}
           </S.NarratorNavLink>
-          <S.ComingSoonOverlay>
-            <S.ComingSoonText>Em breve</S.ComingSoonText>
-          </S.ComingSoonOverlay>
-        </S.DisabledLink>
+        </S.MenuItem>
         <S.DisabledLink>
           <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
             <Award size={24} />
