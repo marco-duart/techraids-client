@@ -106,3 +106,52 @@ export const ButtonContainer = styled.button<{
     inset 0 1px 1px rgba(255, 255, 255, 0.1),
     inset 0 -1px 1px rgba(0, 0, 0, 0.1);
 `;
+
+export const TextButtonContainer = styled.button<{
+  $variant: "default" | "primary" | "danger";
+}>`
+  display: inline-flex;
+  width: auto;
+  height: 2rem;
+  padding: 0 1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+
+  ${({ $variant }) => variantStyles[$variant]};
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${({ theme }) => theme.text}10;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  &:hover:not(:disabled)::after {
+    opacity: 1;
+  }
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1);
+`;
