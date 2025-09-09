@@ -3,10 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema, TaskFormData } from "../../schemas/task-schema";
 import { ITask } from "../../services/task/DTO";
 import { Scroll, Times } from "@styled-icons/fa-solid";
-import { Cancel, Save } from "@styled-icons/material";
 import { Sword } from "@styled-icons/remix-line";
 import { Modal } from "./modal";
 import { IconButton } from "../buttons/icon-button";
+import { TextButton } from "../buttons/text-button";
 import { useNarratorGuild } from "../../hooks";
 import * as S from "./styles";
 import { useEffect } from "react";
@@ -158,15 +158,15 @@ export const TaskModal = ({
 
         {!readOnly && (
           <S.FormFooter>
-            <IconButton
+            <TextButton
               variant="default"
-              icon={Cancel}
+              text="Cancelar"
               onClick={handleClose}
               disabled={isLoading}
             />
-            <IconButton
+            <TextButton
               variant="primary"
-              icon={Save}
+              text="Salvar"
               type="submit"
               disabled={isLoading}
             />
