@@ -12,19 +12,17 @@ export const useTasks = () => {
   const { token } = useAuth();
   const [tasks, setTasks] = useState<ITask.Model[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchTasks = async () => {
     if (!token) return;
 
     setIsLoading(true);
-    setError(null);
 
     const result = await GetTasks({ token });
     if (result.success && result.data) {
       setTasks(result.data);
     } else {
-      setError(result.message);
+      toast.error(result.message);
     }
 
     setIsLoading(false);
@@ -82,7 +80,6 @@ export const useTasks = () => {
   return {
     tasks,
     isLoading,
-    error,
     fetchTasks,
     createTask,
     updateTask,
