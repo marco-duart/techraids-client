@@ -21,19 +21,17 @@ export const useSpecializations = () => {
     ISpecialization.Model[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchSpecializations = async () => {
     if (!token) return;
 
     setIsLoading(true);
-    setError(null);
 
     const result = await GetSpecializations({ token });
     if (result.success && result.data) {
       setSpecializations(result.data);
     } else {
-      setError(result.message);
+      toast.error(result.message);
     }
 
     setIsLoading(false);
@@ -114,7 +112,6 @@ export const useSpecializations = () => {
   return {
     specializations,
     isLoading,
-    error,
     fetchSpecializations,
     createSpecialization,
     updateSpecialization,
