@@ -18,3 +18,38 @@ export namespace IGetGuildNotices {
   };
   export type Response = Array<IGuildNotice.Model>;
 }
+
+export namespace ICreateGuildNotice {
+  export type Params = {
+    token: string;
+    guild: {
+      title: string;
+      content: string;
+      priority: string;
+      active: number;
+    };
+  };
+  export type Response = {};
+}
+
+export namespace IUpdateGuildNotice {
+  export type Params = {
+    token: string;
+    id: number;
+    guild_notice: {
+      title?: string;
+      content?: string;
+      priority?: string;
+      active?: number;
+    };
+  };
+  export type Response = {};
+}
+
+export namespace IDeleteGuildNotice {
+  export type Params = {
+    token: string;
+    id: number;
+  };
+  export type Response = {};
+}
