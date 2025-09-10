@@ -87,14 +87,14 @@ export const NarratorGuildRewardsPage = () => {
                 <S.RewardItem key={chest.id}>
                   <S.RewardInfo>
                     <S.RewardTitle>
-                      Baú do Tesouro #{chest.treasure_chest_id}
+                      {chest.character_name} - {chest.reward_name}
                     </S.RewardTitle>
                     <S.RewardDescription>
-                      Recompensa ID: {chest.reward_id}
+                      {chest.reward_description}
                     </S.RewardDescription>
                     <S.RewardDate>
-                      Coletado em:{" "}
-                      {new Date(chest.updated_at).toLocaleDateString()}
+                      Conquistado em:{" "}
+                      {new Date(chest.created_at).toLocaleDateString()}
                     </S.RewardDate>
                   </S.RewardInfo>
                   <S.DeliverButton

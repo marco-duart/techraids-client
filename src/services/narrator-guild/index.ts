@@ -80,7 +80,7 @@ export const DeliverRewards = async (params: IDeliverRewards.Params) => {
   try {
     const { token, ...data } = params;
 
-    const response = await api.post<IDeliverRewards.Response>(
+    const response = await api.patch<IDeliverRewards.Response>(
       "/narrators/deliver_reward",
       data,
       { headers: { Authorization: `Bearer ${token}` } }
@@ -88,7 +88,7 @@ export const DeliverRewards = async (params: IDeliverRewards.Params) => {
 
     return {
       success: true,
-      message: "Recompensas pendentes recuperadas com sucesso!",
+      message: "Recompensa entregue com sucesso!",
       data: response.data,
     };
   } catch (error) {

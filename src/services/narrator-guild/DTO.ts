@@ -15,7 +15,13 @@ export namespace IGetPendingRewards {
   };
   export type Response = {
     pending_bosses: IBoss.Model[];
-    pending_chests: ICharacterTreasureChest.Model[];
+    pending_chests: Array<
+      ICharacterTreasureChest.Model & {
+        character_name: string;
+        reward_name: string;
+        reward_description: string;
+      }
+    >;
   };
 }
 
