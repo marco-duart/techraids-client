@@ -17,19 +17,17 @@ export const useMissions = () => {
   const { token } = useAuth();
   const [missions, setMissions] = useState<IMission.Model[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchMissions = async () => {
     if (!token) return;
 
     setIsLoading(true);
-    setError(null);
 
     const result = await GetMissions({ token });
     if (result.success && result.data) {
       setMissions(result.data);
     } else {
-      setError(result.message);
+      toast.error(result.message);
     }
 
     setIsLoading(false);
@@ -87,7 +85,6 @@ export const useMissions = () => {
   return {
     missions,
     isLoading,
-    error,
     fetchMissions,
     createMission,
     updateMission,
