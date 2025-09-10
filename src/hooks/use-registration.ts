@@ -10,11 +10,10 @@ export const useRegistration = () => {
     IGetPublicGuilds.Response | undefined
   >([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchPublicGuilds = async () => {
     setLoading(true);
-    setError(null);
+
     const result = await GetPublicGuilds();
     if (result.success) {
       setPublicGuilds(result.data);
@@ -27,12 +26,11 @@ export const useRegistration = () => {
 
   const registerUser = async (data: RegistrationFormData) => {
     setLoading(true);
-    setError(null);
 
     const result = await Registration(data);
 
     if (!result.success) {
-      setError(result.message);
+      toast.error(result.message);
     }
 
     setLoading(false);
@@ -43,5 +41,5 @@ export const useRegistration = () => {
     fetchPublicGuilds();
   }, []);
 
-  return { publicGuilds, registerUser, loading, error };
+  return { publicGuilds, registerUser, loading };
 };
