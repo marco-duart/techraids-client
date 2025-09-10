@@ -21,19 +21,17 @@ export const useCharacterClasses = () => {
     ICharacterClass.Model[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const fetchCharacterClasses = async () => {
     if (!token) return;
 
     setIsLoading(true);
-    setError(null);
 
     const result = await GetCharacterClasses({ token });
     if (result.success && result.data) {
       setCharacterClasses(result.data);
     } else {
-      setError(result.message);
+      toast.error(result.message);
     }
 
     setIsLoading(false);
@@ -114,7 +112,6 @@ export const useCharacterClasses = () => {
   return {
     characterClasses,
     isLoading,
-    error,
     fetchCharacterClasses,
     createCharacterClass,
     updateCharacterClass,
