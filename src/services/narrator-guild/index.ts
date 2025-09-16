@@ -52,7 +52,7 @@ export const GetPendingRewards = async (params: IGetPendingRewards.Params) => {
 
     return {
       success: true,
-      message: "Recompensas pendentes recuperadas com sucesso!",
+      message: "Prêmios Pendentes recuperadas com sucesso!",
       data: response.data,
     };
   } catch (error) {
@@ -88,7 +88,7 @@ export const DeliverRewards = async (params: IDeliverRewards.Params) => {
 
     return {
       success: true,
-      message: "Recompensa entregue com sucesso!",
+      message: "Prêmios entregue com sucesso!",
       data: response.data,
     };
   } catch (error) {
