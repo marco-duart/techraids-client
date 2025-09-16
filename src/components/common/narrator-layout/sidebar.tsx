@@ -15,6 +15,7 @@ import {
   Megaphone,
   Award,
 } from "@styled-icons/bootstrap";
+import { CommunicationPerson } from "styled-icons/fluentui-system-regular";
 import * as S from "./styles";
 
 interface Props {
@@ -57,7 +58,7 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
         </S.MenuItem>
         <S.DisabledLink>
           <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
-            <PersonCircle size={24} />
+            <PersonCircle size={20} />
             {!isCollapsed && " Perfil"}
           </S.NarratorNavLink>
           <S.ComingSoonOverlay>
@@ -90,22 +91,25 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
         </S.MenuItem>
         <S.DisabledLink>
           <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
-            <Award size={24} />
+            <Award size={20} />
             {!isCollapsed && " Títulos Honoríficos"}
           </S.NarratorNavLink>
           <S.ComingSoonOverlay>
             <S.ComingSoonText>Em breve</S.ComingSoonText>
           </S.ComingSoonOverlay>
         </S.DisabledLink>
-        <S.DisabledLink>
-          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
-            <Megaphone size={24} />
-            {!isCollapsed && " Comunicação"}
+        <S.MenuItem>
+          <S.NarratorNavLink to="/narrator/guild-notices">
+            <CommunicationPerson size={20} />
+            {!isCollapsed && " Comunicação - Equipe"}
           </S.NarratorNavLink>
-          <S.ComingSoonOverlay>
-            <S.ComingSoonText>Em breve</S.ComingSoonText>
-          </S.ComingSoonOverlay>
-        </S.DisabledLink>
+        </S.MenuItem>
+        <S.MenuItem>
+          <S.NarratorNavLink to="/narrator/arcane-announcements">
+            <Megaphone size={20} />
+            {!isCollapsed && " Comunicação - Geral"}
+          </S.NarratorNavLink>
+        </S.MenuItem>
         <S.MenuItem>
           <S.NarratorNavLink to="/narrator/how-to-use">
             <Question size={20} />
