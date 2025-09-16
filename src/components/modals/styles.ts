@@ -74,6 +74,16 @@ export const InputGroup = styled.div`
   margin-bottom: 1rem;
 `;
 
+export const FormRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
 export const Label = styled.label`
   display: block;
   margin-bottom: 0.5rem;
@@ -178,4 +188,16 @@ export const CheckboxLabel = styled.label`
       color: ${({ theme }) => theme.primary};
     }
   }
+`;
+
+export const PriorityPreview = styled.div<{ $color: string }>`
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: ${({ $color }) => $color};
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
 `;
