@@ -1,9 +1,10 @@
 export namespace IGuildNotice {
+  export type Priority = "low" | "normal" | "high" | "critical"
   export interface Model {
     id: number;
     title: string;
     content: string;
-    priority: string;
+    priority: Priority;
     active: true;
     created_at: string;
     updated_at: string;
@@ -22,11 +23,11 @@ export namespace IGetGuildNotices {
 export namespace ICreateGuildNotice {
   export type Params = {
     token: string;
-    guild: {
+    guild_notice: {
       title: string;
       content: string;
-      priority: string;
-      active: number;
+      priority: IGuildNotice.Priority;
+      active: boolean;
     };
   };
   export type Response = {};
@@ -39,8 +40,8 @@ export namespace IUpdateGuildNotice {
     guild_notice: {
       title?: string;
       content?: string;
-      priority?: string;
-      active?: number;
+      priority?: IGuildNotice.Priority;
+      active?: boolean;
     };
   };
   export type Response = {};
