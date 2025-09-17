@@ -1,10 +1,9 @@
 export namespace IReward {
-  export enum RewardType {
-    PHYSICAL = "physical_item",
-    DIGITAL = "digital_content",
-    INGAME = "in_game_benefit",
-    EXPERIENCE = "real_life_experience",
-  }
+  export type RewardType =
+    | "physical_item"
+    | "digital_content"
+    | "in_game_benefit"
+    | "real_life_experience";
   export interface Model {
     id: number;
     name: string;
@@ -24,7 +23,7 @@ export namespace ICreateReward {
     reward: {
       name: string;
       description: string;
-      reward_type: number;
+      reward_type: IReward.RewardType;
       is_limited: boolean;
       stock_quantity: number;
       treasure_chest_id: number;
