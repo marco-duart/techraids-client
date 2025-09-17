@@ -34,11 +34,11 @@ export const CharacterStorePage = () => {
 
   const getRewardIcon = (rewardType: IReward.RewardType | undefined) => {
     switch (rewardType) {
-      case IReward.RewardType.PHYSICAL:
+      case "physical_item":
         return <Sword size={24} />;
-      case IReward.RewardType.DIGITAL:
+      case "digital_content":
         return <MagicWand size={24} />;
-      case IReward.RewardType.INGAME:
+      case "in_game_benefit":
         return <Shield size={24} />;
       default:
         return <Coin size={24} />;

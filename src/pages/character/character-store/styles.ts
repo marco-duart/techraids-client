@@ -238,11 +238,11 @@ export const RewardBadge = styled.div<{ rewardType: IReward.RewardType }>`
   padding: 0.25rem 0.5rem;
   background: ${({ rewardType, theme }) => {
     switch (rewardType) {
-      case IReward.RewardType.PHYSICAL:
+      case "physical_item":
         return theme.accent + "40";
-      case IReward.RewardType.DIGITAL:
+      case "digital_content":
         return "#9c27b040";
-      case IReward.RewardType.INGAME:
+      case "in_game_benefit":
         return "#4caf5040";
       default:
         return "#ff980040";
@@ -325,11 +325,11 @@ export const RewardCard = styled.div<{ rewardType: IReward.RewardType | undefine
   padding: 1.5rem;
   background: ${({ rewardType, theme }) => {
     switch (rewardType) {
-      case IReward.RewardType.PHYSICAL:
+      case "physical_item":
         return theme.accent + "20";
-      case IReward.RewardType.DIGITAL:
+      case "digital_content":
         return "#9c27b020";
-      case IReward.RewardType.INGAME:
+      case "in_game_benefit":
         return "#4caf5020";
       default:
         return "#ff980020";
@@ -338,11 +338,11 @@ export const RewardCard = styled.div<{ rewardType: IReward.RewardType | undefine
   border: 2px solid
     ${({ rewardType, theme }) => {
       switch (rewardType) {
-        case IReward.RewardType.PHYSICAL:
+        case "physical_item":
           return theme.accent;
-        case IReward.RewardType.DIGITAL:
+        case "digital_content":
           return "#9c27b0";
-        case IReward.RewardType.INGAME:
+        case "in_game_benefit":
           return "#4caf50";
         default:
           return "#ff9800";
