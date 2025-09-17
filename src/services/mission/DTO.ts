@@ -1,9 +1,5 @@
 export namespace IMission {
-  export enum Status {
-    PENDING = "pending",
-    APPROVED = "approved",
-    CHARACTER = "rejected",
-  }
+  export type Status = "pending" | "approved" | "rejected"
   export interface Model {
     id: number;
     title: string;
@@ -24,7 +20,7 @@ export namespace ICreateMission {
     mission: {
       title: string;
       description: string;
-      status: number;
+      status: IMission.Status;
       gold_reward: number;
       character_id: number;
     };
@@ -39,7 +35,7 @@ export namespace IUpdateMission {
     mission: {
       title?: string;
       description?: string;
-      status?: number;
+      status?: IMission.Status;
       gold_reward?: number;
     };
   };
