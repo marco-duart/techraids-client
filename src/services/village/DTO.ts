@@ -1,13 +1,12 @@
 export namespace IVillage {
-  export enum VillageType {
-    IT = "arcane_scholars",
-    MANAGER = "lorekeepers",
-    MARKETING = "runemasters",
-    COMMERCIAL = "silver_tongues",
-    EVENTS = "festbringers",
-    QUALITY = "precision_crafters",
-    FINANCIAL = "coinwardens",
-  }
+  export type VillageType =
+    | "arcane_scholars"
+    | "lorekeepers"
+    | "runemasters"
+    | "silver_tongues"
+    | "festbringers"
+    | "precision_crafters"
+    | "coinwardens";
   export interface Model {
     id: number;
     name: string;
