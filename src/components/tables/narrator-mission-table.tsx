@@ -19,57 +19,59 @@ export const NarratorMissionTable = ({
   onView,
 }: Props) => {
   return (
-    <S.TableWrapper isNarrator={true}>
-      <S.Table>
-        <S.TableHead>
+    <S.NarratorTableWrapper>      
+      <S.NarratorTable>
+        <S.NarratorTableHead>
           <tr>
-            <S.TableHeader>Título</S.TableHeader>
-            <S.TableHeader>Status</S.TableHeader>
-            <S.TableHeader>Recompensa</S.TableHeader>
-            <S.TableHeader>Ações</S.TableHeader>
+            <S.NarratorTableHeader>Título</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Status</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Recompensa</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Ações</S.NarratorTableHeader>
           </tr>
-        </S.TableHead>
-        <S.TableBody>
+        </S.NarratorTableHead>
+        <S.NarratorTableBody>
           {missions.length > 0 ? (
             missions.map((mission) => (
-              <S.TableRow key={mission.id}>
-                <S.TableCell>
-                  <S.QuestTitle>{mission.title}</S.QuestTitle>
-                  <S.QuestDescription>
+              <S.NarratorTableRow key={mission.id}>
+                <S.NarratorTableCell>
+                  <S.NarratorQuestTitle>{mission.title}</S.NarratorQuestTitle>
+                  <S.NarratorQuestDescription>
                     {mission.description.substring(0, 60)}...
-                  </S.QuestDescription>
-                </S.TableCell>
-                <S.TableCell>
+                  </S.NarratorQuestDescription>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
                   <StatusBadge status={mission.status} />
-                </S.TableCell>
-                <S.TableCell>
-                  <S.GoldCell>{mission.gold_reward}</S.GoldCell>
-                </S.TableCell>
-                <S.TableCell>
-                  <S.ActionsCell>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
+                  <S.NarratorGoldCell>{mission.gold_reward}</S.NarratorGoldCell>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
+                  <S.NarratorActionsCell>
                     <IconButton icon={Eye} onClick={() => onView(mission)} />
-                    {mission.status === IMission.Status.PENDING && (
+                    {mission.status === "pending" && (
                       <IconButton icon={Edit} onClick={() => onEdit(mission)} />
                     )}
-                    {mission.status === IMission.Status.PENDING && (
+                    {mission.status === "pending" && (
                       <IconButton
                         icon={Trash}
                         onClick={() => onDelete(mission.id)}
                       />
                     )}
-                  </S.ActionsCell>
-                </S.TableCell>
-              </S.TableRow>
+                  </S.NarratorActionsCell>
+                </S.NarratorTableCell>
+              </S.NarratorTableRow>
             ))
           ) : (
             <tr>
               <td colSpan={4}>
-                <S.EmptyMessage>Nenhuma missão encontrada</S.EmptyMessage>
+                <S.NarratorEmptyMessage>
+                  Nenhuma missão encontrada
+                </S.NarratorEmptyMessage>
               </td>
             </tr>
           )}
-        </S.TableBody>
-      </S.Table>
-    </S.TableWrapper>
+        </S.NarratorTableBody>
+      </S.NarratorTable>
+    </S.NarratorTableWrapper>
   );
 };

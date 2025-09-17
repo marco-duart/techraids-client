@@ -1,15 +1,12 @@
 import styled from "styled-components";
 
-export const TableWrapper = styled.div<{ isNarrator?: boolean }>`
+export const TableWrapper = styled.div`
   position: relative;
   border: 3px solid ${({ theme }) => theme.border};
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
-  background: ${(props) =>
-    props.isNarrator
-      ? null
-      : `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://www.transparenttextures.com/patterns/old-map.png'), ${props.theme.secondary}`};
+  background: ${(props) => `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('https://www.transparenttextures.com/patterns/old-map.png'), ${props.theme.secondary}`};
   padding: 1rem;
   font-family: "MedievalSharp", cursive;
   color: ${({ theme }) => theme.text};
@@ -421,4 +418,192 @@ export const QuantityInput = styled.input`
   width: 60px;
   padding: 0.25rem;
   margin-right: 0.5rem;
+`;
+
+export const NarratorTableWrapper = styled.div`
+  position: relative;
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: ${({ theme }) => theme.shadow};
+  background: ${({ theme }) => theme.secondary};
+  padding: 1.5rem;
+  font-family: inherit;
+  color: ${({ theme }) => theme.text};
+`;
+
+export const NarratorTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  background-color: transparent;
+`;
+
+export const NarratorTableHead = styled.thead`
+  background: ${({ theme }) => theme.primary};
+  border-bottom: 2px solid ${({ theme }) => theme.border};
+`;
+
+export const NarratorTableHeader = styled.th`
+  padding: 1rem;
+  text-align: left;
+  color: ${({ theme }) => theme.textTitle};
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background: ${({ theme }) => theme.border};
+  }
+`;
+
+export const NarratorTableBody = styled.tbody`
+  tr {
+    transition: background-color 0.2s ease;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid ${({ theme }) => theme.border};
+    }
+
+    &:hover {
+      background-color: ${({ theme }) => theme.primary}15;
+    }
+  }
+`;
+
+export const NarratorTableRow = styled.tr`
+  transition: all 0.2s ease;
+`;
+
+export const NarratorTableCell = styled.td`
+  padding: 1rem;
+  vertical-align: middle;
+  position: relative;
+
+  &:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background: ${({ theme }) => theme.border};
+  }
+`;
+
+export const NarratorQuestTitle = styled.div`
+  font-weight: 600;
+  color: ${({ theme }) => theme.textTitle};
+  margin-bottom: 0.25rem;
+`;
+
+export const NarratorQuestDescription = styled.p`
+  margin: 0;
+  color: ${({ theme }) => theme.text};
+  font-size: 0.9rem;
+  opacity: 0.8;
+  line-height: 1.4;
+  padding-left: 0.75rem;
+  border-left: 2px solid ${({ theme }) => theme.border};
+`;
+
+export const NarratorGoldCell = styled.div`
+  font-weight: 600;
+  color: ${({ theme }) => theme.accent};
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: "💰";
+    font-size: 0.9em;
+  }
+
+  &::after {
+    content: "PO";
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-left: 0.25rem;
+  }
+`;
+
+export const NarratorActionsCell = styled.div`
+  display: flex;
+  gap: 0.5rem;
+
+  button {
+    background: ${({ theme }) => theme.primary};
+    border: 1px solid ${({ theme }) => theme.border};
+    border-radius: 4px;
+    padding: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: ${({ theme }) => theme.accent};
+      border-color: ${({ theme }) => theme.accent};
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+`;
+
+export const NarratorEmptyMessage = styled.div`
+  padding: 3rem;
+  text-align: center;
+  color: ${({ theme }) => theme.emphasis};
+  font-style: italic;
+  background: ${({ theme }) => theme.secondary};
+  border-top: 1px dashed ${({ theme }) => theme.border};
+`;
+
+export const NarratorLoadingOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  color: ${({ theme }) => theme.accent};
+  font-family: inherit;
+  font-size: 1.1rem;
+
+  &::before {
+    content: "⏳";
+    margin-right: 0.75rem;
+    font-size: 1.5rem;
+  }
+`;
+
+export const NarratorXPCell = styled.div`
+  font-weight: 600;
+  color: ${({ theme }) => theme.accent};
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: "⭐";
+    font-size: 0.9em;
+  }
+
+  &::after {
+    content: "XP";
+    font-size: 0.8em;
+    opacity: 0.7;
+    margin-left: 0.25rem;
+  }
 `;
