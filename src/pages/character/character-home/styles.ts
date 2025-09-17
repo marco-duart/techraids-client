@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { IGuildNotice } from "../../../services/guild-notice/DTO";
 
 export const JournalContainer = styled.div`
   position: relative;
@@ -98,7 +99,7 @@ export const MessagesContainer = styled.div`
 `;
 
 export const MessageCard = styled.div<{
-  priority: string;
+  priority: IGuildNotice.Priority;
   guildNotice?: boolean;
 }>`
   background: ${({ theme, guildNotice }) =>
@@ -128,17 +129,14 @@ export const MessageCard = styled.div<{
   }
 `;
 
-const getPriorityColor = (priority: string) => {
-  switch (priority.toLowerCase()) {
-    case "high":
-      return "#ff5252";
-    case "medium":
-      return "#ffc107";
-    case "low":
-      return "#4caf50";
-    default:
-      return "#9e9e9e";
-  }
+const getPriorityColor = (priority: IGuildNotice.Priority) => {
+  const colors = {
+    low: "#4caf50",
+    normal: "#ffc107",
+    high: "#fd7e14",
+    critical: "#ff5252",
+  };
+  return colors[priority];
 };
 
 export const MessageHeader = styled.div`
@@ -147,6 +145,16 @@ export const MessageHeader = styled.div`
   gap: 0.75rem;
   margin-bottom: 1rem;
   position: relative;
+`;
+
+export const AuthorLine = styled.span`
+  font-size: 0.75rem;
+  opacity: 0.7;
+  font-style: italic;
+  color: ${({ theme }) => theme.text};
+  position: absolute;
+  top: 0;
+  left: 1rem;
 `;
 
 export const AnnouncementIconWarning = styled.div`

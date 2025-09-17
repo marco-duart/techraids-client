@@ -99,6 +99,11 @@ export const CharacterHomePage = () => {
                     key={announcement.id}
                     priority={announcement.priority}
                   >
+                    <S.AuthorLine>
+                          Por {announcement.author_name}
+                          {announcement.author_nickname &&
+                            ` (${announcement.author_nickname})`}
+                        </S.AuthorLine>
                     <S.MessageHeader>
                       {getAnnouncementIcon(announcement.announcement_type)}
                       <S.MessageTitle>{announcement.title}</S.MessageTitle>
