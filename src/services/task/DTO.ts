@@ -1,9 +1,5 @@
 export namespace ITask {
-  export enum Status {
-    PENDING = "pending",
-    APPROVED = "approved",
-    CHARACTER = "rejected",
-  }
+  export type Status = "pending" | "approved" | "rejected"
   export interface Model {
     id: number;
     title: string;
@@ -36,7 +32,7 @@ export namespace IUpdateTask {
     task: {
       title?: string;
       description?: string;
-      status?: number;
+      status?: ITask.Status;
       experience_reward: number;
     };
   };
