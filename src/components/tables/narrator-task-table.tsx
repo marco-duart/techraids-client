@@ -8,55 +8,67 @@ interface Props {
   tasks: ITask.Model[];
   onEdit: (task: ITask.Model) => void;
   onView: (task: ITask.Model) => void;
+  isLoading?: boolean;
 }
 
-export const NarratorTaskTable = ({ tasks, onEdit, onView }: Props) => {
+export const NarratorTaskTable = ({
+  tasks,
+  onEdit,
+  onView,
+  isLoading = false,
+}: Props) => {
   return (
-    <S.TableWrapper isNarrator={true}>
-      <S.Table>
-        <S.TableHead>
+    <S.NarratorTableWrapper>
+      {isLoading && (
+        <S.NarratorLoadingOverlay>Carregando...</S.NarratorLoadingOverlay>
+      )}
+
+      <S.NarratorTable>
+        <S.NarratorTableHead>
           <tr>
-            <S.TableHeader>Título</S.TableHeader>
-            <S.TableHeader>Status</S.TableHeader>
-            <S.TableHeader>Recompensa</S.TableHeader>
-            <S.TableHeader>Ações</S.TableHeader>
+            <S.NarratorTableHeader>Título</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Status</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Recompensa</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Ações</S.NarratorTableHeader>
           </tr>
-        </S.TableHead>
-        <S.TableBody>
+        </S.NarratorTableHead>
+        <S.NarratorTableBody>
           {tasks.length > 0 ? (
             tasks.map((task) => (
-              <S.TableRow key={task.id}>
-                <S.TableCell>
-                  <S.QuestTitle>{task.title}</S.QuestTitle>
-                  <S.QuestDescription>
+              <S.NarratorTableRow key={task.id}>
+                <S.NarratorTableCell>
+                  <S.NarratorQuestTitle>{task.title}</S.NarratorQuestTitle>
+                  <S.NarratorQuestDescription>
                     {task.description.substring(0, 60)}...
-                  </S.QuestDescription>
-                </S.TableCell>
-                <S.TableCell>
+                  </S.NarratorQuestDescription>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
                   <StatusBadge status={task.status} />
-                </S.TableCell>
-                <S.TableCell>
-                  <S.XPCell>{task.experience_reward}</S.XPCell>
-                </S.TableCell>
-                <S.TableCell>
-                  <S.ActionsCell>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
+                  <S.NarratorXPCell>{task.experience_reward}</S.NarratorXPCell>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
+                  <S.NarratorActionsCell>
                     <IconButton icon={Eye} onClick={() => onView(task)} />
-                    {task.status === ITask.Status.PENDING && (
+                    {task.status === "pending" && (
                       <IconButton icon={Edit} onClick={() => onEdit(task)} />
                     )}
-                  </S.ActionsCell>
-                </S.TableCell>
-              </S.TableRow>
+                  </S.NarratorActionsCell>
+                </S.NarratorTableCell>
+              </S.NarratorTableRow>
             ))
           ) : (
             <tr>
               <td colSpan={4}>
-                <S.EmptyMessage>Nenhuma missão encontrada</S.EmptyMessage>
+                <S.NarratorEmptyMessage>
+                  Nenhuma tarefa encontrada
+                </S.NarratorEmptyMessage>
               </td>
             </tr>
           )}
-        </S.TableBody>
-      </S.Table>
-    </S.TableWrapper>
+        </S.NarratorTableBody>
+      </S.NarratorTable>
+    </S.NarratorTableWrapper>
   );
 };
