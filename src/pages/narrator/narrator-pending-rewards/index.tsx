@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import * as S from "./styles";
 import { useNarratorGuildRewards } from "../../../hooks/use-narrator-guild-rewards";
-import { IconButton } from "../../../components/buttons/icon-button";
 import { Person, People } from "@styled-icons/bootstrap";
 import LoadingSpinner from "../../../components/loading-spinner";
 
@@ -34,14 +33,14 @@ export const NarratorGuildRewardsPage = () => {
   return (
     <S.PageContainer>
       <S.Header>
-        <S.Title>Recompensas Pendentes</S.Title>
+        <S.Title>Prêmios Pendentes</S.Title>
       </S.Header>
 
       <S.RewardsContainer>
         <S.Section>
           <S.SectionTitle>
             <People size={24} />
-            Recompensas de Bosses
+            Prêmios de Bosses
           </S.SectionTitle>
 
           {pendingRewards?.pending_bosses &&
@@ -70,14 +69,14 @@ export const NarratorGuildRewardsPage = () => {
               ))}
             </S.RewardList>
           ) : (
-            <S.EmptyMessage>Nenhuma recompensa de boss pendente</S.EmptyMessage>
+            <S.EmptyMessage>Nenhum prêmio de boss pendente</S.EmptyMessage>
           )}
         </S.Section>
 
         <S.Section>
           <S.SectionTitle>
             <Person size={24} />
-            Recompensas de Baús do Tesouro
+            Prêmios de Baús do Tesouro
           </S.SectionTitle>
 
           {pendingRewards?.pending_chests &&
@@ -107,7 +106,7 @@ export const NarratorGuildRewardsPage = () => {
               ))}
             </S.RewardList>
           ) : (
-            <S.EmptyMessage>Nenhuma recompensa de baú pendente</S.EmptyMessage>
+            <S.EmptyMessage>Nenhum prêmio de baú pendente</S.EmptyMessage>
           )}
         </S.Section>
       </S.RewardsContainer>
