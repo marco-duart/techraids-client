@@ -6,12 +6,21 @@ import { useAuth } from "../context/user-provider";
 import { GetArcaneAnnouncements } from "../services/arcane-announcement";
 import { GetGuildNotices } from "../services/guild-notice";
 
+type ArcaneAnnouncementWithUser = IArcaneAnnouncement.Model & {
+  author_name: string;
+  author_nickname: string;
+};
+
 export const useJournal = () => {
   const { token, user } = useAuth();
-  const [arcaneAnnouncements, setArcaneAnnouncements] = useState<IArcaneAnnouncement.Model[] | undefined>([]);
-  const [guildNotices, setGuildNotices] = useState<IGuildNotice.Model[] | undefined>([]);
+  const [arcaneAnnouncements, setArcaneAnnouncements] = useState<
+    ArcaneAnnouncementWithUser[] | undefined
+  >([]);
+  const [guildNotices, setGuildNotices] = useState<
+    IGuildNotice.Model[] | undefined
+  >([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'arcane' | 'guild'>('arcane');
+  const [activeTab, setActiveTab] = useState<"arcane" | "guild">("arcane");
 
   const fetchArcaneAnnouncements = async () => {
     if (!token) return;
@@ -50,6 +59,6 @@ export const useJournal = () => {
     isLoading,
     activeTab,
     setActiveTab,
-    userGuildId: user?.guild.id
+    userGuildId: user?.guild.id,
   };
 };
