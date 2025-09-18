@@ -15,3 +15,5 @@ export * from "./narrator/narrator-task";
 export * from "./narrator/narrator-how-to-use";
 export * from "./narrator/narrator-treasure-chest";
 export * from "./narrator/narrator-pending-rewards";
+export * from "./narrator/narrator-guild-notices";
+export * from "./narrator/narrator-arcane-announcements";
