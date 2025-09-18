@@ -15,23 +15,10 @@ export const NarratorTaskPage = () => {
     undefined
   );
 
-  const statusToNumber = (status: string): number => {
-    switch (status) {
-      case "pending":
-        return 0;
-      case "approved":
-        return 1;
-      case "rejected":
-        return 2;
-      default:
-        return 0;
-    }
-  };
-
   const handleUpdate = async (data: {
     title: string;
     description: string;
-    status: "pending" | "approved" | "rejected";
+    status: ITask.Status;
     experience_reward: number;
   }) => {
     if (!selectedTask) return;
@@ -40,7 +27,7 @@ export const NarratorTaskPage = () => {
       task: {
         title: data.title,
         description: data.description,
-        status: statusToNumber(data.status),
+        status: data.status,
         experience_reward: data.experience_reward,
       },
     });
@@ -59,6 +46,7 @@ export const NarratorTaskPage = () => {
         </S.LoadingWrapper>
       ) : (
         <NarratorTaskTable
+          isLoading={isLoading}
           tasks={tasks}
           onEdit={(task) => setSelectedTask(task)}
           onView={(task) => setViewingTask(task)}
