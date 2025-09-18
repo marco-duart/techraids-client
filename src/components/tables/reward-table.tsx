@@ -31,40 +31,48 @@ export const RewardTable = ({
   };
 
   return (
-    <S.TableWrapper isNarrator={true}>
-      <S.TableHeader>
-        <h3>Prêmios</h3>
+    <S.NarratorTableWrapper>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "1rem",
+        }}
+      >
+        <h3 style={{ color: "#333", margin: 0 }}>Prêmios</h3>
         <IconButton
           icon={Plus}
           onClick={() => onCreate(treasureChestId)}
           variant="primary"
         />
-      </S.TableHeader>
-      <S.Table>
-        <S.TableHead>
+      </div>
+
+      <S.NarratorTable>
+        <S.NarratorTableHead>
           <tr>
-            <S.TableHeader>Nome</S.TableHeader>
-            <S.TableHeader>Tipo</S.TableHeader>
-            <S.TableHeader>Estoque</S.TableHeader>
-            <S.TableHeader>Ações</S.TableHeader>
+            <S.NarratorTableHeader>Nome</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Tipo</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Estoque</S.NarratorTableHeader>
+            <S.NarratorTableHeader>Ações</S.NarratorTableHeader>
           </tr>
-        </S.TableHead>
-        <S.TableBody>
+        </S.NarratorTableHead>
+        <S.NarratorTableBody>
           {rewards.length > 0 ? (
             rewards.map((reward) => (
-              <S.TableRow key={reward.id}>
-                <S.TableCell>{reward.name}</S.TableCell>
-                <S.TableCell>
+              <S.NarratorTableRow key={reward.id}>
+                <S.NarratorTableCell>{reward.name}</S.NarratorTableCell>
+                <S.NarratorTableCell>
                   {reward.reward_type.replace(/_/g, " ")}
-                </S.TableCell>
-                <S.TableCell>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
                   {reward.is_limited ? reward.stock_quantity : "Ilimitado"}
-                </S.TableCell>
-                <S.TableCell>
-                  <S.ActionsCell>
+                </S.NarratorTableCell>
+                <S.NarratorTableCell>
+                  <S.NarratorActionsCell>
                     {reward.is_limited && (
                       <>
-                        <S.QuantityInput
+                        <input
                           type="number"
                           min="1"
                           value={restockQuantities[reward.id] || 1}
@@ -74,6 +82,13 @@ export const RewardTable = ({
                               parseInt(e.target.value)
                             )
                           }
+                          style={{
+                            width: "60px",
+                            padding: "0.25rem",
+                            marginRight: "0.5rem",
+                            border: "1px solid #ddd",
+                            borderRadius: "4px",
+                          }}
                         />
                         <IconButton
                           icon={Plus}
@@ -92,19 +107,21 @@ export const RewardTable = ({
                         />
                       </>
                     )}
-                  </S.ActionsCell>
-                </S.TableCell>
-              </S.TableRow>
+                  </S.NarratorActionsCell>
+                </S.NarratorTableCell>
+              </S.NarratorTableRow>
             ))
           ) : (
             <tr>
               <td colSpan={4}>
-                <S.EmptyMessage>Nenhum prêmio encontrado</S.EmptyMessage>
+                <S.NarratorEmptyMessage>
+                  Nenhum prêmio encontrado
+                </S.NarratorEmptyMessage>
               </td>
             </tr>
           )}
-        </S.TableBody>
-      </S.Table>
-    </S.TableWrapper>
+        </S.NarratorTableBody>
+      </S.NarratorTable>
+    </S.NarratorTableWrapper>
   );
 };
