@@ -3,6 +3,7 @@ import { useTasks } from "../../../hooks";
 import * as S from "./styles";
 import { TaskTable } from "../../../components/tables/task-table";
 import { TaskForm } from "../../../components/forms/task-form";
+import { TaskFormData } from "../../../schemas/task-schema";
 import { IconButton } from "../../../components/buttons/icon-button";
 import { Scroll, Plus } from "@styled-icons/fa-solid";
 
@@ -11,7 +12,7 @@ export const CharacterTasksPage = () => {
 
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const handleSubmit = async (taskData: any) => {
+  const handleSubmit = async (taskData: TaskFormData) => {
     await createTask({
       task: taskData,
     });
@@ -60,7 +61,10 @@ export const CharacterTasksPage = () => {
             animate={{ scale: 1 }}
             exit={{ scale: 0.9 }}
           >
-            <TaskForm onSubmit={handleSubmit} onClose={() => handleForm(false)} />
+            <TaskForm
+              onSubmit={handleSubmit}
+              onClose={() => handleForm(false)}
+            />
           </S.FormContent>
         </S.FormModal>
       )}
