@@ -57,12 +57,8 @@ export const TreasureChestModal = ({
     IReward.Model | undefined
   >(undefined);
 
-  const {
-    rewards,
-    createReward,
-    restockReward,
-    removeRewardStock,
-  } = useRewards({ treasure_chest_id: treasureChest?.id || 0 });
+  const { rewards, createReward, restockReward, removeRewardStock } =
+    useRewards({ treasure_chest_id: treasureChest?.id || 0 });
 
   useEffect(() => {
     if (treasureChest) {
@@ -83,7 +79,7 @@ export const TreasureChestModal = ({
     const rewardData = {
       name: data.name,
       description: data.description,
-      reward_type: convertRewardTypeToNumber(data.reward_type),
+      reward_type: data.reward_type,
       is_limited: data.is_limited,
       stock_quantity: data.is_limited ? data.stock_quantity : 0,
       treasure_chest_id: treasureChest?.id || 0,
@@ -91,21 +87,6 @@ export const TreasureChestModal = ({
 
     createReward({ reward: rewardData });
     setIsRewardModalOpen(false);
-  };
-
-  const convertRewardTypeToNumber = (type: string): number => {
-    switch (type) {
-      case "physical_item":
-        return 0;
-      case "digital_content":
-        return 1;
-      case "in_game_benefit":
-        return 2;
-      case "real_life_experience":
-        return 3;
-      default:
-        return 0;
-    }
   };
 
   return (
