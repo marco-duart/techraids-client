@@ -26,31 +26,18 @@ export const NarratorMissionPage = () => {
     undefined
   );
 
-  const statusToNumber = (status: string): number => {
-    switch (status) {
-      case "pending":
-        return 0;
-      case "approved":
-        return 1;
-      case "rejected":
-        return 2;
-      default:
-        return 0;
-    }
-  };
-
   const handleCreate = async (data: {
     title: string;
     character_id: number;
     description: string;
-    status: "pending" | "approved" | "rejected";
+    status: IMission.Status;
     gold_reward: number;
   }) => {
     await createMission({
       mission: {
         title: data.title,
         description: data.description,
-        status: statusToNumber(data.status),
+        status: data.status,
         gold_reward: data.gold_reward,
         character_id: data.character_id,
       },
@@ -62,7 +49,7 @@ export const NarratorMissionPage = () => {
   const handleUpdate = async (data: {
     title: string;
     description: string;
-    status: "pending" | "approved" | "rejected";
+    status: IMission.Status;
     gold_reward: number;
   }) => {
     if (!selectedMission) return;
@@ -71,7 +58,7 @@ export const NarratorMissionPage = () => {
       mission: {
         title: data.title,
         description: data.description,
-        status: statusToNumber(data.status),
+        status: data.status,
         gold_reward: data.gold_reward,
       },
     });
