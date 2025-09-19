@@ -208,7 +208,7 @@ export const RankName = styled.span`
 export const RankValue = styled.span`
   font-weight: bold;
   color: ${({ theme }) => theme.accent};
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
 `;
 
 export const ToggleButton = styled.button`

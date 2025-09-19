@@ -361,7 +361,7 @@ export const RewardCard = styled.div<{ rewardType: IReward.RewardType | undefine
 
   p {
     margin: 0.5rem 0 0;
-    font-family: "Book Antiqua", serif;
+    font-family: "Literata", serif;
   }
 `;
 

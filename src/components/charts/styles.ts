@@ -6,6 +6,7 @@ export const ChartsContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
   margin-bottom: 2rem;
+  font-family: 'Poppins', sans-serif;
 
   @media ${DEVICE.tablet} {
     flex-direction: row;
@@ -20,6 +21,7 @@ export const ChartCard = styled.div`
   box-shadow: ${({ theme }) => theme.shadow};
   flex: 1;
   min-width: 100%;
+  font-family: 'Poppins', sans-serif;
 
   h2 {
     color: ${({ theme }) => theme.textTitle};
@@ -42,6 +44,7 @@ export const ChartGrid = styled.div`
   flex-direction: column;
   gap: 2rem;
   width: 100%;
+  font-family: "Poppins", sans-serif;
 
   @media ${DEVICE.tablet} {
     flex-direction: row;

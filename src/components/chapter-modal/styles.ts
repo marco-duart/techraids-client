@@ -121,7 +121,7 @@ export const ChapterSubtitle = styled.p`
 `;
 
 export const ChapterDescription = styled(motion.div)`
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
   line-height: 1.6;
   margin-bottom: 2rem;
   padding: 1.5rem;
@@ -221,7 +221,7 @@ export const MemberClass = styled.p`
   font-size: 0.8rem;
   margin: 0;
   opacity: 0.8;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
 `;
 
 export const VSContainer = styled(motion.div)`
@@ -323,7 +323,7 @@ export const BossName = styled.h2`
 export const BossDescription = styled.p`
   max-width: 500px;
   text-align: center;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
 `;
 
 export const EmptyState = styled(motion.div)`

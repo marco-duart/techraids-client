@@ -8,6 +8,7 @@ export const PageContainer = styled.div`
   padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
 
   @media ${DEVICE.tablet} {
     padding: 2rem;

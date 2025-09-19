@@ -118,7 +118,7 @@ export const Textarea = styled.textarea`
   color: ${({ theme }) => theme.text};
   resize: vertical;
   min-height: 120px;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
   letter-spacing: 0.5px;
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -225,7 +225,7 @@ export const FormInput = styled.input`
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 4px;
   color: ${({ theme }) => theme.text};
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
   transition: all 0.3s ease;
 
   &:focus {
@@ -265,5 +265,5 @@ export const PasswordErrorMessage = styled.span`
   color: ${({ theme }) => theme.error};
   font-size: 0.8rem;
   margin-top: 0.25rem;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
 `;

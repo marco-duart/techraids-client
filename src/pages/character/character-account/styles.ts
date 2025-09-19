@@ -197,7 +197,7 @@ export const InfoLabel = styled.span`
 `;
 
 export const InfoValue = styled.span`
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
   padding: 0.5rem;
   background: ${({ theme }) => theme.primary}10;
   border-radius: 4px;

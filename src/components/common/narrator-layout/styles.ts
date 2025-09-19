@@ -71,6 +71,7 @@ export const FooterContainer = styled.footer`
   position: fixed;
   bottom: 0;
   left: 0;
+  font-family: 'Poppins', sans-serif;
 
   @media ${DEVICE.tablet} {
     position: static;
@@ -83,6 +84,7 @@ export const SidebarHeader = styled.div`
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0;
+  font-family: 'Poppins', sans-serif;
 
   @media ${DEVICE.tablet} {
     flex-direction: column;
@@ -139,6 +141,7 @@ export const CollapseButton = styled.button`
 export const SidebarMenu = styled.div`
   width: 100%;
   display: none;
+  font-family: 'Poppins', sans-serif;
 
   @media ${DEVICE.tablet} {
     display: flex;
@@ -228,9 +231,15 @@ export const NarratorNavLink = styled(NavLink)`
   color: ${({ theme }) => theme.text};
   text-decoration: none;
   font-size: 14px;
+  transition: color 0.2s ease;
 
   &:hover {
     color: ${({ theme }) => theme.accent};
+  }
+
+  &.active {
+    color: ${({ theme }) => theme.accent}; 
+    font-weight: bold;
   }
 
   @media ${DEVICE.tablet} {

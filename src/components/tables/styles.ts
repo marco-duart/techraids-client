@@ -145,7 +145,7 @@ export const QuestDescription = styled.p`
   font-size: 0.9rem;
   opacity: 0.9;
   line-height: 1.4;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
   font-style: italic;
   padding-left: 0.5rem;
   border-left: 2px solid ${({ theme }) => theme.border};
@@ -172,7 +172,7 @@ export const GoldCell = styled.div`
     font-size: 0.7em;
     opacity: 0.7;
     margin-left: 0.25rem;
-    font-family: "Book Antiqua", serif;
+    font-family: "Literata", serif;
     font-style: italic;
     color: ${({ theme }) => theme.text};
   }
@@ -214,7 +214,7 @@ export const XPCell = styled.div`
     font-size: 0.7em;
     opacity: 0.8;
     margin-left: 0.5rem;
-    font-family: "Book Antiqua", serif;
+    font-family: "Literata", serif;
     font-style: italic;
     color: ${({ theme }) => theme.text};
   }
@@ -260,7 +260,7 @@ export const EmptyMessage = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.text};
   font-style: italic;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
   font-size: 1.1rem;
   border-top: 1px dashed ${({ theme }) => theme.border};
   background: url("https://www.transparenttextures.com/patterns/parchment.png");
@@ -336,6 +336,7 @@ export const LoadingOverlay = styled.div`
 export const MembersTable = styled.div`
   margin-top: 2rem;
   overflow-x: auto;
+  font-family: 'Poppins', sans-serif;
 
   h2 {
     color: ${({ theme }) => theme.textTitle};

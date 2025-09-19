@@ -133,7 +133,7 @@ export const SpecTitle = styled.h2`
 export const SpecDescription = styled.p`
   font-size: 1rem;
   margin-bottom: 1.5rem;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
 `;
 
 export const SelectButton = styled.div<{ selected: boolean }>`
