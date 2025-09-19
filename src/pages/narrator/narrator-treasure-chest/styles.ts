@@ -6,6 +6,7 @@ export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  font-family: 'Poppins', sans-serif;
 
   @media ${DEVICE.tablet} {
     padding: 2rem;
