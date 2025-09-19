@@ -67,7 +67,10 @@ export const Header = () => {
           <span>Personagem</span>
         </S.CharacterNavLink>
         <S.DisabledLink>
-          <S.CharacterNavLink to="#" onClick={(e) => e.preventDefault()}>
+          <S.CharacterNavLink
+            to="/character/pets"
+            onClick={(e) => e.preventDefault()}
+          >
             <Paw size={24} />
             <span>Pet</span>
           </S.CharacterNavLink>
@@ -96,7 +99,10 @@ export const Header = () => {
           <span>Ranking</span>
         </S.CharacterNavLink>
         <S.DisabledLink>
-          <S.CharacterNavLink to="#" onClick={(e) => e.preventDefault()}>
+          <S.CharacterNavLink
+            to="/character/ascension"
+            onClick={(e) => e.preventDefault()}
+          >
             <FeatherAlt size={24} />
             <span>Ascensão</span>
           </S.CharacterNavLink>
