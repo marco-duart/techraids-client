@@ -25,6 +25,7 @@ export const CharacterHeader = styled.header`
   box-shadow: ${({ theme }) => theme.shadow};
   padding: 10px;
   position: relative;
+  font-family: "MedievalSharp", cursive;
 
   @media ${DEVICE.tablet} {
     flex-direction: row;
@@ -52,9 +53,16 @@ export const CharacterNavLink = styled(NavLink)`
   color: ${({ theme }) => theme.text};
   text-decoration: none;
   font-size: 14px;
+  transition: color 0.2s ease;
 
   &:hover {
     color: ${({ theme }) => theme.accent};
+  }
+
+  &.active {
+    color: ${({ theme }) => theme.accent};
+    font-weight: bold;
+    border-bottom: 2px solid ${({ theme }) => theme.accent};
   }
 
   @media ${DEVICE.tablet} {
