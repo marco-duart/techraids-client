@@ -33,6 +33,12 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
     navigate("/");
   };
 
+  const canPostArcaneAnnouncements =
+    user &&
+    ["arcane_scholars", "lorekeepers", "runemasters"].includes(
+      user?.village.village_type
+    );
+
   return (
     <S.SidebarContainer $isCollapsed={isCollapsed}>
       <S.ThemeToggle
@@ -57,7 +63,7 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
           </S.NarratorNavLink>
         </S.MenuItem>
         <S.DisabledLink>
-          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
+          <S.NarratorNavLink to="/narrator/profile" onClick={(e) => e.preventDefault()}>
             <PersonCircle size={20} />
             {!isCollapsed && " Perfil"}
           </S.NarratorNavLink>
@@ -90,7 +96,7 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
           </S.NarratorNavLink>
         </S.MenuItem>
         <S.DisabledLink>
-          <S.NarratorNavLink to="#" onClick={(e) => e.preventDefault()}>
+          <S.NarratorNavLink to="/narrator/honorable-titles" onClick={(e) => e.preventDefault()}>
             <Award size={20} />
             {!isCollapsed && " Títulos Honoríficos"}
           </S.NarratorNavLink>
@@ -104,12 +110,14 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
             {!isCollapsed && " Comunicação - Equipe"}
           </S.NarratorNavLink>
         </S.MenuItem>
-        <S.MenuItem>
-          <S.NarratorNavLink to="/narrator/arcane-announcements">
-            <Megaphone size={20} />
-            {!isCollapsed && " Comunicação - Geral"}
-          </S.NarratorNavLink>
-        </S.MenuItem>
+        {canPostArcaneAnnouncements && (
+          <S.MenuItem>
+            <S.NarratorNavLink to="/narrator/arcane-announcements">
+              <Megaphone size={20} />
+              {!isCollapsed && " Comunicação - Geral"}
+            </S.NarratorNavLink>
+          </S.MenuItem>
+        )}
         <S.MenuItem>
           <S.NarratorNavLink to="/narrator/how-to-use">
             <Question size={20} />
