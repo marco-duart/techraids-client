@@ -33,6 +33,19 @@ export const CharacterHomePage = () => {
     }
   };
 
+  const getAnnouncementType = (
+    type: "arcane_decree" | "runic_proclamation" | "lore_whisper"
+  ) => {
+    switch (type) {
+      case "arcane_decree":
+        return "TI";
+      case "lore_whisper":
+        return "RH/DP";
+      case "runic_proclamation":
+        return "MKT";
+    }
+  };
+
   if (isLoading) {
     return (
       <S.LoadingContainer>
@@ -99,14 +112,21 @@ export const CharacterHomePage = () => {
                     key={announcement.id}
                     priority={announcement.priority}
                   >
-                    <S.AuthorLine>
-                          Por {announcement.author_name}
-                          {announcement.author_nickname &&
-                            ` (${announcement.author_nickname})`}
-                        </S.AuthorLine>
                     <S.MessageHeader>
-                      {getAnnouncementIcon(announcement.announcement_type)}
-                      <S.MessageTitle>{announcement.title}</S.MessageTitle>
+                      <S.MessageTitleContainer>
+                        {getAnnouncementIcon(announcement.announcement_type)}
+                        <S.MessageTitle>{announcement.title}</S.MessageTitle>
+                      </S.MessageTitleContainer>
+                      <S.AuthorLine>
+                        Por {announcement.author_name}
+                        {announcement.author_nickname &&
+                          ` (${getAnnouncementType(
+                            announcement.announcement_type
+                          )})`}
+                      </S.AuthorLine>
+                    </S.MessageHeader>
+                    <S.MessageContent>{announcement.content}</S.MessageContent>
+                    <S.MessageFooter>
                       <S.MessageTime>
                         {formatDistanceToNow(
                           new Date(announcement.created_at),
@@ -116,8 +136,7 @@ export const CharacterHomePage = () => {
                           }
                         )}
                       </S.MessageTime>
-                    </S.MessageHeader>
-                    <S.MessageContent>{announcement.content}</S.MessageContent>
+                    </S.MessageFooter>
                   </S.MessageCard>
                 ))
               )}
@@ -137,22 +156,22 @@ export const CharacterHomePage = () => {
                 </S.EmptyMessage>
               ) : (
                 guildNotices?.map((notice) => (
-                  <S.MessageCard
-                    key={notice.id}
-                    priority={notice.priority}
-                    guildNotice
-                  >
+                  <S.MessageCard key={notice.id} priority={notice.priority}>
                     <S.MessageHeader>
-                      <S.GuildIcon guildId={userGuildId || 0} />
-                      <S.MessageTitle>{notice.title}</S.MessageTitle>
+                      <S.MessageTitleContainer>
+                        <S.GuildIcon guildId={userGuildId || 0} />
+                        <S.MessageTitle>{notice.title}</S.MessageTitle>
+                      </S.MessageTitleContainer>
+                    </S.MessageHeader>
+                    <S.MessageContent>{notice.content}</S.MessageContent>
+                    <S.MessageFooter>
                       <S.MessageTime>
                         {formatDistanceToNow(new Date(notice.created_at), {
                           addSuffix: true,
                           locale: ptBR,
                         })}
                       </S.MessageTime>
-                    </S.MessageHeader>
-                    <S.MessageContent>{notice.content}</S.MessageContent>
+                    </S.MessageFooter>
                   </S.MessageCard>
                 ))
               )}

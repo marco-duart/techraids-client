@@ -100,10 +100,8 @@ export const MessagesContainer = styled.div`
 
 export const MessageCard = styled.div<{
   priority: IGuildNotice.Priority;
-  guildNotice?: boolean;
 }>`
-  background: ${({ theme, guildNotice }) =>
-    guildNotice ? theme.primary + "20" : theme.secondary};
+  background: ${({ theme }) => theme.secondary};
   border: 2px solid ${({ priority }) => getPriorityColor(priority)};
   border-radius: 10px;
   margin-bottom: 0.5rem;
@@ -149,12 +147,14 @@ export const MessageHeader = styled.div`
 
 export const AuthorLine = styled.span`
   font-size: 0.75rem;
-  opacity: 0.7;
+  opacity: 0.6;
   font-style: italic;
   color: ${({ theme }) => theme.text};
-  position: absolute;
-  top: 0;
-  left: 1rem;
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  background: ${({ theme }) => theme.secondary + "40"};
+  border-radius: 12px;
+  border: 1px solid ${({ theme }) => theme.border + "30"};
 `;
 
 export const AnnouncementIconWarning = styled.div`
@@ -206,6 +206,13 @@ export const GuildIcon = styled.div<{ guildId: number }>`
   font-weight: bold;
 `;
 
+export const MessageTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+`;
+
 export const MessageTitle = styled.h3`
   font-size: 1.2rem;
   margin: 0;
@@ -213,15 +220,25 @@ export const MessageTitle = styled.h3`
   color: ${({ theme }) => theme.textTitle};
 `;
 
+export const MessageFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed ${({ theme }) => theme.border + "40"};
+`;
+
 export const MessageTime = styled.span`
-  font-size: 0.8rem;
-  opacity: 0.7;
-  font-family: "Book Antiqua", serif;
+  font-size: 0.65rem;
+  opacity: 0.5;
+  font-family: "Literata", serif;
+  font-style: italic;
+  color: ${({ theme }) => theme.text + "90"};
 `;
 
 export const MessageContent = styled.p`
   margin: 0;
-  font-family: "Book Antiqua", serif;
+  font-family: "Literata", serif;
   line-height: 1.6;
 `;
 
