@@ -18,7 +18,8 @@ const InteractiveMap = lazy(
 );
 
 export const CharacterQuestPage = () => {
-  const { data, isLoading, defeatBoss, progressChapter } = useCharacterQuest();
+  const { data, isLoading, defeatBoss, progressChapter, refresh } =
+    useCharacterQuest();
   const { user } = useAuth();
   const [isChallengeStarted, setIsChallengeStarted] = useState(false);
 
@@ -41,6 +42,7 @@ export const CharacterQuestPage = () => {
             isLoading={isLoading}
             onProgressChapter={progressChapter}
             onDefeatBoss={defeatBoss}
+            onRefresh={refresh}
           />
         </Suspense>
       )}
@@ -99,12 +101,14 @@ const CharacterQuestDetail = React.memo(
     isLoading,
     onProgressChapter,
     onDefeatBoss,
+    onRefresh,
   }: {
     user: IUser.UserWithRelations | null;
     chapters?: IGetCharacterQuest.ChapterWithCharactersAndBoss[];
     isLoading: boolean;
     onProgressChapter: () => Promise<{ success: boolean }>;
     onDefeatBoss: () => Promise<{ success: boolean }>;
+    onRefresh: () => void;
   }) => {
     return (
       <InteractiveMap
@@ -113,6 +117,7 @@ const CharacterQuestDetail = React.memo(
         isLoading={isLoading}
         onProgressChapter={onProgressChapter}
         onDefeatBoss={onDefeatBoss}
+        onRefresh={onRefresh}
       />
     );
   }
