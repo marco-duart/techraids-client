@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -7,39 +7,19 @@ import {
 } from "../../../schemas/password-schema";
 import { useAccount } from "../../../hooks";
 import { motion } from "framer-motion";
-import ReactCrop, {
-  Crop,
-  PixelCrop,
-  centerCrop,
-  makeAspectCrop,
-} from "react-image-crop";
+import Cropper from "react-easy-crop";
 import { Sword, Shield, Camera } from "@styled-icons/remix-fill";
+import type { Area } from "react-easy-crop";
 import * as S from "./styles";
 import { PasswordForm } from "../../../components/forms/password-form";
-
-function centerAspectCrop(mediaWidth: number, mediaHeight: number) {
-  return centerCrop(
-    makeAspectCrop(
-      {
-        unit: '%',
-        width: 90,
-      },
-      1,
-      mediaWidth,
-      mediaHeight
-    ),
-    mediaWidth,
-    mediaHeight
-  );
-}
+import { IMAGES } from "../../../utils/constants";
 
 export const CharacterAccountPage = () => {
   const { user, isLoading, updatePassword, updatePhoto } = useAccount();
   const [imgSrc, setImgSrc] = useState<string>("");
-  const [crop, setCrop] = useState<Crop>();
-  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-  const imgRef = useRef<HTMLImageElement>(null);
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
   const {
     control,
@@ -52,56 +32,70 @@ export const CharacterAccountPage = () => {
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setCrop(undefined);
       const reader = new FileReader();
       reader.addEventListener("load", () => {
         setImgSrc(reader.result?.toString() || "");
+        setZoom(1);
+        setCrop({ x: 0, y: 0 });
       });
       reader.readAsDataURL(e.target.files[0]);
     }
   };
 
-  const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const { width, height } = e.currentTarget;
-    setCrop(centerAspectCrop(width, height));
-  };
+  const onCropComplete = useCallback((_: Area, croppedAreaPixels: Area) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
 
-  const handleSavePhoto = async () => {
-    if (!completedCrop || !previewCanvasRef.current || !imgRef.current) return;
+  const createImage = (url: string): Promise<HTMLImageElement> =>
+    new Promise((resolve, reject) => {
+      const image = new Image();
+      image.addEventListener('load', () => resolve(image));
+      image.addEventListener('error', (error) => reject(error));
+      image.src = url;
+    });
 
-    const image = imgRef.current;
-    const canvas = previewCanvasRef.current;
-    const size = 200;
+  const getCroppedImg = async (
+    imageSrc: string,
+    pixelCrop: Area
+  ): Promise<Blob> => {
+    const image = await createImage(imageSrc);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
-    canvas.width = size;
-    canvas.height = size;
+    if (!ctx) {
+      throw new Error('No 2d context');
+    }
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
 
     ctx.drawImage(
       image,
-      completedCrop.x * scaleX,
-      completedCrop.y * scaleY,
-      completedCrop.width * scaleX,
-      completedCrop.height * scaleY,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
       0,
       0,
-      size,
-      size
+      pixelCrop.width,
+      pixelCrop.height
     );
 
-    const blob = await new Promise<Blob | null>((resolve) => {
-      canvas.toBlob(resolve, "image/jpeg", 0.9);
+    return new Promise((resolve) => {
+      canvas.toBlob(resolve as BlobCallback, 'image/jpeg', 0.9);
     });
+  };
 
-    if (blob) {
+  const handleSavePhoto = async () => {
+    if (!croppedAreaPixels || !imgSrc) return;
+
+    try {
+      const blob = await getCroppedImg(imgSrc, croppedAreaPixels);
       const file = new File([blob], "profile.jpg", { type: "image/jpeg" });
       await updatePhoto(file);
       setImgSrc("");
+    } catch (error) {
+      console.error('Error cropping image:', error);
     }
   };
 
@@ -149,27 +143,39 @@ export const CharacterAccountPage = () => {
         <S.ProfileContent>
           <S.PhotoSection>
             {imgSrc ? (
-              <>
+              <S.CropWrapper>
                 <S.CropContainer>
-                  <ReactCrop
+                  <Cropper
+                    image={imgSrc}
                     crop={crop}
-                    onChange={setCrop}
-                    onComplete={setCompletedCrop}
+                    zoom={zoom}
                     aspect={1}
-                    circularCrop
-                    minWidth={180}
-                    minHeight={180}
-                  >
-                    <S.PreviewImage
-                      ref={imgRef}
-                      alt="Preview"
-                      src={imgSrc}
-                      onLoad={onImageLoad}
-                    />
-                  </ReactCrop>
+                    onCropChange={setCrop}
+                    onZoomChange={setZoom}
+                    onCropComplete={onCropComplete}
+                    cropShape="round"
+                    showGrid={false}
+                    style={{
+                      containerStyle: {
+                        width: '100%',
+                        height: '100%',
+                        position: 'relative'
+                      }
+                    }}
+                  />
                 </S.CropContainer>
 
-                <S.HiddenCanvas ref={previewCanvasRef} />
+                <S.ZoomControl>
+                  <span>Zoom:</span>
+                  <input
+                    type="range"
+                    value={zoom}
+                    min={1}
+                    max={3}
+                    step={0.1}
+                    onChange={(e) => setZoom(Number(e.target.value))}
+                  />
+                </S.ZoomControl>
 
                 <S.PhotoActions>
                   <S.ActionButton
@@ -186,11 +192,11 @@ export const CharacterAccountPage = () => {
                     Cancelar
                   </S.ActionButton>
                 </S.PhotoActions>
-              </>
+              </S.CropWrapper>
             ) : (
               <>
                 <S.ProfilePhoto
-                  src={user.photo_url || ""}
+                  src={user.photo_url || IMAGES.userIcon}
                   alt="Foto do perfil"
                 />
                 <S.PhotoUpload>

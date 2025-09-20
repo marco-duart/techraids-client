@@ -207,41 +207,61 @@ export const HiddenCanvas = styled.canvas`
   display: none;
 `;
 
+export const CropWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+`;
+
 export const CropContainer = styled.div`
   position: relative;
-  width: 200px;
-  height: 200px;
-  margin: 0 auto;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid ${({ theme }) => theme.accent};
-  
-  .ReactCrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  box-shadow: 0 0 15px ${({ theme }) => theme.accent}80;
+`;
+
+export const ZoomControl = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 250px;
+
+  input[type="range"] {
+    flex: 1;
+    height: 5px;
+    background: ${({ theme }) => theme.primary}40;
+    border-radius: 5px;
+    outline: none;
     
-    &__crop-selection {
-      border-radius: 50% !important;
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.accent};
+      cursor: pointer;
+    }
+    
+    &::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.accent};
+      cursor: pointer;
+      border: none;
     }
   }
 `;
 
-export const PreviewImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-`;
-
 export const PhotoActions = styled.div`
-  position: absolute;
-  bottom: -60px;
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: center;
   gap: 1rem;
+  width: 100%;
 `;
