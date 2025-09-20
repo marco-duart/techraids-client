@@ -96,7 +96,6 @@ export const CardsGrid = styled.div`
 `;
 
 export const SpecializationCard = styled(motion.div)<{
-  themeMode: string;
   selected: boolean;
 }>`
   background: ${({ theme, selected }) =>

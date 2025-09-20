@@ -97,7 +97,6 @@ export const ClassesShowcase = styled.div`
 `;
 
 export const ClassCard = styled(motion.div)<{
-  themeMode: string;
   selected: boolean;
 }>`
   width: 280px;

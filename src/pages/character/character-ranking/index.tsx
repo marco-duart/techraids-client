@@ -1,6 +1,5 @@
 import { JSX, useState } from "react";
 import { useCharacterRanking } from "../../../hooks";
-import { useTheme } from "../../../context/theme-provider";
 import { Trophy, ArrowDown, ArrowUp } from "@styled-icons/remix-fill";
 import { Sword, Coins, Fire } from "@styled-icons/remix-line";
 import { Scroll } from "@styled-icons/fa-solid";
@@ -11,7 +10,6 @@ import { motion } from "framer-motion";
 
 export const CharacterRankingPage = () => {
   const { ranking, isLoading } = useCharacterRanking();
-  const { themeMode } = useTheme();
   const [expandedRanking, setExpandedRanking] = useState<string | null>(null);
 
   const toggleRanking = (type: string) => {
@@ -59,7 +57,7 @@ export const CharacterRankingPage = () => {
     const displayData = showAll ? data : data.slice(0, 5);
 
     return (
-      <S.RankingCard themeMode={themeMode}>
+      <S.RankingCard>
         <S.RankingHeader>
           {icon}
           <div>

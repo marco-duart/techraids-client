@@ -15,7 +15,7 @@ export const ModalOverlay = styled.div`
   backdrop-filter: blur(5px);
 `;
 
-export const ModalContent = styled.div<{ themeMode: string }>`
+export const ModalContent = styled.div`
   background-color: ${({ theme }) => theme.primary};
   border: 3px solid ${({ theme }) => theme.accent};
   border-radius: 8px;
@@ -201,12 +201,15 @@ export const MemberImage = styled.div`
   overflow: hidden;
   border: 2px solid ${({ theme }) => theme.border};
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    object-position: top;
+    object-position: top center;
   }
 `;
 
@@ -437,12 +440,15 @@ export const HeroImage = styled.div`
   overflow: hidden;
   border: 2px solid gold;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: top center;
   }
 `;
 

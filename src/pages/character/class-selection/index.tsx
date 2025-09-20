@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useCharacterClasses } from "../../../hooks";
 import { useAuth } from "../../../context/user-provider";
-import { useTheme } from "../../../context/theme-provider";
 import { motion } from "framer-motion";
 import { Sword } from "@styled-icons/remix-line";
 import * as S from "./styles";
@@ -15,7 +14,6 @@ export const ClassSelectionPage = ({
   const { characterClasses, switchCharacterClass, isLoading } =
     useCharacterClasses();
   const { user } = useAuth();
-  const { themeMode } = useTheme();
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const handleSelect = async (id: number) => {
@@ -58,7 +56,6 @@ export const ClassSelectionPage = ({
         {characterClasses.map((cls) => (
           <S.ClassCard
             key={cls.id}
-            themeMode={themeMode}
             selected={selectedId === cls.id}
             onClick={() => handleSelect(cls.id)}
             whileHover={{ scale: 1.03 }}

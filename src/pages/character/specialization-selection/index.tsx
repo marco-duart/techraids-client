@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSpecializations } from "../../../hooks";
 import { useAuth } from "../../../context/user-provider";
-import { useTheme } from "../../../context/theme-provider";
 import { motion } from "framer-motion";
 import * as S from "./styles";
 import { Sword } from "@styled-icons/remix-fill";
@@ -14,7 +13,6 @@ export const SpecializationSelectionPage = ({
   const { specializations, selectSpecialization, isLoading } =
     useSpecializations();
   const { user } = useAuth();
-  const { themeMode } = useTheme();
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const handleSelect = async (id: number) => {
@@ -57,7 +55,6 @@ export const SpecializationSelectionPage = ({
         {specializations.map((spec) => (
           <S.SpecializationCard
             key={spec.id}
-            themeMode={themeMode}
             selected={selectedId === spec.id}
             onClick={() => handleSelect(spec.id)}
             whileHover={{ scale: 1.05 }}

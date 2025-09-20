@@ -204,7 +204,7 @@ const ChapterModal: React.FC<Props> = ({
 
   return (
     <S.ModalOverlay onClick={onClose}>
-      <S.ModalContent onClick={(e) => e.stopPropagation()} themeMode="dark">
+      <S.ModalContent onClick={(e) => e.stopPropagation()}>
         <S.CloseButton onClick={onClose}>X</S.CloseButton>
 
         <S.FloatingParticles>

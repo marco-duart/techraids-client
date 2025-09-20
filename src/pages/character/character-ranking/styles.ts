@@ -46,7 +46,7 @@ export const RankingsGrid = styled.div`
   margin: 0 auto;
 `;
 
-export const RankingCard = styled.div<{ themeMode: string }>`
+export const RankingCard = styled.div`
   background: ${({ theme }) => theme.secondary};
   border: 3px solid ${({ theme }) => theme.border};
   border-radius: 8px;
