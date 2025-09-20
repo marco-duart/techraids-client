@@ -17,6 +17,7 @@ import {
 } from "@styled-icons/bootstrap";
 import { CommunicationPerson } from "styled-icons/fluentui-system-regular";
 import * as S from "./styles";
+import { IMAGES } from "../../../utils/constants";
 
 interface Props {
   isCollapsed: boolean;
@@ -48,7 +49,10 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
       </S.ThemeToggle>
 
       <S.SidebarHeader>
-        <S.UserPhoto src={user?.photo_url} alt="User Photo" />
+        <S.UserPhoto
+          src={user?.photo_url || IMAGES.userIcon}
+          alt="User Photo"
+        />
         {!isCollapsed && <S.UserEmail>{user?.email}</S.UserEmail>}
         <S.CollapseButton onClick={onToggleSidebar}>
           {isCollapsed ? <ArrowRight size={24} /> : <ArrowLeft size={24} />}
@@ -63,7 +67,10 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
           </S.NarratorNavLink>
         </S.MenuItem>
         <S.DisabledLink>
-          <S.NarratorNavLink to="/narrator/profile" onClick={(e) => e.preventDefault()}>
+          <S.NarratorNavLink
+            to="/narrator/profile"
+            onClick={(e) => e.preventDefault()}
+          >
             <PersonCircle size={20} />
             {!isCollapsed && " Perfil"}
           </S.NarratorNavLink>
@@ -96,7 +103,10 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
           </S.NarratorNavLink>
         </S.MenuItem>
         <S.DisabledLink>
-          <S.NarratorNavLink to="/narrator/honorable-titles" onClick={(e) => e.preventDefault()}>
+          <S.NarratorNavLink
+            to="/narrator/honorable-titles"
+            onClick={(e) => e.preventDefault()}
+          >
             <Award size={20} />
             {!isCollapsed && " Títulos Honoríficos"}
           </S.NarratorNavLink>
