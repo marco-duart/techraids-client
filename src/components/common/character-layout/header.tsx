@@ -13,6 +13,7 @@ import {
 import { Paw, FeatherAlt } from "@styled-icons/fa-solid";
 import { Trophy, Store, Home } from "@styled-icons/fa-solid";
 import * as S from "./styles";
+import { IMAGES } from "../../../utils/constants";
 
 export const Header = () => {
   const { themeMode, setThemeMode } = useTheme();
@@ -37,7 +38,7 @@ export const Header = () => {
     <S.CharacterHeader>
       <S.DropdownMenu>
         <S.UserPhoto
-          src={user?.photo_url}
+          src={user?.photo_url || IMAGES.userIcon}
           alt="User Photo"
           onClick={toggleDropdown}
         />
