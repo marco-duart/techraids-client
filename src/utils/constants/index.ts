@@ -12,6 +12,7 @@ import clouds from "../../assets/images/clouds.png";
 import openedChest from "../../assets/images/opened-chest.png";
 import closedChest from "../../assets/images/closed-chest.png";
 import alphaLogo from "../../assets/images/alpha-logo.png"
+import userIcon from "../../assets/images/user-icon.png"
 
 import mainThemeSong from "../../assets/audios/celtic-main-theme.mp3";
 
@@ -48,6 +49,7 @@ export const IMAGES = {
   openedChest,
   closedChest,
   alphaLogo,
+  userIcon,
 };
 
 export const SONGS = {
