@@ -110,8 +110,13 @@ export const Controls = styled.div`
     font-size: 14px;
     transition: background 0.3s ease;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: #f0f0f0;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 `;
