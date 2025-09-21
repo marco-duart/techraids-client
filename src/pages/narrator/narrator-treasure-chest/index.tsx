@@ -43,7 +43,7 @@ export const NarratorTreasureChestPage = () => {
   return (
     <S.PageContainer>
       <S.Header>
-        <S.Title>Prêmios Cadastrados</S.Title>
+        <S.Title>Prêmios Individuais</S.Title>
         <S.Actions>
           <IconButton
             variant="primary"
