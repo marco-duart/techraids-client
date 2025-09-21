@@ -14,6 +14,7 @@ import {
   CurrencyDollar,
   Megaphone,
   Award,
+  Trophy,
 } from "@styled-icons/bootstrap";
 import { CommunicationPerson } from "styled-icons/fluentui-system-regular";
 import * as S from "./styles";
@@ -91,9 +92,15 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
           </S.NarratorNavLink>
         </S.MenuItem>
         <S.MenuItem>
+          <S.NarratorNavLink to="/narrator/bosses">
+            <Trophy size={20} />
+            {!isCollapsed && " Prêmios Coletivos"}
+          </S.NarratorNavLink>
+        </S.MenuItem>
+        <S.MenuItem>
           <S.NarratorNavLink to="/narrator/treasure-chests">
             <Gift size={20} />
-            {!isCollapsed && " Prêmios Cadastrados"}
+            {!isCollapsed && " Prêmios Individuais"}
           </S.NarratorNavLink>
         </S.MenuItem>
         <S.MenuItem>
