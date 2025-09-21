@@ -23,6 +23,7 @@ import {
   NarratorGuildRewardsPage,
   NarratorGuildNoticesPage,
   NarratorArcaneAnnouncementsPage,
+  NarratorBossesPage,
 } from "../pages";
 
 import { NarratorLayout } from "../components/common/narrator-layout";
@@ -53,11 +54,21 @@ export default function Router() {
           <Route path="home" element={<PerformanceReportPage />} />
           <Route path="missions" element={<NarratorMissionPage />} />
           <Route path="tasks" element={<NarratorTaskPage />} />
-          <Route path="treasure-chests" element={<NarratorTreasureChestPage />} />
+          <Route
+            path="treasure-chests"
+            element={<NarratorTreasureChestPage />}
+          />
           <Route path="guild-notices" element={<NarratorGuildNoticesPage />} />
+          <Route path="bosses" element={<NarratorBossesPage />} />
           <Route path="how-to-use" element={<NarratorHowToUsePage />} />
-          <Route path="pending-rewards" element={<NarratorGuildRewardsPage />} />
-          <Route path="arcane-announcements" element={<NarratorArcaneAnnouncementsPage />} />
+          <Route
+            path="pending-rewards"
+            element={<NarratorGuildRewardsPage />}
+          />
+          <Route
+            path="arcane-announcements"
+            element={<NarratorArcaneAnnouncementsPage />}
+          />
         </Route>
 
         <Route
