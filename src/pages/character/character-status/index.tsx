@@ -1,14 +1,14 @@
 import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
 import { Sword, Shield, Fire, Map, Coin } from "@styled-icons/remix-line";
-import { Crown } from "@styled-icons/boxicons-regular";
+import { Crown, Refresh } from "@styled-icons/boxicons-regular";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
 import { useHonoraryTitles } from "../../../hooks";
 import { Dropdown } from "../../../components/dropdown";
 
 export const CharacterStatusPage = () => {
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const { themeMode } = useTheme();
   const { isLoading, switchHonoraryTitle } = useHonoraryTitles();
 
@@ -34,6 +34,10 @@ export const CharacterStatusPage = () => {
     await switchHonoraryTitle({ honorary_title_id: titleId });
   };
 
+  const handleRefresh = async () => {
+    await refreshUser();
+  };
+
   return (
     <S.CharacterContainer>
       <S.BackgroundImage src={IMAGES.backgroundCharacter} alt="Background" />
@@ -44,6 +48,16 @@ export const CharacterStatusPage = () => {
       />
 
       <S.CharacterSheet themeMode={themeMode}>
+         <S.RefreshIconButton 
+          onClick={handleRefresh} 
+          disabled={isLoading}
+          themeMode={themeMode}
+          title="Atualizar dados"
+        >
+          <Refresh size={isLoading ? 18 : 20} />
+          {isLoading && <S.LoadingSpinner />}
+        </S.RefreshIconButton>
+
         <S.CharacterLevel>
           {current_level}
           <S.LevelText>Level</S.LevelText>

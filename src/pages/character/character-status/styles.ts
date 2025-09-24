@@ -46,6 +46,74 @@ export const FireAnimation = styled(motion.div)`
   animation: fire 3s infinite;
 `;
 
+export const RefreshIconButton = styled.button<{ themeMode: ThemeMode }>`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: ${({ themeMode, theme }) => 
+    themeMode === "light" 
+      ? 'rgba(148, 108, 81, 0.1)' 
+      : 'rgba(94, 72, 55, 0.2)'};
+  color: ${({ theme }) => theme.accent};
+  border: 1px solid ${({ theme }) => theme.emphasis};
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 4;
+  backdrop-filter: blur(5px);
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.textTitle};
+    border-color: ${({ theme }) => theme.accent};
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(1) rotate(90deg);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media ${DEVICE.tablet} {
+    top: 30px;
+    left: 30px;
+    width: 45px;
+    height: 45px;
+  }
+
+  @media ${DEVICE.mobileL} {
+    top: 15px;
+    left: 15px;
+    width: 35px;
+    height: 35px;
+  }
+`;
+
+export const LoadingSpinner = styled.div`
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
 export const CharacterSheet = styled.div<{ themeMode: ThemeMode }>`
   position: relative;
   z-index: 3;
