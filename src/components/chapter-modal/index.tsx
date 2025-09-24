@@ -39,12 +39,6 @@ const ChapterModal: React.FC<Props> = ({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <h3>
-        <Scroll size={20} />
-        <span> Crônica do Capítulo:</span>
-      </h3>
-      <p>{chapter.description}</p>
-
       {chapter.boss && (
         <>
           <h3>
