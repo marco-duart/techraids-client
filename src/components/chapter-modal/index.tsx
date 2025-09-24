@@ -95,51 +95,70 @@ const ChapterModal: React.FC<Props> = ({
       >
         {hasCharacters && (
           <S.TeamSection>
-            <h3>
+            <S.TeamTitle>
               <Users size={20} />
-              <span> Aventureiros Presentes:</span>
-            </h3>
+              <span>Aventureiros Presentes:</span>
+            </S.TeamTitle>
 
-            <AnimatePresence>
-              {chapter.character && (
-                <S.MemberCard
-                  key={`user-${chapter.character.nickname}`}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  $isUser
-                >
-                  <S.MemberImage>
-                    <img
-                      src={chapter.character.character_class.image_url}
-                      alt={chapter.character.nickname}
-                    />
-                  </S.MemberImage>
-                  <S.MemberName>{chapter.character.nickname}</S.MemberName>
-                  <S.MemberClass>
-                    {chapter.character.character_class.name}
-                  </S.MemberClass>
-                </S.MemberCard>
-              )}
+            <S.TeamMembersContainer>
+              <AnimatePresence>
+                {chapter.character && (
+                  <S.TooltipContainer>
+                    <S.MemberCard
+                      key={`user-${chapter.character.nickname}`}
+                      initial={{ y: 50, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      $isUser
+                    >
+                      <S.MemberImage>
+                        <img
+                          src={chapter.character.character_class.image_url}
+                          alt={chapter.character.nickname}
+                        />
+                      </S.MemberImage>
+                    </S.MemberCard>
+                    <S.TooltipContent>
+                      <S.TooltipTitle>
+                        {chapter.character.nickname}
+                      </S.TooltipTitle>
+                      <S.TooltipText>
+                        {chapter.character.character_class.name}
+                      </S.TooltipText>
+                      <S.TooltipText>
+                        Nível: {chapter.character.current_level}
+                      </S.TooltipText>
+                    </S.TooltipContent>
+                  </S.TooltipContainer>
+                )}
 
-              {chapter.guild_members?.map((member, index) => (
-                <S.MemberCard
-                  key={`member-${member.nickname}`}
-                  initial={{ y: 50, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                >
-                  <S.MemberImage>
-                    <img
-                      src={member.character_class.image_url}
-                      alt={member.nickname}
-                    />
-                  </S.MemberImage>
-                  <S.MemberName>{member.nickname}</S.MemberName>
-                  <S.MemberClass>{member.character_class.name}</S.MemberClass>
-                </S.MemberCard>
-              ))}
-            </AnimatePresence>
+                {chapter.guild_members?.map((member, index) => (
+                  <S.TooltipContainer key={`member-${member.nickname}`}>
+                    <S.MemberCard
+                      initial={{ y: 50, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                    >
+                      <S.MemberImage>
+                        <img
+                          src={member.character_class.image_url}
+                          alt={member.nickname}
+                        />
+                      </S.MemberImage>
+                    </S.MemberCard>
+                    <S.TooltipContent>
+                      <S.TooltipTitle>{member.nickname}</S.TooltipTitle>
+                      <S.TooltipText>
+                        {member.character_class.name}
+                      </S.TooltipText>
+                      <S.TooltipText>
+                        Nível: {member.current_level}
+                      </S.TooltipText>
+                    </S.TooltipContent>
+                  </S.TooltipContainer>
+                ))}
+              </AnimatePresence>
+            </S.TeamMembersContainer>
           </S.TeamSection>
         )}
 

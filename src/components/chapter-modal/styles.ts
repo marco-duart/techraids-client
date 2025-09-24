@@ -157,15 +157,69 @@ export const BattleContainer = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  margin-top: 2rem;
+  margin: 2rem 0;
+  min-height: 400px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 1rem;
+  width: 100%;
+
+  &:last-child {
+    margin-bottom: 80px;
+  }
+`;
+
+export const TeamMembersContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  width: 100%;
+  border: 1px solid ${({ theme }) => theme.border}40;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.primary}10;
+
+  /* Custom scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.primary}20;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.accent};
+    border-radius: 4px;
+  }
+`;
+
+export const TeamTitle = styled.h3`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: ${({ theme }) => theme.accent};
+  font-size: 1.3rem;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid ${({ theme }) => theme.accent}40;
 `;
 
 export const TeamSection = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 1.5rem;
   position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
 `;
 
 export const MemberCard = styled(motion.div)<{ $isUser?: boolean }>`
@@ -213,18 +267,57 @@ export const MemberImage = styled.div`
   }
 `;
 
-export const MemberName = styled.h3`
-  font-size: 1rem;
-  margin: 0;
-  text-align: center;
-  color: ${({ theme }) => theme.textTitle};
+export const TooltipContainer = styled.div`
+  position: relative;
+  display: inline-block;
 `;
 
-export const MemberClass = styled.p`
+export const TooltipContent = styled.div`
+  visibility: hidden;
+  width: 200px;
+  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.text};
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1000;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 2px solid ${({ theme }) => theme.accent};
+  font-family: "MedievalSharp", cursive;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: ${({ theme }) => theme.accent} transparent transparent transparent;
+  }
+
+  ${TooltipContainer}:hover & {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+export const TooltipTitle = styled.h4`
+  margin: 0 0 0.3rem 0;
+  color: ${({ theme }) => theme.accent};
+  font-size: 1rem;
+`;
+
+export const TooltipText = styled.p`
+  margin: 0.2rem 0;
   font-size: 0.8rem;
-  margin: 0;
-  opacity: 0.8;
-  font-family: "Literata", serif;
+  opacity: 0.9;
 `;
 
 export const VSContainer = styled(motion.div)`
