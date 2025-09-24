@@ -3,7 +3,7 @@ import { Book } from "@styled-icons/remix-fill";
 import { Mailbox } from "@styled-icons/bootstrap";
 import { Castle } from "@styled-icons/boxicons-solid";
 import { FileText } from "@styled-icons/fa-regular";
-import { Scroll } from "@styled-icons/fa-solid";
+import { Scroll, Refresh } from "@styled-icons/fa-solid";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,6 +18,7 @@ export const CharacterHomePage = () => {
     activeTab,
     setActiveTab,
     userGuildId,
+    refreshData,
   } = useJournal();
 
   const getAnnouncementIcon = (type: string) => {
@@ -46,6 +47,10 @@ export const CharacterHomePage = () => {
     }
   };
 
+  const handleRefresh = async () => {
+    await refreshData();
+  };
+
   if (isLoading) {
     return (
       <S.LoadingContainer>
@@ -62,10 +67,22 @@ export const CharacterHomePage = () => {
       <S.BackgroundImage src={IMAGES.paperTextureLight} alt="Background" />
 
       <S.HeaderContainer>
-        <S.HeaderTitle>
-          <Book size={32} />
-          <span>Diário do Aventureiro</span>
-        </S.HeaderTitle>
+        <S.HeaderContent>
+          <S.HeaderTitle>
+            <Book size={32} />
+            <span>Diário do Aventureiro</span>
+          </S.HeaderTitle>
+          
+          <S.RefreshIconButton 
+            onClick={handleRefresh} 
+            disabled={isLoading}
+            title="Atualizar diário"
+          >
+            <Refresh size={isLoading ? 18 : 20} />
+            {isLoading && <S.LoadingSpinner />}
+          </S.RefreshIconButton>
+        </S.HeaderContent>
+        
         <S.HeaderSubtitle>
           "O conhecimento é a arma mais poderosa em qualquer jornada"
         </S.HeaderSubtitle>

@@ -48,6 +48,11 @@ export const useJournal = () => {
     setIsLoading(false);
   };
 
+  const refreshData = () => {
+    fetchArcaneAnnouncements();
+    fetchGuildNotices();
+  };
+
   useEffect(() => {
     fetchArcaneAnnouncements();
     fetchGuildNotices();
@@ -59,6 +64,7 @@ export const useJournal = () => {
     isLoading,
     activeTab,
     setActiveTab,
+    refreshData,
     userGuildId: user?.guild.id,
   };
 };

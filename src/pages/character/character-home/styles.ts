@@ -26,22 +26,99 @@ export const HeaderContainer = styled.div`
   margin-bottom: 2rem;
   padding: 1rem;
   border-bottom: 2px solid ${({ theme }) => theme.border};
+  position: relative;
+`;
+
+export const HeaderContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  margin-bottom: 0.5rem;
 `;
 
 export const HeaderTitle = styled.h1`
   font-size: 2rem;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
   color: ${({ theme }) => theme.textTitle};
-  margin-bottom: 0.5rem;
+  margin: 0;
 `;
 
 export const HeaderSubtitle = styled.p`
   font-size: 1rem;
   font-style: italic;
   opacity: 0.8;
+  margin: 0;
+`;
+
+export const RefreshIconButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: ${({ theme }) => theme.primary}20;
+  color: ${({ theme }) => theme.accent};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.textTitle};
+    border-color: ${({ theme }) => theme.accent};
+    transform: translateY(-50%) scale(1.1) rotate(90deg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(-50%) scale(1) rotate(90deg);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 768px) {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    
+    &:hover:not(:disabled) {
+      transform: scale(1.1) rotate(90deg);
+    }
+    
+    &:active:not(:disabled) {
+      transform: scale(1) rotate(90deg);
+    }
+  }
+`;
+
+export const LoadingSpinner = styled.div`
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 `;
 
 export const TabsContainer = styled.div`
