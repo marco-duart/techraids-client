@@ -20,6 +20,7 @@ interface UserContextType {
   validateToken: (
     params: IValidateToken.Params
   ) => Promise<IUser.UserWithRelations>;
+  refreshUser: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -70,7 +71,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     params: IValidateToken.Params
   ): Promise<IUser.UserWithRelations> => {
     setIsLoading(true);
-    console.log("Início do context: ", user)
+    console.log("Início do context: ", user);
     try {
       const result = await ValidateToken(params);
 
@@ -83,7 +84,32 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         throw new Error(result.message || "Token inválido.");
       }
     } finally {
-      console.log("Fim do context: ", user)
+      console.log("Fim do context: ", user);
+      setIsLoading(false);
+    }
+  };
+
+  const refreshUser = async (): Promise<void> => {
+    if (!token) {
+      console.warn("Nenhum token disponível para refresh");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const result = await ValidateToken({ token });
+
+      if (result.success && result.data) {
+        const { user } = result.data;
+        updateUserAndTheme(user);
+        console.log("Usuário atualizado com sucesso:", user);
+      } else {
+        throw new Error(result.message || "Erro ao atualizar usuário.");
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar usuário:", error);
+      logout();
+    } finally {
       setIsLoading(false);
     }
   };
@@ -113,6 +139,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         logout,
         updateUserAndTheme,
         validateToken,
+        refreshUser,
       }}
     >
       {children}
