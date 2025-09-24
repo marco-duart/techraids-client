@@ -72,6 +72,66 @@ export const Title = styled.h1`
   }
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+`;
+
+export const RefreshIconButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: ${({ theme }) => theme.primary}20;
+  color: ${({ theme }) => theme.accent};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  position: relative;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.textTitle};
+    border-color: ${({ theme }) => theme.accent};
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(1) rotate(90deg);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  @media ${DEVICE.tablet} {
+    width: 42px;
+    height: 42px;
+  }
+`;
+
+export const LoadingSpinner = styled.div`
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+`;
+
 export const FormModal = styled(motion.div)`
   position: fixed;
   top: 0;

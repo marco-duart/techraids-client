@@ -5,10 +5,10 @@ import { TaskTable } from "../../../components/tables/task-table";
 import { TaskForm } from "../../../components/forms/task-form";
 import { TaskFormData } from "../../../schemas/task-schema";
 import { IconButton } from "../../../components/buttons/icon-button";
-import { Scroll, Plus } from "@styled-icons/fa-solid";
+import { Scroll, Plus, Refresh } from "@styled-icons/fa-solid";
 
 export const CharacterTasksPage = () => {
-  const { tasks, isLoading, createTask, deleteTask } = useTasks();
+  const { tasks, isLoading, createTask, deleteTask, fetchTasks } = useTasks();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -23,6 +23,10 @@ export const CharacterTasksPage = () => {
     setIsFormOpen(action);
   };
 
+  const handleRefresh = async () => {
+    await fetchTasks();
+  };
+
   return (
     <S.Container>
       <S.Header>
@@ -31,13 +35,24 @@ export const CharacterTasksPage = () => {
           <S.Title>Livro de Tarefas</S.Title>
         </S.TitleContainer>
 
-        <IconButton
-          variant="primary"
-          onClick={() => {
-            handleForm(true);
-          }}
-          icon={Plus}
-        />
+        <S.ButtonsContainer>
+          <S.RefreshIconButton 
+            onClick={handleRefresh} 
+            disabled={isLoading}
+            title="Atualizar lista de tarefas"
+          >
+            <Refresh size={isLoading ? 16 : 18} />
+            {isLoading && <S.LoadingSpinner />}
+          </S.RefreshIconButton>
+
+          <IconButton
+            variant="primary"
+            onClick={() => {
+              handleForm(true);
+            }}
+            icon={Plus}
+          />
+        </S.ButtonsContainer>
       </S.Header>
 
       <S.Content>
