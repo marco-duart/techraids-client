@@ -181,7 +181,7 @@ export const CharacterRankingPage = () => {
 
         {renderRankingSection(
           "Heróis de Feitos Épicos",
-          "Fazem o impossível antes do café da manhã e para ganhar títulos por isso",
+          "Fazem o impossível antes do café da manhã para ganhar títulos por isso",
           ranking.titles_earned,
           <Star size={24} />,
           "titles"

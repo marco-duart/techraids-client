@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import * as S from "./styles";
 import { Sword, Skull } from "@styled-icons/remix-fill";
-import { Scroll } from "@styled-icons/fa-solid";
 import { Users } from "@styled-icons/entypo";
 import { IGetCharacterQuest } from "../../services/character-quest/DTO";
 
@@ -16,6 +15,19 @@ interface Props {
   onDefeatBoss: () => Promise<{ success: boolean }>;
 }
 
+interface TooltipState {
+  visible: boolean;
+  content: {
+    nickname: string;
+    className: string;
+    level: number;
+  };
+  position: {
+    x: number;
+    y: number;
+  };
+}
+
 const ChapterModal: React.FC<Props> = ({
   isOpen,
   onClose,
@@ -26,10 +38,35 @@ const ChapterModal: React.FC<Props> = ({
   onDefeatBoss,
 }) => {
   const [currentView, setCurrentView] = useState<"info" | "battle">("info");
+  const [tooltip, setTooltip] = useState<TooltipState>({
+    visible: false,
+    content: { nickname: "", className: "", level: 0 },
+    position: { x: 0, y: 0 },
+  });
 
   const hasCharacters =
     chapter.is_hero_chapter || !!chapter.guild_members?.length;
   const hasBoss = !!chapter.boss;
+
+  const handleMouseEnter = (event: React.MouseEvent, member: any) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setTooltip({
+      visible: true,
+      content: {
+        nickname: member.nickname,
+        className: member.character_class.name,
+        level: member.current_level,
+      },
+      position: {
+        x: rect.left + rect.width / 2,
+        y: rect.top,
+      },
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({ ...tooltip, visible: false });
+  };
 
   if (!isOpen) return null;
 
@@ -103,7 +140,10 @@ const ChapterModal: React.FC<Props> = ({
             <S.TeamMembersContainer>
               <AnimatePresence>
                 {chapter.character && (
-                  <S.TooltipContainer>
+                  <S.TooltipContainer
+                    onMouseEnter={(e) => handleMouseEnter(e, chapter.character)}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <S.MemberCard
                       key={`user-${chapter.character.nickname}`}
                       initial={{ y: 50, opacity: 0 }}
@@ -118,22 +158,15 @@ const ChapterModal: React.FC<Props> = ({
                         />
                       </S.MemberImage>
                     </S.MemberCard>
-                    <S.TooltipContent>
-                      <S.TooltipTitle>
-                        {chapter.character.nickname}
-                      </S.TooltipTitle>
-                      <S.TooltipText>
-                        {chapter.character.character_class.name}
-                      </S.TooltipText>
-                      <S.TooltipText>
-                        Nível: {chapter.character.current_level}
-                      </S.TooltipText>
-                    </S.TooltipContent>
                   </S.TooltipContainer>
                 )}
 
                 {chapter.guild_members?.map((member, index) => (
-                  <S.TooltipContainer key={`member-${member.nickname}`}>
+                  <S.TooltipContainer
+                    key={`member-${member.nickname}`}
+                    onMouseEnter={(e) => handleMouseEnter(e, member)}
+                    onMouseLeave={handleMouseLeave}
+                  >
                     <S.MemberCard
                       initial={{ y: 50, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -146,15 +179,6 @@ const ChapterModal: React.FC<Props> = ({
                         />
                       </S.MemberImage>
                     </S.MemberCard>
-                    <S.TooltipContent>
-                      <S.TooltipTitle>{member.nickname}</S.TooltipTitle>
-                      <S.TooltipText>
-                        {member.character_class.name}
-                      </S.TooltipText>
-                      <S.TooltipText>
-                        Nível: {member.current_level}
-                      </S.TooltipText>
-                    </S.TooltipContent>
                   </S.TooltipContainer>
                 ))}
               </AnimatePresence>
@@ -238,6 +262,16 @@ const ChapterModal: React.FC<Props> = ({
         <AnimatePresence mode="wait">
           {currentView === "info" ? renderInfoView() : renderBattleView()}
         </AnimatePresence>
+
+        <S.GlobalTooltip
+          $visible={tooltip.visible}
+          $x={tooltip.position.x}
+          $y={tooltip.position.y}
+        >
+          <S.TooltipTitle>{tooltip.content.nickname}</S.TooltipTitle>
+          <S.TooltipText>{tooltip.content.className}</S.TooltipText>
+          <S.TooltipText>Nível: {tooltip.content.level}</S.TooltipText>
+        </S.GlobalTooltip>
 
         {(hasCharacters || hasBoss) && (
           <S.StateSwitchButton

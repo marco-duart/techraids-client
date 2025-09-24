@@ -11,7 +11,7 @@ export const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10000;
   backdrop-filter: blur(5px);
 `;
 
@@ -28,6 +28,7 @@ export const ModalContent = styled.div`
   position: relative;
   box-shadow: 0 0 30px ${({ theme }) => theme.accent}80;
   font-family: "MedievalSharp", cursive;
+  z-index: 10001;
 
   &::before {
     content: "";
@@ -182,7 +183,6 @@ export const TeamMembersContainer = styled.div`
   border-radius: 8px;
   background: ${({ theme }) => theme.primary}10;
 
-  /* Custom scrollbar */
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -238,6 +238,12 @@ export const MemberCard = styled(motion.div)<{ $isUser?: boolean }>`
   z-index: 2;
   box-shadow: ${({ $isUser }) => 
     $isUser ? '0 0 15px rgba(255, 215, 0, 0.5)' : 'none'};
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05); 
+  }
 
   &:nth-child(odd) {
     transform: rotate(-2deg);
@@ -270,26 +276,28 @@ export const MemberImage = styled.div`
 export const TooltipContainer = styled.div`
   position: relative;
   display: inline-block;
+  cursor: pointer;
 `;
 
-export const TooltipContent = styled.div`
-  visibility: hidden;
+export const GlobalTooltip = styled.div<{ $visible: boolean; $x: number; $y: number }>`
+  position: fixed;
+  left: ${props => props.$x}px;
+  top: ${props => props.$y - 10}px;
+  transform: translateX(-50%) translateY(-100%);
   width: 200px;
   background-color: ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.text};
   text-align: center;
   border-radius: 6px;
-  padding: 0.5rem;
-  position: absolute;
-  z-index: 1000;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
+  padding: 0.8rem;
+  z-index: 10000;
+  opacity: ${props => props.$visible ? 1 : 0};
+  visibility: ${props => props.$visible ? 'visible' : 'hidden'};
+  transition: opacity 0.3s ease;
   border: 2px solid ${({ theme }) => theme.accent};
   font-family: "MedievalSharp", cursive;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
 
   &::after {
     content: "";
@@ -300,11 +308,6 @@ export const TooltipContent = styled.div`
     border-width: 5px;
     border-style: solid;
     border-color: ${({ theme }) => theme.accent} transparent transparent transparent;
-  }
-
-  ${TooltipContainer}:hover & {
-    visibility: visible;
-    opacity: 1;
   }
 `;
 
