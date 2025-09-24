@@ -1,19 +1,23 @@
 import { JSX, useState } from "react";
 import { useCharacterRanking } from "../../../hooks";
-import { Trophy, ArrowDown, ArrowUp } from "@styled-icons/remix-fill";
+import { Trophy, ArrowDown, ArrowUp, Star } from "@styled-icons/remix-fill";
 import { Sword, Coins, Fire } from "@styled-icons/remix-line";
-import { Scroll } from "@styled-icons/fa-solid";
+import { Scroll, Refresh } from "@styled-icons/fa-solid";
 import { Crown } from "@styled-icons/boxicons-regular";
 
 import * as S from "./styles";
 import { motion } from "framer-motion";
 
 export const CharacterRankingPage = () => {
-  const { ranking, isLoading } = useCharacterRanking();
+  const { ranking, isLoading, fetchRanking } = useCharacterRanking();
   const [expandedRanking, setExpandedRanking] = useState<string | null>(null);
 
   const toggleRanking = (type: string) => {
     setExpandedRanking(expandedRanking === type ? null : type);
+  };
+
+  const handleRefresh = async () => {
+    await fetchRanking();
   };
 
   if (isLoading || !ranking) {
@@ -118,6 +122,15 @@ export const CharacterRankingPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
+          <S.RefreshIconButton 
+            onClick={handleRefresh} 
+            disabled={isLoading}
+            title="Atualizar ranking"
+          >
+            <Refresh size={isLoading ? 18 : 20} />
+            {isLoading && <S.LoadingSpinner />}
+          </S.RefreshIconButton>
+
           <S.MainTitle>Hall da Fama dos Herois</S.MainTitle>
           <S.MainSubtitle>
             "Onde os fracos não têm vez e os fortes são lembrados"
@@ -164,6 +177,14 @@ export const CharacterRankingPage = () => {
           ranking.bosses_killed,
           <Sword size={24} />,
           "bosses"
+        )}
+
+        {renderRankingSection(
+          "Heróis de Feitos Épicos",
+          "Fazem o impossível antes do café da manhã e para ganhar títulos por isso",
+          ranking.titles_earned,
+          <Star size={24} />,
+          "titles"
         )}
       </S.RankingsGrid>
 

@@ -21,6 +21,7 @@ export const TitleContainer = styled.div`
   );
   border-bottom: 2px solid ${({ theme }) => theme.accent};
   border-top: 2px solid ${({ theme }) => theme.accent};
+  position: relative;
 `;
 
 export const MainTitle = styled.h1`
@@ -77,6 +78,75 @@ export const RankingCard = styled.div`
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4),
       inset 0 0 15px ${({ theme }) => theme.primary}60,
       0 0 15px ${({ theme }) => theme.accent}80;
+  }
+`;
+
+export const RefreshIconButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: ${({ theme }) => theme.primary}20;
+  color: ${({ theme }) => theme.accent};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.textTitle};
+    border-color: ${({ theme }) => theme.accent};
+    transform: translateY(-50%) scale(1.1) rotate(90deg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(-50%) scale(1) rotate(90deg);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 768px) {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin: 0 auto 1rem;
+    
+    &:hover:not(:disabled) {
+      transform: scale(1.1) rotate(90deg);
+    }
+    
+    &:active:not(:disabled) {
+      transform: scale(1) rotate(90deg);
+    }
+  }
+`;
+
+export const LoadingSpinner = styled.div`
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 `;
 

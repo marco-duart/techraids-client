@@ -8,5 +8,6 @@ export namespace IGetCharacterRanking {
     gold_earned: [string, number][];
     experience: [string, number][];
     bosses_killed: [string, number][];
+    titles_earned: [string, number][];
   };
 }
