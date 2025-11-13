@@ -55,7 +55,7 @@ export const RefreshIconButton = styled.button<{ themeMode: ThemeMode }>`
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: ${({ themeMode, theme }) => 
+  background: ${({ themeMode }) => 
     themeMode === "light" 
       ? 'rgba(148, 108, 81, 0.1)' 
       : 'rgba(94, 72, 55, 0.2)'};

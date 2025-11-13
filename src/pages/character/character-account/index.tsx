@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -49,8 +49,8 @@ export const CharacterAccountPage = () => {
   const createImage = (url: string): Promise<HTMLImageElement> =>
     new Promise((resolve, reject) => {
       const image = new Image();
-      image.addEventListener('load', () => resolve(image));
-      image.addEventListener('error', (error) => reject(error));
+      image.addEventListener("load", () => resolve(image));
+      image.addEventListener("error", (error) => reject(error));
       image.src = url;
     });
 
@@ -59,11 +59,11 @@ export const CharacterAccountPage = () => {
     pixelCrop: Area
   ): Promise<Blob> => {
     const image = await createImage(imageSrc);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
     if (!ctx) {
-      throw new Error('No 2d context');
+      throw new Error("No 2d context");
     }
 
     canvas.width = pixelCrop.width;
@@ -82,7 +82,7 @@ export const CharacterAccountPage = () => {
     );
 
     return new Promise((resolve) => {
-      canvas.toBlob(resolve as BlobCallback, 'image/jpeg', 0.9);
+      canvas.toBlob(resolve as BlobCallback, "image/jpeg", 0.9);
     });
   };
 
@@ -95,7 +95,7 @@ export const CharacterAccountPage = () => {
       await updatePhoto(file);
       setImgSrc("");
     } catch (error) {
-      console.error('Error cropping image:', error);
+      console.error("Error cropping image:", error);
     }
   };
 
@@ -157,10 +157,10 @@ export const CharacterAccountPage = () => {
                     showGrid={false}
                     style={{
                       containerStyle: {
-                        width: '100%',
-                        height: '100%',
-                        position: 'relative'
-                      }
+                        width: "100%",
+                        height: "100%",
+                        position: "relative",
+                      },
                     }}
                   />
                 </S.CropContainer>

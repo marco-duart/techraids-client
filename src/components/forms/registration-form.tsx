@@ -18,7 +18,7 @@ export const RegistrationForm = () => {
     resolver: zodResolver(registrationSchema),
   });
 
-  const { publicGuilds, registerUser, loading, error } = useRegistration();
+  const { publicGuilds, registerUser, loading } = useRegistration();
   const navigate = useNavigate();
 
   const onSubmit = async (data: RegistrationFormData) => {
@@ -137,8 +137,6 @@ export const RegistrationForm = () => {
           <S.ErrorMessage>{errors.guild_id.message}</S.ErrorMessage>
         )}
       </S.InputGroup>
-
-      {error && <S.ErrorMessage>{error}</S.ErrorMessage>}
 
       <S.SubmitButton type="submit" disabled={loading}>
         {loading ? "Registrando..." : "Registrar"}
