@@ -18,17 +18,17 @@ export namespace IGuildMember {
     current_chapter: IChapter.Model;
     active_title?: IHonoraryTitle.Model;
   }
-}
-
-export namespace IGetCharacterQuest {
-  type FinishingCharacter = {
+  export type FinishingCharacter = {
     id: number;
     nickname: string;
     image_url: string;
   };
+}
+
+export namespace IGetCharacterQuest {
   export type ChapterWithCharactersAndBoss = IChapter.Model & {
     boss?: IBoss.Model & {
-      finishing_character?: FinishingCharacter;
+      finishing_character?: IGuildMember.FinishingCharacter;
       team_can_defeat: boolean;
       is_finishing_hero?: boolean;
     };
