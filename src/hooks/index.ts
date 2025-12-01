@@ -13,3 +13,4 @@ export * from "./use-specializations.ts";
 export * from "./use-narrator-guild.ts";
 export * from "./use-treasure-chests.ts";
 export * from "./use-rewards.ts";
+export * from "./use-narrator-quest.ts";
