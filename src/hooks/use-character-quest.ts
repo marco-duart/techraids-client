@@ -26,12 +26,12 @@ export const useCharacterQuest = () => {
 
       if (result.success && result.data) {
         setData(result.data);
-        toast.success("Dados da missão carregados com sucesso!");
+        toast.success("Dados da jornada carregados com sucesso!");
       } else {
-        toast.error(result.message || "Erro ao carregar dados da missão");
+        toast.error(result.message || "Erro ao carregar dados da jornada");
       }
     } catch (error) {
-      toast.error("Erro ao carregar dados da missão");
+      toast.error("Erro ao carregar dados da jornada");
       console.error("fetchCharacterQuest error:", error);
     } finally {
       setIsLoading(false);
