@@ -24,6 +24,7 @@ import {
   NarratorGuildNoticesPage,
   NarratorArcaneAnnouncementsPage,
   NarratorBossesPage,
+  NarratorQuestPage,
 } from "../pages";
 
 import { NarratorLayout } from "../components/common/narrator-layout";
@@ -69,6 +70,7 @@ export default function Router() {
             path="arcane-announcements"
             element={<NarratorArcaneAnnouncementsPage />}
           />
+          <Route path="quest" element={<NarratorQuestPage />} />
         </Route>
 
         <Route
