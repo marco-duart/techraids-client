@@ -71,7 +71,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     params: IValidateToken.Params
   ): Promise<IUser.UserWithRelations> => {
     setIsLoading(true);
-    console.log("Início do context: ", user);
     try {
       const result = await ValidateToken(params);
 
@@ -84,7 +83,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
         throw new Error(result.message || "Token inválido.");
       }
     } finally {
-      console.log("Fim do context: ", user);
       setIsLoading(false);
     }
   };
@@ -102,7 +100,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       if (result.success && result.data) {
         const { user } = result.data;
         updateUserAndTheme(user);
-        console.log("Usuário atualizado com sucesso:", user);
       } else {
         throw new Error(result.message || "Erro ao atualizar usuário.");
       }
