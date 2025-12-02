@@ -1,6 +1,6 @@
 import { useAuth } from "../../../context/user-provider";
 import { useTheme } from "../../../context/theme-provider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   ArrowLeft,
   ArrowRight,
@@ -16,6 +16,7 @@ import {
   Award,
   Trophy,
 } from "@styled-icons/bootstrap";
+import { Target } from "@styled-icons/feather";
 import { CommunicationPerson } from "styled-icons/fluentui-system-regular";
 import * as S from "./styles";
 import { IMAGES } from "../../../utils/constants";
@@ -29,6 +30,8 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
   const { user, logout } = useAuth();
   const { themeMode, setThemeMode } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isNarratorQuestPage = location.pathname.includes("/narrator/quest");
 
   const handleLogout = () => {
     logout();
@@ -43,11 +46,13 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
 
   return (
     <S.SidebarContainer $isCollapsed={isCollapsed}>
-      <S.ThemeToggle
-        onClick={() => setThemeMode(themeMode === "light" ? "dark" : "light")}
-      >
-        {themeMode === "light" ? "🌙" : "☀️"}
-      </S.ThemeToggle>
+      {!isNarratorQuestPage && (
+        <S.ThemeToggle
+          onClick={() => setThemeMode(themeMode === "light" ? "dark" : "light")}
+        >
+          {themeMode === "light" ? "🌙" : "☀️"}
+        </S.ThemeToggle>
+      )}
 
       <S.SidebarHeader>
         <S.UserPhoto
@@ -67,6 +72,12 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
             {!isCollapsed && " Equipe"}
           </S.NarratorNavLink>
         </S.MenuItem>
+        <S.MenuItem>
+          <S.NarratorNavLink to="/narrator/quest">
+            <Map size={20} />
+            {!isCollapsed && " Aventura"}
+          </S.NarratorNavLink>
+        </S.MenuItem>
         <S.DisabledLink>
           <S.NarratorNavLink
             to="/narrator/profile"
@@ -81,7 +92,7 @@ export const Sidebar: React.FC<Props> = ({ isCollapsed, onToggleSidebar }) => {
         </S.DisabledLink>
         <S.MenuItem>
           <S.NarratorNavLink to="/narrator/missions">
-            <Map size={20} />
+            <Target size={20} />
             {!isCollapsed && " Missões"}
           </S.NarratorNavLink>
         </S.MenuItem>
