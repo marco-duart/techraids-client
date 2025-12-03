@@ -12,6 +12,7 @@ export namespace IBoss {
     chapter_id: number;
     finishing_character_id: number | null;
     image_url: string;
+    defeat_threshold: number;
   }
 }
 
