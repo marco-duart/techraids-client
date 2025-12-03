@@ -18,7 +18,16 @@ interface TooltipState {
     nickname: string;
     className: string;
     level: number;
+    experience: number;
   };
+  position: {
+    x: number;
+    y: number;
+  };
+}
+
+interface BossTooltipState {
+  visible: boolean;
   position: {
     x: number;
     y: number;
@@ -29,7 +38,11 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
   const [currentView, setCurrentView] = useState<"info" | "battle">("info");
   const [tooltip, setTooltip] = useState<TooltipState>({
     visible: false,
-    content: { nickname: "", className: "", level: 0 },
+    content: { nickname: "", className: "", level: 0, experience: 0},
+    position: { x: 0, y: 0 },
+  });
+  const [bossTooltip, setBossTooltip] = useState<BossTooltipState>({
+    visible: false,
     position: { x: 0, y: 0 },
   });
 
@@ -44,6 +57,7 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
         nickname: member.nickname,
         className: member.character_class.name,
         level: member.current_level,
+        experience: member.experience,
       },
       position: {
         x: rect.left + rect.width / 2,
@@ -54,6 +68,21 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
 
   const handleMouseLeave = () => {
     setTooltip({ ...tooltip, visible: false });
+  };
+
+  const handleBossMouseEnter = (event: React.MouseEvent) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setBossTooltip({
+      visible: true,
+      position: {
+        x: rect.left + rect.width / 2,
+        y: rect.top,
+      },
+    });
+  };
+
+  const handleBossMouseLeave = () => {
+    setBossTooltip({ ...bossTooltip, visible: false });
   };
 
   if (!isOpen) return null;
@@ -163,25 +192,30 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
         )}
 
         {hasBoss && (
-          <S.BossContainer
-            initial={{ scale: 0.5 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            $defeated={chapter.boss?.defeated}
+          <S.TooltipContainer
+            onMouseEnter={handleBossMouseEnter}
+            onMouseLeave={handleBossMouseLeave}
           >
-            <h3>
-              <Skull size={20} />
-              <span> Ameaça:</span>
-            </h3>
-            <S.BossImage $defeated={chapter.boss?.defeated}>
-              <img src={chapter.boss?.image_url} alt={chapter.boss?.name} />
-            </S.BossImage>
-            <S.BossName>{chapter.boss?.name}</S.BossName>
-            <S.BossDescription>{chapter.boss?.slogan}</S.BossDescription>
-            {chapter.boss?.defeated && (
-              <S.VictoryText>DERROTADO!</S.VictoryText>
-            )}
-          </S.BossContainer>
+            <S.BossContainer
+              initial={{ scale: 0.5 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              $defeated={chapter.boss?.defeated}
+            >
+              <h3>
+                <Skull size={20} />
+                <span> Ameaça:</span>
+              </h3>
+              <S.BossImage $defeated={chapter.boss?.defeated}>
+                <img src={chapter.boss?.image_url} alt={chapter.boss?.name} />
+              </S.BossImage>
+              <S.BossName>{chapter.boss?.name}</S.BossName>
+              <S.BossDescription>{chapter.boss?.slogan}</S.BossDescription>
+              {chapter.boss?.defeated && (
+                <S.VictoryText>DERROTADO!</S.VictoryText>
+              )}
+            </S.BossContainer>
+          </S.TooltipContainer>
         )}
       </S.BattleContainer>
     );
@@ -219,7 +253,27 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
           <S.TooltipTitle>{tooltip.content.nickname}</S.TooltipTitle>
           <S.TooltipText>{tooltip.content.className}</S.TooltipText>
           <S.TooltipText>Nível: {tooltip.content.level}</S.TooltipText>
+          <S.TooltipText>Experiência: {tooltip.content.experience}</S.TooltipText>
         </S.GlobalTooltip>
+
+        {chapter.boss && (
+          <S.GlobalTooltip
+            $visible={bossTooltip.visible}
+            $x={bossTooltip.position.x}
+            $y={bossTooltip.position.y}
+          >
+            <S.TooltipTitle>{chapter.boss.name}</S.TooltipTitle>
+            <S.TooltipText>
+              Limiar de Derrota: {chapter.boss.defeat_threshold}
+            </S.TooltipText>
+            <S.TooltipText>
+              Recompensa: {chapter.boss.reward_description}
+            </S.TooltipText>
+            <S.TooltipText>
+              Recompensa Reclamada: {chapter.boss.reward_claimed ? "Sim" : "Não"}
+            </S.TooltipText>
+          </S.GlobalTooltip>
+        )}
 
         {(hasCharacters || hasBoss) && (
           <S.StateSwitchButton
