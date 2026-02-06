@@ -19,13 +19,13 @@ export const PaginationButton = styled.button<{ active?: boolean; disabled?: boo
   align-items: center;
   justify-content: center;
   background-color: ${(props) =>
-    props.active ? "rgba(139, 92, 246, 0.8)" : "rgba(255, 255, 255, 0.1)"};
+    props.active ? props.theme.accent : props.theme.primary};
   color: ${(props) => (props.active ? "#fff" : "rgba(255, 255, 255, 0.7)")};
   border: 1px solid
     ${(props) =>
       props.active
-        ? "rgba(139, 92, 246, 1)"
-        : "rgba(255, 255, 255, 0.1)"};
+        ? props.theme.accent
+        : props.theme.emphasis};
   border-radius: 6px;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
@@ -34,8 +34,8 @@ export const PaginationButton = styled.button<{ active?: boolean; disabled?: boo
   font-size: 14px;
 
   &:hover:not(:disabled) {
-    background-color: rgba(139, 92, 246, 0.9);
-    border-color: rgba(139, 92, 246, 1);
+    background-color: ${(props) => props.theme.accent};
+    border-color: ${(props) => props.theme.accent};
     color: #fff;
   }
 
@@ -50,7 +50,7 @@ export const PaginationButton = styled.button<{ active?: boolean; disabled?: boo
 `;
 
 export const PageInfo = styled.span`
-  color: rgba(255, 255, 255, 0.7);
+  color: ${(props) => props.theme.emphasis};
   font-size: 14px;
   margin: 0 8px;
 `;
