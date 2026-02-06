@@ -7,6 +7,8 @@ export const PageContainer = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background-color: ${({ theme }) => theme.primary};
 
   @media ${DEVICE.tablet} {
     padding: 2rem;
@@ -53,8 +55,7 @@ export const BossList = styled.div`
 `;
 
 export const BossItem = styled.div<{ $active: boolean }>`
-  background: ${({ theme, $active }) =>
-    $active ? theme.primary : theme.secondary};
+  background: ${({ theme }) => theme.secondary};
   border-radius: 8px;
   padding: 1.5rem;
   border: 1px solid ${({ theme }) => theme.border};

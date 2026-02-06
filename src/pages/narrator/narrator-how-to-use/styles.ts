@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { DEVICE } from "../../../utils/constants";
 
+export const Container = styled.div`
+  background-color: ${({ theme }) => theme.primary};
+`;
+
 export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
