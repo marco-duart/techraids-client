@@ -20,7 +20,7 @@ export const PaginationButton = styled.button<{ active?: boolean; disabled?: boo
   justify-content: center;
   background-color: ${(props) =>
     props.active ? props.theme.accent : props.theme.primary};
-  color: ${(props) => (props.active ? "#fff" : "rgba(255, 255, 255, 0.7)")};
+  color: ${(props) => props.theme.text};
   border: 1px solid
     ${(props) =>
       props.active
@@ -36,7 +36,7 @@ export const PaginationButton = styled.button<{ active?: boolean; disabled?: boo
   &:hover:not(:disabled) {
     background-color: ${(props) => props.theme.accent};
     border-color: ${(props) => props.theme.accent};
-    color: #fff;
+    color: ${(props) => props.theme.text};
   }
 
   &:disabled {
