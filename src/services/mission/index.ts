@@ -153,9 +153,25 @@ export const GetMission = async (params: IGetMission.Params) => {
 
 export const GetMissions = async (params: IGetMissions.Params) => {
   try {
-    const { token } = params;
+    const { token, filters } = params;
+    
+    const queryParams = new URLSearchParams();
+    
+    if (filters) {
+      if (filters.status) queryParams.append("status", filters.status);
+      if (filters.gold_reward_min) queryParams.append("gold_reward_min", filters.gold_reward_min.toString());
+      if (filters.gold_reward_max) queryParams.append("gold_reward_max", filters.gold_reward_max.toString());
+      if (filters.character_id) queryParams.append("character_id", filters.character_id.toString());
+      if (filters.sort_by) queryParams.append("sort_by", filters.sort_by);
+      if (filters.sort_direction) queryParams.append("sort_direction", filters.sort_direction);
+      if (filters.page) queryParams.append("page", filters.page.toString());
+      if (filters.items) queryParams.append("items", filters.items.toString());
+    }
 
-    const response = await api.get<IGetMissions.Response>("/missions", {
+    const queryString = queryParams.toString();
+    const url = queryString ? `/missions?${queryString}` : "/missions";
+
+    const response = await api.get<IGetMissions.Response>(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

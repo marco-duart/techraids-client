@@ -6,13 +6,25 @@ import { MissionModal } from "../../../components/modals/mission-modal";
 import { IconButton } from "../../../components/buttons/icon-button";
 import { Plus } from "@styled-icons/boxicons-regular";
 import { ConfirmModal } from "../../../components/modals/confirm-modal";
+import { Pagination } from "../../../components/pagination";
+import { MissionFilters } from "../../../components/mission-filters";
 import { toast } from "react-hot-toast";
 import LoadingSpinner from "../../../components/loading-spinner";
 import { IMission } from "../../../services/mission/DTO";
 
 export const NarratorMissionPage = () => {
-  const { missions, isLoading, createMission, updateMission, deleteMission } =
-    useMissions();
+  const {
+    missions,
+    pagy,
+    isLoading,
+    createMission,
+    updateMission,
+    deleteMission,
+    setStatus,
+    setGoldRewardRange,
+    setSortBy,
+    goToPage,
+  } = useMissions();
   const [selectedMission, setSelectedMission] = useState<
     IMission.Model | undefined
   >(undefined);
@@ -88,20 +100,42 @@ export const NarratorMissionPage = () => {
         </S.Actions>
       </S.Header>
 
+      <MissionFilters
+        onStatusChange={setStatus}
+        onRewardRangeChange={setGoldRewardRange}
+        onSortChange={(sortBy, direction) =>
+          setSortBy(
+            sortBy as "status" | "gold_reward" | "created_at" | "updated_at",
+            direction
+          )
+        }
+      />
+
       {isLoading ? (
         <S.LoadingWrapper>
           <LoadingSpinner />
         </S.LoadingWrapper>
       ) : (
-        <NarratorMissionTable
-          missions={missions}
-          onEdit={(mission) => setSelectedMission(mission)}
-          onDelete={(id) => {
-            setMissionToDelete(id);
-            setIsDeleteModalOpen(true);
-          }}
-          onView={(mission) => setViewingMission(mission)}
-        />
+        <>
+          <NarratorMissionTable
+            missions={missions}
+            onEdit={(mission) => setSelectedMission(mission)}
+            onDelete={(id) => {
+              setMissionToDelete(id);
+              setIsDeleteModalOpen(true);
+            }}
+            onView={(mission) => setViewingMission(mission)}
+          />
+
+          {pagy.pages > 1 && (
+            <Pagination
+              currentPage={pagy.page}
+              totalPages={pagy.pages}
+              onPageChange={goToPage}
+              isLoading={isLoading}
+            />
+          )}
+        </>
       )}
 
       <MissionModal

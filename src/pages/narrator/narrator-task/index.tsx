@@ -3,11 +3,22 @@ import * as S from "./styles";
 import { useTasks } from "../../../hooks";
 import { NarratorTaskTable } from "../../../components/tables/narrator-task-table";
 import { TaskModal } from "../../../components/modals/task-modal";
+import { Pagination } from "../../../components/pagination";
+import { TaskFilters } from "../../../components/task-filters";
 import LoadingSpinner from "../../../components/loading-spinner";
 import { ITask } from "../../../services/task/DTO";
 
 export const NarratorTaskPage = () => {
-  const { tasks, isLoading, updateTask } = useTasks();
+  const {
+    tasks,
+    pagy,
+    isLoading,
+    updateTask,
+    setStatus,
+    setExperienceRewardRange,
+    setSortBy,
+    goToPage,
+  } = useTasks();
   const [selectedTask, setSelectedTask] = useState<ITask.Model | undefined>(
     undefined
   );
@@ -40,17 +51,39 @@ export const NarratorTaskPage = () => {
         <S.Title>Tarefas</S.Title>
       </S.Header>
 
+      <TaskFilters
+        onStatusChange={setStatus}
+        onRewardRangeChange={setExperienceRewardRange}
+        onSortChange={(sortBy, direction) =>
+          setSortBy(
+            sortBy as "status" | "experience_reward" | "created_at" | "updated_at",
+            direction
+          )
+        }
+      />
+
       {isLoading ? (
         <S.LoadingWrapper>
           <LoadingSpinner />
         </S.LoadingWrapper>
       ) : (
-        <NarratorTaskTable
-          isLoading={isLoading}
-          tasks={tasks}
-          onEdit={(task) => setSelectedTask(task)}
-          onView={(task) => setViewingTask(task)}
-        />
+        <>
+          <NarratorTaskTable
+            isLoading={isLoading}
+            tasks={tasks}
+            onEdit={(task) => setSelectedTask(task)}
+            onView={(task) => setViewingTask(task)}
+          />
+
+          {pagy.pages > 1 && (
+            <Pagination
+              currentPage={pagy.page}
+              totalPages={pagy.pages}
+              onPageChange={goToPage}
+              isLoading={isLoading}
+            />
+          )}
+        </>
       )}
 
       <TaskModal

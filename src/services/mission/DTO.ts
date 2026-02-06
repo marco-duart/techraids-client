@@ -58,9 +58,35 @@ export namespace IGetMission {
   export type Response = IMission.Model;
 }
 
+export namespace IPaginationInfo {
+  export interface Info {
+    count: number;
+    page: number;
+    items: number;
+    pages: number;
+    last: number;
+    from: number;
+    to: number;
+  }
+}
+
 export namespace IGetMissions {
+  export interface FilterParams {
+    status?: "pending" | "approved" | "rejected";
+    gold_reward_min?: number;
+    gold_reward_max?: number;
+    character_id?: number;
+    sort_by?: "status" | "gold_reward" | "created_at" | "updated_at";
+    sort_direction?: "asc" | "desc";
+    page?: number;
+    items?: number;
+  }
   export type Params = {
     token: string;
+    filters?: FilterParams;
   };
-  export type Response = Array<IMission.Model>;
+  export interface Response {
+    data: Array<IMission.Model>;
+    pagy: IPaginationInfo.Info;
+  }
 }

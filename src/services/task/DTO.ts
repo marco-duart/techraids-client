@@ -55,9 +55,35 @@ export namespace IGetTask {
   export type Response = ITask.Model;
 }
 
+export namespace IPaginationInfo {
+  export interface Info {
+    count: number;
+    page: number;
+    items: number;
+    pages: number;
+    last: number;
+    from: number;
+    to: number;
+  }
+}
+
 export namespace IGetTasks {
+  export interface FilterParams {
+    status?: "pending" | "approved" | "rejected";
+    experience_reward_min?: number;
+    experience_reward_max?: number;
+    character_id?: number;
+    sort_by?: "status" | "experience_reward" | "created_at" | "updated_at";
+    sort_direction?: "asc" | "desc";
+    page?: number;
+    items?: number;
+  }
   export type Params = {
     token: string;
+    filters?: FilterParams;
   };
-  export type Response = Array<ITask.Model>;
+  export interface Response {
+    data: Array<ITask.Model>;
+    pagy: IPaginationInfo.Info;
+  }
 }
