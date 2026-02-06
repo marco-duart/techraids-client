@@ -26,23 +26,23 @@ export const FilterLabel = styled.label`
 
 export const FilterSelect = styled.select`
   padding: 6px 10px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.text};
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid ${({ theme }) => theme.emphasis};
   border-radius: 4px;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(139, 92, 246, 0.5);
+    background-color: ${({ theme }) => theme.secondary};
+    border-color: ${({ theme }) => theme.accent};
   }
 
   &:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(139, 92, 246, 1);
+    background-color: ${({ theme }) => theme.secondary};
+    border-color: ${({ theme }) => theme.accent};
   }
 
   option {
@@ -53,9 +53,9 @@ export const FilterSelect = styled.select`
 
 export const FilterInput = styled.input`
   padding: 6px 10px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.text};
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid ${({ theme }) => theme.emphasis};
   border-radius: 4px;
   font-size: 13px;
   width: 80px;
@@ -66,13 +66,13 @@ export const FilterInput = styled.input`
   }
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(139, 92, 246, 0.5);
+    background-color: ${({ theme }) => theme.secondary};
+    border-color: ${({ theme }) => theme.accent};
   }
 
   &:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(139, 92, 246, 1);
+    background-color: ${({ theme }) => theme.secondary};
+    border-color: ${({ theme }) => theme.accent};
   }
 `;
