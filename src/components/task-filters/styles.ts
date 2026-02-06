@@ -46,7 +46,7 @@ export const FilterSelect = styled.select`
   }
 
   option {
-    background-color: #1a1a1a;
+    background-color: ${({ theme }) => theme.primary};
     color: ${({ theme }) => theme.text};
   }
 `;
