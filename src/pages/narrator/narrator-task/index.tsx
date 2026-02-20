@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as S from "./styles";
 import { useTasks } from "../../../hooks";
+import { useNarratorGuild } from "../../../hooks/use-narrator-guild";
 import { NarratorTaskTable } from "../../../components/tables/narrator-task-table";
 import { TaskModal } from "../../../components/modals/task-modal";
 import { Pagination } from "../../../components/pagination";
@@ -16,9 +17,11 @@ export const NarratorTaskPage = () => {
     updateTask,
     setStatus,
     setExperienceRewardRange,
+    setCharacterId,
     setSortBy,
     goToPage,
   } = useTasks();
+  const { guildMembers } = useNarratorGuild();
   const [selectedTask, setSelectedTask] = useState<ITask.Model | undefined>(
     undefined
   );
@@ -52,8 +55,10 @@ export const NarratorTaskPage = () => {
       </S.Header>
 
       <TaskFilters
+        guildMembers={guildMembers}
         onStatusChange={setStatus}
         onRewardRangeChange={setExperienceRewardRange}
+        onCharacterChange={setCharacterId}
         onSortChange={(sortBy, direction) =>
           setSortBy(
             sortBy as "status" | "experience_reward" | "created_at" | "updated_at",
