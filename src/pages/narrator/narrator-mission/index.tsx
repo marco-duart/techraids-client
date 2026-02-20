@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as S from "./styles";
 import { useMissions } from "../../../hooks";
+import { useNarratorGuild } from "../../../hooks/use-narrator-guild";
 import { NarratorMissionTable } from "../../../components/tables/narrator-mission-table";
 import { MissionModal } from "../../../components/modals/mission-modal";
 import { IconButton } from "../../../components/buttons/icon-button";
@@ -22,9 +23,11 @@ export const NarratorMissionPage = () => {
     deleteMission,
     setStatus,
     setGoldRewardRange,
+    setCharacterId,
     setSortBy,
     goToPage,
   } = useMissions();
+  const { guildMembers } = useNarratorGuild();
   const [selectedMission, setSelectedMission] = useState<
     IMission.Model | undefined
   >(undefined);
@@ -101,8 +104,10 @@ export const NarratorMissionPage = () => {
       </S.Header>
 
       <MissionFilters
+        guildMembers={guildMembers}
         onStatusChange={setStatus}
         onRewardRangeChange={setGoldRewardRange}
+        onCharacterChange={setCharacterId}
         onSortChange={(sortBy, direction) =>
           setSortBy(
             sortBy as "status" | "gold_reward" | "created_at" | "updated_at",
