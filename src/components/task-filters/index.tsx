@@ -1,18 +1,23 @@
 import { useState } from "react";
 import * as S from "./styles";
+import { IUser } from "../../services/auth/DTO";
 
 interface Props {
   onStatusChange?: (
     status: "pending" | "approved" | "rejected" | undefined,
   ) => void;
   onRewardRangeChange?: (min?: number, max?: number) => void;
+  onCharacterChange?: (characterId?: number) => void;
   onSortChange?: (sortBy: string, direction: "asc" | "desc") => void;
+  guildMembers?: IUser.Model[];
 }
 
 export const TaskFilters = ({
   onStatusChange,
   onRewardRangeChange,
+  onCharacterChange,
   onSortChange,
+  guildMembers = [],
 }: Props) => {
   const [minReward, setMinReward] = useState<string>("");
   const [maxReward, setMaxReward] = useState<string>("");
@@ -39,6 +44,25 @@ export const TaskFilters = ({
           <option value="pending">Pendente</option>
           <option value="approved">Aprovado</option>
           <option value="rejected">Reprovado</option>
+        </S.FilterSelect>
+      </S.FilterGroup>
+
+      <S.FilterGroup>
+        <S.FilterLabel>Personagem</S.FilterLabel>
+        <S.FilterSelect
+          onChange={(e) =>
+            onCharacterChange?.(
+              e.target.value ? parseInt(e.target.value) : undefined
+            )
+          }
+          defaultValue=""
+        >
+          <option value="">Todos</option>
+          {guildMembers.map((member) => (
+            <option key={member.id} value={member.id}>
+              {member.nickname}
+            </option>
+          ))}
         </S.FilterSelect>
       </S.FilterGroup>
 
