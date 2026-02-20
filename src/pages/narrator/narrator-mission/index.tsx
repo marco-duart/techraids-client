@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as S from "./styles";
 import { useMissions } from "../../../hooks";
 import { useNarratorGuild } from "../../../hooks/use-narrator-guild";
