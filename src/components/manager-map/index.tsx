@@ -7,6 +7,8 @@ import { IGetNarratorQuest } from "../../services/narrator-guild/DTO";
 
 interface Props {
   chapters?: IGetNarratorQuest.ChapterWithCharactersAndBoss[];
+  hints?: IGetNarratorQuest.Hints;
+  guildResume?: IGetNarratorQuest.GuildResume;
   isLoading: boolean;
   onRefresh: () => void;
 }
@@ -14,7 +16,16 @@ interface Props {
 const mapOriginalWidth = 2912;
 const mapOriginalHeight = 1631;
 
-const ManagerMap: React.FC<Props> = ({ chapters, isLoading, onRefresh }) => {
+const formatNumber = (value: number) =>
+  new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 2 }).format(value);
+
+const ManagerMap: React.FC<Props> = ({
+  chapters,
+  hints,
+  guildResume,
+  isLoading,
+  onRefresh,
+}) => {
   const [mapSize, setMapSize] = useState({ width: 1, height: 1 });
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedChapter, setSelectedChapter] =
@@ -23,6 +34,7 @@ const ManagerMap: React.FC<Props> = ({ chapters, isLoading, onRefresh }) => {
   const [hoveredChapter, setHoveredChapter] =
     useState<IGetNarratorQuest.ChapterWithCharactersAndBoss | null>(null);
   const [arePositionsReady, setArePositionsReady] = useState(false);
+  const [isInsightsOpen, setIsInsightsOpen] = useState(true);
 
   useEffect(() => {
     const updateMapSize = () => {
@@ -71,6 +83,8 @@ const ManagerMap: React.FC<Props> = ({ chapters, isLoading, onRefresh }) => {
     setHoveredChapter(chapter);
   };
 
+  const nextBoss = hints?.next_boss;
+
   return (
     <TransformWrapper initialScale={1} minScale={1} maxScale={3} centerOnInit>
       {({ zoomIn, zoomOut, resetTransform }) => (
@@ -104,6 +118,93 @@ const ManagerMap: React.FC<Props> = ({ chapters, isLoading, onRefresh }) => {
               🔄
             </button>
           </S.Controls>
+
+          {hints && !isInsightsOpen && (
+            <S.QuestInsightsToggle
+              onClick={() => setIsInsightsOpen(true)}
+              title="Mostrar Radar da Equipe"
+            >
+              Mostrar Radar
+            </S.QuestInsightsToggle>
+          )}
+
+          {hints && isInsightsOpen && (
+            <S.QuestInsightsPanel>
+              <S.PanelHeader>
+                <S.PanelTitle>Radar da Equipe</S.PanelTitle>
+                <S.PanelToggleButton
+                  onClick={() => setIsInsightsOpen(false)}
+                  title="Esconder Radar da Equipe"
+                >
+                  Esconder
+                </S.PanelToggleButton>
+              </S.PanelHeader>
+              <S.PanelLine>
+                Janela: {hints.analysis_window_days} dias | Tarefas aprovadas: {" "}
+                {hints.task_pace.approved_tasks_last_window}
+              </S.PanelLine>
+              <S.PanelLine>
+                Ritmo: {formatNumber(hints.task_pace.approved_tasks_per_day)} tarefas/dia
+              </S.PanelLine>
+              <S.PanelLine>
+                XP/tarefa: {formatNumber(hints.task_pace.average_xp_per_approved_task)} | XP/dia estimado: {" "}
+                {formatNumber(hints.task_pace.estimated_team_xp_per_day)}
+              </S.PanelLine>
+
+              {guildResume && (
+                <S.PanelLine>
+                  Membros: {guildResume.total_members} | XP médio: {formatNumber(guildResume.average_xp)}
+                </S.PanelLine>
+              )}
+
+              {nextBoss?.available ? (
+                <>
+                  <S.PanelDivider />
+                  <S.PanelLine>
+                    Próximo boss: {nextBoss.boss_name} ({nextBoss.chapter_title})
+                  </S.PanelLine>
+                  <S.PanelLine>
+                    Time no capítulo: {nextBoss.team_members_on_chapter} | XP atual: {formatNumber(nextBoss.team_current_xp)}
+                  </S.PanelLine>
+                  <S.PanelLine>
+                    XP necessária: {formatNumber(nextBoss.required_xp)} | Gap: {formatNumber(nextBoss.xp_gap)}
+                  </S.PanelLine>
+                  <S.PanelLine>
+                    Pronto agora: {nextBoss.can_defeat_now ? "Sim" : "Não"}
+                    {typeof nextBoss.estimated_days_to_defeat === "number"
+                      ? ` | Estimativa: ${nextBoss.estimated_days_to_defeat} dias`
+                      : ""}
+                  </S.PanelLine>
+                </>
+              ) : (
+                <>
+                  <S.PanelDivider />
+                  <S.PanelLine>{nextBoss?.message || "Sem boss disponível no momento."}</S.PanelLine>
+                </>
+              )}
+
+              {hints.pacing_scenarios.length > 0 && (
+                <>
+                  <S.PanelDivider />
+                  {hints.pacing_scenarios.map((scenario) => (
+                    <S.PanelLine key={scenario.horizon_days}>
+                      {scenario.horizon_days}d: {scenario.projected_approved_tasks} tarefas proj.
+                      {typeof scenario.suggested_xp_per_task === "number"
+                        ? ` | XP/tarefa sugerida: ${scenario.suggested_xp_per_task}`
+                        : ""}
+                    </S.PanelLine>
+                  ))}
+                </>
+              )}
+
+              {hints.recommendations.length > 0 && (
+                <>
+                  <S.PanelDivider />
+                  <S.PanelLine>{hints.recommendations[0]}</S.PanelLine>
+                </>
+              )}
+            </S.QuestInsightsPanel>
+          )}
 
           <TransformComponent>
             <S.MapContainer
@@ -172,6 +273,7 @@ const ManagerMap: React.FC<Props> = ({ chapters, isLoading, onRefresh }) => {
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               chapter={selectedChapter}
+              hints={hints}
               isLoading={isLoading}
             />
           )}

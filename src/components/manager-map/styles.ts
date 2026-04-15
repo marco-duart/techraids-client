@@ -117,6 +117,91 @@ export const Controls = styled.div`
   }
 `;
 
+export const QuestInsightsPanel = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  width: min(460px, calc(100vw - 40px));
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+  color: #fff;
+  backdrop-filter: blur(6px);
+
+  @media (max-width: 768px) {
+    top: 72px;
+    max-height: 240px;
+  }
+`;
+
+export const QuestInsightsToggle = styled.button`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.82);
+  }
+
+  @media (max-width: 768px) {
+    top: 72px;
+  }
+`;
+
+export const PanelHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+export const PanelTitle = styled.h4`
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+export const PanelToggleButton = styled.button`
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+`;
+
+export const PanelLine = styled.p`
+  margin: 0 0 6px;
+  font-size: 13px;
+  line-height: 1.35;
+`;
+
+export const PanelDivider = styled.div`
+  height: 1px;
+  width: 100%;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.2);
+`;
+
 const cloudAnimation = keyframes`
   0% {
     transform: translateX(0);

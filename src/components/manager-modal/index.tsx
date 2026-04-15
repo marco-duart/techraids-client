@@ -9,6 +9,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   chapter: IGetNarratorQuest.ChapterWithCharactersAndBoss;
+  hints?: IGetNarratorQuest.Hints;
   isLoading: boolean;
 }
 
@@ -34,7 +35,10 @@ interface BossTooltipState {
   };
 }
 
-const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
+const formatNumber = (value: number) =>
+  new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 2 }).format(value);
+
+const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter, hints }) => {
   const [currentView, setCurrentView] = useState<"info" | "battle">("info");
   const [tooltip, setTooltip] = useState<TooltipState>({
     visible: false,
@@ -48,6 +52,22 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
 
   const hasCharacters = !!chapter.guild_members?.length;
   const hasBoss = !!chapter.boss;
+  const chapterMembersCount = chapter.guild_members?.length || 0;
+  const chapterTeamXp =
+    chapter.guild_members?.reduce((total, member) => total + member.experience, 0) ||
+    0;
+  const chapterRequiredXp = chapter.required_xp ?? chapter.required_experience;
+  const bossRequiredXp = chapter.boss?.defeat_threshold;
+  const controlRequiredXp = bossRequiredXp ?? chapterRequiredXp;
+  const progressPercent =
+    controlRequiredXp > 0
+      ? Math.min((chapterTeamXp / controlRequiredXp) * 100, 100)
+      : 0;
+
+  const nextBossOnCurrentChapter =
+    hints?.next_boss.available && hints.next_boss.chapter_id === chapter.id
+      ? hints.next_boss
+      : null;
 
   const handleMouseEnter = (event: React.MouseEvent, member: any) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -93,6 +113,49 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      <S.ControlPanel>
+        <h3>Controle do Capítulo</h3>
+        <S.ControlGrid>
+          <S.ControlItem>
+            <span>Aventureiros no capítulo</span>
+            <strong>{chapterMembersCount}</strong>
+          </S.ControlItem>
+          <S.ControlItem>
+            <span>XP atual do time</span>
+            <strong>{formatNumber(chapterTeamXp)}</strong>
+          </S.ControlItem>
+          <S.ControlItem>
+            <span>XP necessária do capítulo</span>
+            <strong>{formatNumber(chapterRequiredXp)}</strong>
+          </S.ControlItem>
+          <S.ControlItem>
+            <span>XP para derrotar boss</span>
+            <strong>{formatNumber(bossRequiredXp || 0)}</strong>
+          </S.ControlItem>
+        </S.ControlGrid>
+
+        <S.ProgressLabel>
+          Progresso para meta de combate: {formatNumber(progressPercent)}%
+        </S.ProgressLabel>
+        <S.ProgressBar>
+          <S.ProgressFill $value={progressPercent} />
+        </S.ProgressBar>
+
+        {nextBossOnCurrentChapter && (
+          <S.NextBossContext>
+            <p>
+              Este capítulo é o próximo alvo: <strong>{nextBossOnCurrentChapter.boss_name}</strong>
+            </p>
+            <p>
+              Gap de XP atual: <strong>{formatNumber(nextBossOnCurrentChapter.xp_gap)}</strong>
+              {typeof nextBossOnCurrentChapter.estimated_days_to_defeat === "number"
+                ? ` | Estimativa: ${nextBossOnCurrentChapter.estimated_days_to_defeat} dias`
+                : ""}
+            </p>
+          </S.NextBossContext>
+        )}
+      </S.ControlPanel>
+
       {chapter.boss && (
         <>
           <h3>
@@ -102,6 +165,9 @@ const ManagerModal: React.FC<Props> = ({ isOpen, onClose, chapter }) => {
           <p>{chapter.boss.description}</p>
           <p>
             <strong>Recompensa:</strong> {chapter.boss.reward_description}
+          </p>
+          <p>
+            <strong>Limiar de Derrota:</strong> {chapter.boss.defeat_threshold}
           </p>
 
           {chapter.boss.defeated && chapter.boss.finishing_character && (

@@ -553,3 +553,78 @@ export const VictoryText = styled.div`
   margin-top: 0.5rem;
   text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 `;
+
+export const ControlPanel = styled.section`
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.border}50;
+  border-radius: 8px;
+  background: ${({ theme }) => theme.secondary}45;
+
+  h3 {
+    margin: 0 0 0.75rem;
+    color: ${({ theme }) => theme.accent};
+  }
+`;
+
+export const ControlGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+`;
+
+export const ControlItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+  background: ${({ theme }) => theme.primary}30;
+
+  span {
+    font-size: 0.8rem;
+    opacity: 0.85;
+  }
+
+  strong {
+    color: ${({ theme }) => theme.accent};
+    font-size: 1.05rem;
+  }
+`;
+
+export const ProgressLabel = styled.p`
+  margin: 1rem 0 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+`;
+
+export const ProgressBar = styled.div`
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: ${({ theme }) => theme.primary}50;
+  overflow: hidden;
+`;
+
+export const ProgressFill = styled.div<{ $value: number }>`
+  width: ${({ $value }) => `${$value}%`};
+  height: 100%;
+  background: linear-gradient(90deg, #34d399, #22c55e);
+  transition: width 0.4s ease;
+`;
+
+export const NextBossContext = styled.div`
+  margin-top: 0.9rem;
+  padding: 0.75rem;
+  border-left: 3px solid ${({ theme }) => theme.accent};
+  background: ${({ theme }) => theme.primary}25;
+
+  p {
+    margin: 0 0 0.35rem;
+    font-size: 0.9rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+`;

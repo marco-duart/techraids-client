@@ -11,6 +11,8 @@ export const NarratorQuestPage = React.memo(() => {
     <S.PageContainer>
       <ManagerMap
         chapters={data?.chapters}
+        hints={data?.hints}
+        guildResume={data?.guild_resume}
         isLoading={isLoading}
         onRefresh={refresh}
       />
